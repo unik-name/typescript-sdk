@@ -34,7 +34,13 @@
         "test:coverage": "cross-env CORE_ENV=test jest --coverage --coveragePathIgnorePatterns='/(index.ts)$' --runInBand"
     },
     "dependencies": {
-        "@uns/crypto": "^3.0.0-alpha.1"
+        "@types/deepmerge": "^2.2.0",
+        "@types/is-url-superb": "^3.0.0",
+        "@uns/crypto": "^3.0.0-alpha.1",
+        "deepmerge": "^4.0.0",
+        "is-url-superb": "^3.0.0",
+        "ky": "^0.13.0",
+        "ky-universal": "^0.3.0"
     },
     "devDependencies": {
         "@sindresorhus/tsconfig": "^0.4.0",
@@ -49,7 +55,9 @@
         "husky": "^3.0.5",
         "jest": "^24.9.0",
         "lint-staged": "^9.2.5",
+        "nock": "^11.3.3",
         "prettier": "^1.18.2",
+        "ts-jest": "^24.0.2",
         "tslint": "^5.19.0",
         "typescript": "^3.6.2",
         "webpack": "^4.39.3",
@@ -67,7 +75,13 @@
             "./src/**/*.ts",
             "!**/node_modules/**"
         ],
-        "watchman": false
+        "watchman": false,
+        "transform": {
+            "^.+\\.tsx?$": "ts-jest"
+        },
+        "testMatch": [
+            "**/*.test.ts"
+        ]
     },
     "repository": "git@github.com:spacelephant/typescript-sdk.git",
     "license": "MIT",

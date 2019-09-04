@@ -6,3 +6,6 @@ dist
 
 # Coverage directory used by tools like istanbul
 .coverage
+
+# yarn
+yarn-error.log

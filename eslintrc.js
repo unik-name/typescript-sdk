@@ -86,11 +86,11 @@ module.exports = {
                     "no-unused-expression": true,
                     "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
                     "ordered-imports": [
-                        true,
+                        false,
                         {
                             "import-sources-order": "case-insensitive",
                             "module-source-path": "full",
-                            //"named-imports-order": "case-insensitive",
+                            "named-imports-order": "case-insensitive",
                         },
                     ],
                     "triple-equals": [true, "allow-null-check"],
