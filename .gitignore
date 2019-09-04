@@ -1,0 +1,8 @@
+# Dependency directories
+node_modules
+
+# Build
+dist
+
+# Coverage directory used by tools like istanbul
+.coverage

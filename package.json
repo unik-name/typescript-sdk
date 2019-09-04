@@ -1,0 +1,92 @@
+{
+    "name": "@uns/ts-sdk",
+    "description": "UNS typescript SDK",
+    "version": "0.0.0",
+    "contributors": [
+        "Pierre Seznec <pierre.seznec@spacelephant.org>",
+        "Guillaume Nicolas <guillaume@spacelephant.org>"
+    ],
+    "main": "dist/index.js",
+    "types": "dist/index",
+    "browser": "dist/index.umd.js",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "compile": "./node_modules/typescript/bin/tsc -p ./tsconfig/tsconfig.json",
+        "build": "yarn clean && yarn compile",
+        "build:watch": "yarn clean && yarn compile -w",
+        "clean": "del dist",
+        "bundle": "del dist && cross-env NODE_ENV=production webpack --config build/webpack.config.js",
+        "lint": "eslint -c ./eslintrc.js \"./src/**/*.ts\"",
+        "lint:fix": "yarn lint --fix",
+        "lint:tests": "eslint -c ./eslintrc.js \"./__tests__/**/*.ts\"",
+        "lint:tests:fix": "yarn lint:tests --fix ",
+        "prettier": "prettier \"./*.{ts,js,json,md}\" \"./src/**/*.{ts,js,json,md}\" --check",
+        "prettier:fix": "yarn prettier --write",
+        "prettier:tests": "prettier \"./__tests__/**/*.{ts,js,json,md}\" --check",
+        "prettier:tests:fix": "yarn prettier:tests --write",
+        "format": "yarn lint && yarn prettier",
+        "format:fix": "yarn lint:fix && yarn prettier:fix",
+        "format:tests": "yarn lint:tests && yarn prettier:tests",
+        "format:tests:fix": "yarn lint:tests:fix && yarn prettier:tests:fix",
+        "test": "cross-env CORE_ENV=test jest --runInBand",
+        "test:coverage": "cross-env CORE_ENV=test jest --coverage --coveragePathIgnorePatterns='/(index.ts)$' --runInBand"
+    },
+    "dependencies": {
+        "@uns/crypto": "^3.0.0-alpha.0"
+    },
+    "devDependencies": {
+        "@sindresorhus/tsconfig": "^0.4.0",
+        "@types/jest": "^24.0.18",
+        "@typescript-eslint/eslint-plugin": "^2.1.0",
+        "@typescript-eslint/eslint-plugin-tslint": "^2.1.0",
+        "@typescript-eslint/parser": "^2.1.0",
+        "cross-env": "^5.2.1",
+        "del": "^5.1.0",
+        "del-cli": "^2.0.0",
+        "eslint": "^6.3.0",
+        "husky": "^3.0.5",
+        "jest": "^24.9.0",
+        "lint-staged": "^9.2.5",
+        "prettier": "^1.18.2",
+        "tslint": "^5.19.0",
+        "typescript": "^3.6.2",
+        "webpack": "^4.39.3",
+        "webpack-cli": "^3.3.7",
+        "webpack-merge": "^4.2.2",
+        "webpack-node-externals": "^1.7.2"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "bail": true,
+        "verbose": true,
+        "collectCoverage": false,
+        "coverageDirectory": "<rootDir>/.coverage",
+        "collectCoverageFrom": [
+            "./src/**/*.ts",
+            "!**/node_modules/**"
+        ],
+        "watchman": false
+    },
+    "repository": "git@github.com:spacelephant/typescript-sdk.git",
+    "license": "MIT",
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.ts": [
+            "yarn format:fix",
+            "yarn format:tests:fix",
+            "git add"
+        ]
+    },
+    "engines": {
+        "node": "^10"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

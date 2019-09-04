@@ -1,0 +1,153 @@
+# Javascript Node CircleCI 2.1 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+
+####################################
+## Helpers
+####################################
+
+repo_path: &repo_path
+  ~/repo
+
+job_config: &job_config
+  docker:
+    - image: 'circleci/node:10-browsers'
+  working_directory: *repo_path
+
+setup_envvars: &setup_envvars
+  run:
+    name: Setup Environment Variables
+    command: |
+      echo 'export PATH="$HOME/.yarn/bin:$PATH"' >> $BASH_ENV
+
+attach_workspace: &attach_workspace
+  attach_workspace:
+    at: ~/
+
+export_date_week: &export_date_week
+    run: 
+      name: Create a cache key based on week of year
+      command: |
+        date +%Y-%V >> .circle-week
+
+yarn_cache_key: &yarn_cache_key
+  v1-yarn-packages-{{ checksum "./yarn.lock" }}-{{ checksum ".circle-week" }}
+
+restore_yarn_cache: &restore_yarn_cache
+  restore_cache:
+    name: Restore Yarn packages
+    key: *yarn_cache_key
+
+save_yarn_cache: &save_yarn_cache
+  save_cache:
+    name: Save Yarn packages
+    key: *yarn_cache_key
+    paths:
+      - ./node_modules
+
+persist_repo_to_workspace: &persist_repo_to_workspace
+  persist_to_workspace:
+    root: ~/
+    paths: repo
+
+slack_notification: &slack_notification
+  slack/status:
+    fail_only: true
+    only_for_branches: 'master,develop'
+    failure_message: "😭 build failed > $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH:$CIRCLE_SHA1 ( 🤖 $CIRCLE_WORKFLOW_ID/$CIRCLE_JOB)"
+    
+
+####################################
+## Jobs
+####################################
+jobs:
+  checkout_prepare_dependencies:
+    <<: *job_config
+    steps:
+      - *setup_envvars
+      - checkout
+      - *attach_workspace
+      - *export_date_week
+      - *restore_yarn_cache
+      - run: yarn
+      - *save_yarn_cache
+      - *persist_repo_to_workspace
+      - *slack_notification
+
+  build:
+    <<: *job_config
+    steps:
+      - *setup_envvars
+      - *attach_workspace
+      - run:
+          command: yarn build
+      - *slack_notification
+  
+  format:
+    <<: *job_config
+    steps:
+      - *setup_envvars
+      - *attach_workspace
+      - run:
+          command: |
+            yarn format 
+            yarn format:tests
+      - *slack_notification
+
+  test:
+    <<: *job_config
+    steps:
+      - *setup_envvars
+      - *attach_workspace
+      - run:
+          command: yarn test:coverage
+      - codecov/upload:
+          file: ".coverage/*.json"
+      - *slack_notification
+
+####################################
+## Orbs
+####################################
+orbs:
+  slack: circleci/slack@3.3.0
+  codecov: codecov/codecov@1.0.2
+
+####################################
+## Workflows
+####################################
+workflows:
+  version: 2.1
+  build-test:
+    jobs:
+      - checkout_prepare_dependencies
+      - build:
+          requires:
+            - checkout_prepare_dependencies
+      - format:
+          requires:
+            - build
+      - test:
+          requires:
+            - format
+
+  weekly:
+    triggers:
+      - schedule:
+          cron: "10 6 * * 3" # Every wednesday, at 06:10
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - checkout_prepare_dependencies
+      - build:
+          requires:
+            - checkout_prepare_dependencies
+      - format:
+          requires:
+            - build
+      - test:
+          requires:
+            - format
