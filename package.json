@@ -34,7 +34,7 @@
         "test:coverage": "cross-env CORE_ENV=test jest --coverage --coveragePathIgnorePatterns='/(index.ts)$' --runInBand"
     },
     "dependencies": {
-        "@uns/crypto": "^3.0.0-alpha.0"
+        "@uns/crypto": "^3.0.0-alpha.1"
     },
     "devDependencies": {
         "@sindresorhus/tsconfig": "^0.4.0",

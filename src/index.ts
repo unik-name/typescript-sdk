@@ -1,5 +1,5 @@
 import { models } from "@uns/crypto";
 
-const nft = models.Nft;
+const UNIKTypes = models.UNIKTypes;
 
-export { nft };
+export { UNIKTypes };
