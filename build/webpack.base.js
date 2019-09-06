@@ -9,6 +9,21 @@ module.exports = (babelOptions = {}) => ({
 
     context: __dirname,
 
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                use: [{
+                    loader: "ts-loader",
+                    options:{
+                        configFile: "../tsconfig/tsconfig.json"
+                    }
+                }],
+                exclude: /node_modules/,
+            },
+        ],
+    },
+
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".json"],
     },
