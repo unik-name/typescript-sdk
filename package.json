@@ -13,6 +13,7 @@
         "dist"
     ],
     "scripts": {
+        "prepublishOnly": "yarn build && yarn bundle",
         "compile": "./node_modules/typescript/bin/tsc -p ./tsconfig/tsconfig.json",
         "build": "yarn clean && yarn compile",
         "build:watch": "yarn clean && yarn compile -w",
