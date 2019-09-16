@@ -508,10 +508,10 @@
     lodash.unescape "4.0.1"
     semver "^6.2.0"
 
-"@uns/crypto@^3.0.0-alpha.1":
-  version "3.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-3.0.0-alpha.1.tgz#4713b6296283f1ed37a0def4cab29a67664d5638"
-  integrity sha512-Ki99loK922YYGVNPngYqFYCnqwMaIntG6uN96UoTC9p3pl0M0zpsIr2CtNcPTzHAog5BabCbI+L4m+4kJ9Y+iA==
+"@uns/crypto@^3.0.0-alpha.3":
+  version "3.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-3.0.0-alpha.3.tgz#678d6ee194d09da95550f05377f2a7b8e6de9f6e"
+  integrity sha512-h63Y9g9GEdEYKOPyTFwAvYV3JiYrtLyT25ECOiJ4ApH83DGE/6jNhereLlj5RsquLD8FeHjqDk4ccf7DYfLauw==
   dependencies:
     "@faustbrian/dato" "^0.2.0"
     ajv "^6.10.0"

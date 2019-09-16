@@ -1,3 +1,3 @@
 import { UNSClient, NodeStatus } from "./clients";
-import { UNIKTypes } from "./types/unik";
-export { UNIKTypes, UNSClient, NodeStatus };
+export { UNSClient, NodeStatus };
+export * from "./types/did";
