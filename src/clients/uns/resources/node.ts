@@ -3,11 +3,11 @@
 import { HTTPOptions } from "../../http";
 import { Resource } from "./resource";
 
-export type NodeStatus = {
+export interface NodeStatus {
     synced: boolean;
     now: number;
     blocksCount: number;
-};
+}
 
 export class Node extends Resource {
     public static PATH: string = "node";
