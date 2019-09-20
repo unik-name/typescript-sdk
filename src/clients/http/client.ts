@@ -47,6 +47,12 @@ class HTTPClient {
 
             return { body, headers, status };
         } catch (error) {
+            // No way to parse error correctly to throw specific error...
+            if (error && error.name === "HTTPError") {
+                console.debug(error.toString(), url, opts);
+                throw error;
+            }
+
             throw new HTTPError(error);
         }
     }

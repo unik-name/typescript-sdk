@@ -1,15 +1,17 @@
 import { APIClient, APIClientBuilder } from "../builder";
 import { HTTPOptions } from "../http";
 import { Config, Network, NetworkConfig } from "./config";
-import { Node, Resource } from "./resources";
-import { TransactionResource } from "./resources/transaction";
-import { Unik } from "./resources/uniks";
+import { Resource } from "./resources";
+import { FingerPrintResource } from "./resources/fingerprint";
+import { Safetypo } from "./resources/safetypo";
 
 const DEFAULT_HEADERS: HTTPOptions = {
-    "content-type": "application/json",
+    headers: {
+        "Content-type": "application/json",
+    },
 };
 
-export class UNSClient {
+export class BackendClient {
     private api: APIClient;
 
     constructor(
@@ -19,24 +21,19 @@ export class UNSClient {
         const config = NetworkConfig[configOrNetwork as Network] || (configOrNetwork as Config);
 
         this.api = new APIClientBuilder()
-            .withHost(config.endpoint)
+            .withHost(config.api)
             .withDefaultHeaders(defaultHeaders)
-            .withResource(new Node())
-            .withResource(new Unik())
-            .withResource(new TransactionResource())
+            .withResource(new FingerPrintResource())
+            .withResource(new Safetypo())
             .build();
     }
 
-    public get node(): Node {
-        return this.getResource<Node>(Node.PATH);
+    public get fingerprint(): FingerPrintResource {
+        return this.getResource<FingerPrintResource>(FingerPrintResource.PATH);
     }
 
-    public get uniks(): Unik {
-        return this.getResource<Unik>(Unik.PATH);
-    }
-
-    public get transactions(): TransactionResource {
-        return this.getResource<TransactionResource>(TransactionResource.PATH);
+    public get safetypo(): Safetypo {
+        return this.getResource<Safetypo>(Safetypo.PATH);
     }
 
     private getResource<T extends Resource>(name: string): T {

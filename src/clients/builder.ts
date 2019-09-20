@@ -1,7 +1,7 @@
 import isUrl = require("is-url-superb");
+import { merge } from "../utils";
 import { HTTPOptions } from "./http";
 import { Resource } from "./uns/resources";
-import { merge } from "../utils";
 
 export type APIClient = Record<string, Resource>;
 export class APIClientBuilder {
@@ -10,7 +10,9 @@ export class APIClientBuilder {
     private opts?: HTTPOptions;
     private resources: Record<string, Resource> = {};
 
-    constructor() {}
+    constructor() {
+        // Nothing
+    }
 
     public withHost(host: string): APIClientBuilder {
         if (!isUrl(host)) {
