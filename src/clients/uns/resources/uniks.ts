@@ -51,11 +51,11 @@ export class Unik extends Resource {
     ): Promise<ResourceWithChainMeta<PropertyValue>> {
         const unik = await this.unik(unikid, client);
         const property = await this.sendGetWithChainMeta<PropertyValue>(`${unikid}/properties/${propertyKey}`, opts);
-        if (unik.chainmeta.height !== property.chainmeta.height) {
-            throw new Error(
-                `Consistency error, please retry (unik height: ${unik.chainmeta.height}, property height: ${property.chainmeta.height})`,
-            );
-        }
+        // if (unik.chainmeta.height !== property.chainmeta.height) {
+        //     throw new Error(
+        //         `Consistency error, please retry (unik height: ${unik.chainmeta.height}, property height: ${property.chainmeta.height})`,
+        //     );
+        // }
         property.confirmations = unik.confirmations;
         return property;
     }
