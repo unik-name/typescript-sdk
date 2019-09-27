@@ -1,7 +1,6 @@
 import { DidParserError } from "../../../src/utils/did-parser/errors/did-parser-error";
 
-const PATTERN_MATCHING_ERROR_MSG =
-    "Should match with this pattern: @tokenName:type/explicitValue(1 to 100 characters)[?propertyKey|?*]";
+const PATTERN_MATCHING_ERROR_MSG = "DID does not match expected format";
 const INVALID_EXPLICIT_VALUE_FORMAT_MSG = "Invalid explicit value format";
 
 export const shouldFail: any[] = [
