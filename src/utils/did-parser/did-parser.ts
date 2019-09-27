@@ -22,9 +22,7 @@ export const parse = async (did: string): Promise<DidParserResult | DidParserErr
 
     // Need full matching (matching[0] should be equal to did)
     if (!matching || matching[0] !== did) {
-        return new DidParserError(
-            "Should match with this pattern: @tokenName:type/explicitValue(1 to 100 characters)[?propertyKey|?*]",
-        );
+        return new DidParserError("DID does not match expected format");
     }
 
     // Get informations from regex groups
