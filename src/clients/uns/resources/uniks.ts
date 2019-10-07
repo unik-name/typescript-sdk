@@ -1,9 +1,7 @@
 /* eslint-disable max-classes-per-file */
 
-import { UNSClient } from "../../..";
 import { HTTPOptions } from "../../http";
 import { Resource, ResourceWithChainMeta } from "./resource";
-import { Transaction } from "./transaction";
 
 export interface UnikToken {
     id: string;
@@ -17,8 +15,6 @@ export interface UnikToken {
         };
     };
 }
-
-export type PropertyValue = string | number;
 
 export class Uniks extends Resource {
     public static PATH: string = "uniks";
@@ -35,7 +31,7 @@ export class Uniks extends Resource {
         unikid: string,
         propertyKey: string,
         opts?: HTTPOptions,
-    ): Promise<ResourceWithChainMeta<PropertyValue>> {
-        return this.sendGetWithChainMeta<PropertyValue>(`${unikid}/properties/${propertyKey}`, opts);
+    ): Promise<ResourceWithChainMeta<string>> {
+        return this.sendGetWithChainMeta<string>(`${unikid}/properties/${propertyKey}`, opts);
     }
 }
