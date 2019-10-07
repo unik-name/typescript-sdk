@@ -10,14 +10,14 @@ export interface Transaction {
     timestamp: ChainTimestamp;
 }
 
-export class TransactionResource extends Resource {
+export class Transactions extends Resource {
     public static PATH: string = "transactions";
 
     public path(): string {
-        return TransactionResource.PATH;
+        return Transactions.PATH;
     }
 
-    public async transaction(transactionId: string, opts?: HTTPOptions): Promise<ResourceWithChainMeta<Transaction>> {
+    public async get(transactionId: string, opts?: HTTPOptions): Promise<ResourceWithChainMeta<Transaction>> {
         return this.sendGetWithChainMeta<Transaction>(transactionId, opts);
     }
 }

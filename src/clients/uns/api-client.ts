@@ -11,7 +11,7 @@ const DEFAULT_HEADERS: HTTPOptions = {
     },
 };
 
-export class BackendClient {
+export class UniknameClient {
     private api: APIClient;
 
     constructor(

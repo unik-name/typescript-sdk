@@ -16,6 +16,6 @@ export const NetworkConfig: Record<Network, Config> = {
     },
     TESTNET: {
         endpoint: "http://localhost:4003/api/v2",
-        api: "https://us-central1-unik-name.cloudfunctions.net/api/v1",
+        api: "https://us-central1-unik-name-development.cloudfunctions.net/api/v1",
     },
 };

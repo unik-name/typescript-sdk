@@ -1,5 +1,5 @@
 import { UNSClient } from "..";
-import { BackendClient } from "../clients/uns/api-client";
+import { UniknameClient } from "../clients/uns/api-client";
 import { NetworkConfig } from "../clients/uns/config";
 import { ResourceWithChainMeta } from "../clients/uns/resources";
 import { FingerPrint } from "../clients/uns/resources/fingerprint";
@@ -22,7 +22,7 @@ export const didResolve = async (
         return parseResult;
     }
 
-    const apiClient = new BackendClient();
+    const apiClient = new UniknameClient();
     const fingerprintResult: FingerPrint = await apiClient.fingerprint.computeFingerprint({
         body: {
             explicitValue: parseResult.explicitValue,
@@ -34,7 +34,7 @@ export const didResolve = async (
 
     if (parseResult.query) {
         if (parseResult.query === "?*") {
-            const unik = await client.uniks.unik(tokenId, client);
+            const unik = await client.uniks.get(tokenId, client);
             return {
                 data: unik.data.ownerId,
                 chainmeta: unik.chainmeta,
@@ -46,5 +46,5 @@ export const didResolve = async (
             return await client.uniks.propertyValue(tokenId, query, client);
         }
     }
-    return await client.uniks.unik(tokenId, client);
+    return await client.uniks.get(tokenId, client);
 };

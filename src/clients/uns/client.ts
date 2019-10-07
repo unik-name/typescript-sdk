@@ -2,8 +2,8 @@ import { APIClient, APIClientBuilder } from "../builder";
 import { HTTPOptions } from "../http";
 import { Config, Network, NetworkConfig } from "./config";
 import { Node, Resource } from "./resources";
-import { TransactionResource } from "./resources/transaction";
-import { Unik } from "./resources/uniks";
+import { Transactions } from "./resources/transaction";
+import { Uniks } from "./resources/uniks";
 
 const DEFAULT_HEADERS: HTTPOptions = {
     "content-type": "application/json",
@@ -22,8 +22,8 @@ export class UNSClient {
             .withHost(config.endpoint)
             .withDefaultHeaders(defaultHeaders)
             .withResource(new Node())
-            .withResource(new Unik())
-            .withResource(new TransactionResource())
+            .withResource(new Uniks())
+            .withResource(new Transactions())
             .build();
     }
 
@@ -31,12 +31,12 @@ export class UNSClient {
         return this.getResource<Node>(Node.PATH);
     }
 
-    public get uniks(): Unik {
-        return this.getResource<Unik>(Unik.PATH);
+    public get uniks(): Uniks {
+        return this.getResource<Uniks>(Uniks.PATH);
     }
 
-    public get transactions(): TransactionResource {
-        return this.getResource<TransactionResource>(TransactionResource.PATH);
+    public get transactions(): Transactions {
+        return this.getResource<Transactions>(Transactions.PATH);
     }
 
     private getResource<T extends Resource>(name: string): T {
