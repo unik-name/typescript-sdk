@@ -5,17 +5,21 @@ import { shouldFail } from "./__fixtures__/did-parse-fail";
 import { DidParserResult } from "../../src/utils/did-parser/did-parser-result";
 
 describe("DID Parser", () => {
-    shouldFail.forEach(fail => {
-        it(`Pattern matching should fail for ${fail.did}`, async () => {
-            const parseResult: DidParserResult | DidParserError = await parse(fail.did);
-            expect((parseResult as DidParserError).message).toEqual(fail.message);
+    describe("Fails: ", () => {
+        shouldFail.forEach(fail => {
+            it(fail.did, async () => {
+                const parseResult: DidParserResult | DidParserError = await parse(fail.did);
+                expect((parseResult as DidParserError).message).toEqual(fail.message);
+            });
         });
     });
-    shouldPass.forEach(success => {
-        it(`Pattern matching should pass for ${success.did}`, async () => {
-            const parseResult: DidParserResult | DidParserError = await parse(success.did);
-            expect(parseResult).toBeInstanceOf(DidParserResult);
-            expect(parseResult).toEqual(success.result);
+
+    describe("Successes: ", () => {
+        shouldPass.forEach(success => {
+            it(success.did, async () => {
+                const parseResult: DidParserResult | DidParserError = await parse(success.did);
+                expect(parseResult).toEqual(success.result);
+            });
         });
     });
 });

@@ -10,16 +10,6 @@ export const shouldFail: any[] = [
         message: PATTERN_MATCHING_ERROR_MSG,
     },
     {
-        did: "unik:organization/Space_Elephant?postalAddress",
-        error: DidParserError,
-        message: PATTERN_MATCHING_ERROR_MSG,
-    },
-    {
-        did: "unik:organization/Space_Elephant?X509fingerPrint",
-        error: DidParserError,
-        message: PATTERN_MATCHING_ERROR_MSG,
-    },
-    {
         did: "unik:individual/bob?*",
         error: DidParserError,
         message: PATTERN_MATCHING_ERROR_MSG,

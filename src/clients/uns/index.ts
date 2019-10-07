@@ -1,2 +1,2 @@
 export * from "./client";
-export { NodeStatus } from "./resources";
+export { NodeStatus, ResourceWithChainMeta, UnikToken } from "./resources";

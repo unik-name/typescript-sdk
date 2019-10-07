@@ -1,4 +1,4 @@
-import { BackendClient } from "../../clients/uns/api-client";
+import { UniknameClient } from "../../clients/uns/api-client";
 import { DIDHelpers, DIDTypes } from "../../types/did";
 import { DidParserResult } from "./did-parser-result";
 import { DidParserError } from "./errors/did-parser-error";
@@ -6,7 +6,7 @@ import { DidParserError } from "./errors/did-parser-error";
 const DID_PATTERN = /@(unik:)?((?:individual|organization|network|1|2|3)\/)?([^\?\/\:]+)(\?(?:[a-zA-Z0-9]+|\*{1}))?/;
 const DID_TYPES: string[] = Object.keys(DIDTypes).map(type => type.toLowerCase());
 
-const apiClient: BackendClient = new BackendClient();
+const apiClient: UniknameClient = new UniknameClient();
 
 export const allowedTypesByToken: {} = {
     unik: DID_TYPES,
@@ -32,14 +32,14 @@ export const parse = async (did: string): Promise<DidParserResult | DidParserErr
     const query = matching[4];
 
     if (!Number.isNaN(+type)) {
-        type = DIDHelpers.fromCode(parseInt(matching[2], 10)).toLowerCase();
+        type = DIDHelpers.fromCode(parseInt(type, 10)).toLowerCase();
     }
 
     if (!(await checkExplicitValue(explicitValue))) {
         return new DidParserError("Invalid explicit value format");
     }
 
-    return new DidParserResult(tokenName, type, explicitValue, query);
+    return { tokenName, type, explicitValue, query };
 };
 
 const checkExplicitValue = async (explicitValue: string): Promise<boolean> => {
