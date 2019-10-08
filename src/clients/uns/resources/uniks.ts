@@ -27,36 +27,15 @@ export class Uniks extends Resource {
         return Uniks.PATH;
     }
 
-    public async get(unikid: string, client: UNSClient, opts?: HTTPOptions): Promise<ResourceWithChainMeta<UnikToken>> {
-        const unik = await this.sendGetWithChainMeta<UnikToken>(unikid, opts);
-        const transaction = await this.getTransaction(unik.data.transactions.last.id, client);
-        if (unik.chainmeta.height !== transaction.chainmeta.height) {
-            throw new Error(
-                `Consistency error, please retry (unik height: ${unik.chainmeta.height}, transaction height: ${transaction.chainmeta.height})`,
-            );
-        }
-        unik.confirmations = transaction.data.confirmations;
-        return unik;
+    public async get(unikid: string, opts?: HTTPOptions): Promise<ResourceWithChainMeta<UnikToken>> {
+        return this.sendGetWithChainMeta<UnikToken>(unikid, opts);
     }
 
     public async propertyValue(
         unikid: string,
         propertyKey: string,
-        client: UNSClient,
         opts?: HTTPOptions,
     ): Promise<ResourceWithChainMeta<PropertyValue>> {
-        const unik = await this.get(unikid, client);
-        const property = await this.sendGetWithChainMeta<PropertyValue>(`${unikid}/properties/${propertyKey}`, opts);
-        // if (unik.chainmeta.height !== property.chainmeta.height) {
-        //     throw new Error(
-        //         `Consistency error, please retry (unik height: ${unik.chainmeta.height}, property height: ${property.chainmeta.height})`,
-        //     );
-        // }
-        property.confirmations = unik.confirmations;
-        return property;
-    }
-
-    private async getTransaction(transcationId: string, client): Promise<ResourceWithChainMeta<Transaction>> {
-        return client.transactions.get(transcationId);
+        return this.sendGetWithChainMeta<PropertyValue>(`${unikid}/properties/${propertyKey}`, opts);
     }
 }
