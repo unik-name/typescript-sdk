@@ -1,4 +1,4 @@
-import { DidParserError } from "../../../src/utils/did-parser/errors/did-parser-error";
+import { DidParserError } from "../../../../src";
 
 const PATTERN_MATCHING_ERROR_MSG = "DID does not match expected format";
 const INVALID_EXPLICIT_VALUE_FORMAT_MSG = "Invalid explicit value format";

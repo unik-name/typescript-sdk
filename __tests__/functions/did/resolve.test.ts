@@ -1,6 +1,5 @@
-import { didResolve } from "../../src/functions/did-resolve";
+import { didResolve, DidResolution } from "../../../src";
 import nock = require("nock");
-import { ResourceWithChainMeta } from "../../src/clients/uns/resources";
 import {
     mockSafetypoRequest,
     mockFingerprintRequest,
@@ -10,19 +9,13 @@ import {
     META,
     WALLET_ADDRESS,
     RESOLVED_UNIK_TOKEN,
-} from "./__fixtures__/did-resolve";
-
-beforeEach(() => {
-    nock.cleanAll();
-});
+} from "./__fixtures__/resolve";
 
 describe("DID Resolver", () => {
-    beforeAll(() => {
+    beforeEach(() => {
+        nock.cleanAll();
         mockSafetypoRequest();
         mockFingerprintRequest();
-    });
-
-    beforeEach(() => {
         mockUnikRequest();
         mockTransactionRequest();
     });
@@ -40,6 +33,6 @@ describe("DID Resolver", () => {
     it("should return UNIK token type property value", async () => {
         mockPropertyRequest();
         const resolved = await didResolve("@unik:individual/myUnikName?type");
-        expect((resolved as ResourceWithChainMeta<string>).data).toEqual("1");
+        expect((resolved as DidResolution<string>).data).toEqual("1");
     });
 });
