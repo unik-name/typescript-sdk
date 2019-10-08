@@ -1,10 +1,10 @@
-export interface ChainTimestamp {
+export type ChainTimestamp = {
     epoch: number;
     unix: number;
     human: string;
-}
+};
 
-export interface ChainMeta {
+export type ChainMeta = {
     height: string;
     timestamp: ChainTimestamp;
-}
+};

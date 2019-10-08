@@ -1,14 +1,12 @@
-import { NetworkConfig, Network } from "../../../src/clients/uns/config";
-import { UnikToken } from "../../../src/clients/uns/resources/uniks";
-import { ResourceWithChainMeta } from "../../../src";
+import { Unik, UNSConfig, UniknameConfig, ResourceWithChainMeta } from "../../../../src";
 import nock = require("nock");
 
 const UNIK_FINGERPRINT: string = "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77";
 export const WALLET_ADDRESS: string = "DQLiVPs2b6rHYCANjVk7vWVfQqdo5rLvDU";
 const TRANSACTION_ID: string = "1473aa7b0d95ccbe66da2a06bc4f279c671e15fb02b7b6a69038b749265f2986";
 
-const CHAIN_ENDPOINT = NetworkConfig[Network.DEVNET].endpoint;
-const API_ENDPOINT = NetworkConfig[Network.DEVNET].api;
+const CHAIN_ENDPOINT = UNSConfig.devnet.url;
+const API_ENDPOINT = UniknameConfig.devnet.url;
 
 export const META = {
     height: "33",
@@ -19,7 +17,7 @@ export const META = {
     },
 };
 
-export const RESOLVED_UNIK_TOKEN: ResourceWithChainMeta<UnikToken> = {
+export const RESOLVED_UNIK_TOKEN: ResourceWithChainMeta<Unik> = {
     data: {
         id: UNIK_FINGERPRINT,
         ownerId: WALLET_ADDRESS,
@@ -38,7 +36,7 @@ export const RESOLVED_UNIK_TOKEN: ResourceWithChainMeta<UnikToken> = {
 
 export const mockSafetypoRequest = () => {
     nock(API_ENDPOINT)
-        .post("/safetypo/", { body: { explicitValue: "myUnikName" } })
+        .post("/safetypo/")
         .reply(200, {
             data: {
                 core: "rnyun1knarne",
@@ -48,7 +46,7 @@ export const mockSafetypoRequest = () => {
 
 export const mockFingerprintRequest = () => {
     nock(API_ENDPOINT)
-        .post("/unik-name-fingerprint/", { body: { explicitValue: "myUnikName", type: "individual" } })
+        .post("/unik-name-fingerprint/")
         .reply(200, {
             data: {
                 fingerprint: "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77",

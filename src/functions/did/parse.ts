@@ -1,7 +1,6 @@
-import { UniknameClient } from "../../clients/uns/api-client";
-import { DIDHelpers, DIDTypes } from "../../types/did";
-import { DidParserResult } from "./did-parser-result";
-import { DidParserError } from "./errors/did-parser-error";
+import { UniknameClient } from "../../clients/unikname/client";
+import { DIDHelpers, DIDTypes, DIDType } from "../../types/did";
+import { DidParserResult, DidParserError } from "./types";
 
 const DID_PATTERN = /@(unik:)?((?:individual|organization|network|1|2|3)\/)?([^\?\/\:]+)(\?(?:[a-zA-Z0-9]+|\*{1}))?/;
 const DID_TYPES: string[] = Object.keys(DIDTypes).map(type => type.toLowerCase());
@@ -27,19 +26,24 @@ export const parse = async (did: string): Promise<DidParserResult | DidParserErr
 
     // Get informations from regex groups
     const tokenName = matching[1] ? matching[1].replace(":", "") : "unik";
-    let type = matching[2] ? matching[2].replace("/", "") : "individual";
+    let type: number = DIDTypes.INDIVIDUAL;
+    if (matching[2]) {
+        const rawType = matching[2].replace("/", "");
+        type = !Number.isNaN(+rawType) ? +rawType : DIDTypes[rawType.toUpperCase()];
+    }
     const explicitValue = matching[3];
     const query = matching[4];
-
-    if (!Number.isNaN(+type)) {
-        type = DIDHelpers.fromCode(parseInt(type, 10)).toLowerCase();
-    }
 
     if (!(await checkExplicitValue(explicitValue))) {
         return new DidParserError("Invalid explicit value format");
     }
 
-    return { tokenName, type, explicitValue, query };
+    return {
+        tokenName,
+        explicitValue,
+        query,
+        type: DIDHelpers.fromCode(type),
+    };
 };
 
 const checkExplicitValue = async (explicitValue: string): Promise<boolean> => {
@@ -47,12 +51,6 @@ const checkExplicitValue = async (explicitValue: string): Promise<boolean> => {
         return false;
     }
 
-    try {
-        await apiClient.safetypo.analyze({ body: { explicitValue } });
-    } catch (e) {
-        console.debug(e);
-        return false;
-    }
-
-    return true;
+    const result = await apiClient.safetypo.analyze(explicitValue);
+    return !!result.data;
 };
