@@ -67,12 +67,11 @@ const getUnikWithChainMetaAndConfirmations = async (tokenId: string) => {
 const getPropertyValue = async (tokenId: string, propertyKey): Promise<ResourceWithChainMeta<PropertyValue>> => {
     const unik = await getUnikWithChainMetaAndConfirmations(tokenId);
     const propertyValue = await client.uniks.propertyValue(tokenId, propertyKey);
-    // Should be activated to validate https://spacelephant.tpondemand.com/entity/1243-implementer-la-commande-did
-    // if (unik.chainmeta.height !== property.chainmeta.height) {
-    //     throw new Error(
-    //         `Consistency error, please retry (unik height: ${unik.chainmeta.height}, property height: ${property.chainmeta.height})`,
-    //     );
-    // }
+    if (unik.chainmeta.height !== propertyValue.chainmeta.height) {
+        throw new Error(
+            `Consistency error, please retry (unik height: ${unik.chainmeta.height}, property height: ${propertyValue.chainmeta.height})`,
+        );
+    }
     propertyValue.confirmations = unik.confirmations;
     return propertyValue;
 };
