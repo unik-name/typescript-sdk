@@ -68,9 +68,7 @@ const getPropertyValue = async (tokenId: string, propertyKey): Promise<ResourceW
     const unik = await getUnikWithChainMetaAndConfirmations(tokenId);
     const propertyValue = await client.uniks.propertyValue(tokenId, propertyKey);
     if (unik.chainmeta.height !== propertyValue.chainmeta.height) {
-        throw new Error(
-            `Consistency error, please retry (unik height: ${unik.chainmeta.height}, property height: ${propertyValue.chainmeta.height})`,
-        );
+        throw new Error("Unable to read right now. Please retry.");
     }
     propertyValue.confirmations = unik.confirmations;
     return propertyValue;
