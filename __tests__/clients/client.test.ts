@@ -10,8 +10,18 @@ import {
     SafeTypoResult,
     FingerprintResult,
 } from "../../src";
-import { parameters, discloseDemandCertification, safetypoResponse, fingerprintResponse } from "./__fixtures__";
+import {
+    parameters,
+    discloseDemandCertification,
+    safetypoResponse,
+    fingerprintResponse,
+    walletId,
+    walletResponse,
+    wallet,
+    chainmeta,
+} from "./__fixtures__";
 import { DiscloseDemandCertification } from "../../src/clients/repositories";
+import { Wallet } from "../../src/clients/repositories/wallet";
 
 describe("UNSClient", () => {
     describe("chain APIs", () => {
@@ -55,6 +65,18 @@ describe("UNSClient", () => {
                 });
 
                 await expect(client.node.status()).rejects.toThrowError("custom error");
+            });
+        });
+
+        describe("wallets", () => {
+            const walletMock = mock.get(`/wallets/${walletId}`);
+
+            it("get should return wallet with chainmeta", async () => {
+                walletMock.reply(200, walletResponse);
+
+                const retrievedWallet: ResponseWithChainMeta<Wallet> = await client.wallet.get(walletId);
+                expect(retrievedWallet.data).toStrictEqual(wallet);
+                expect(retrievedWallet.chainmeta).toStrictEqual(chainmeta);
             });
         });
 

@@ -4,3 +4,4 @@ export * from "./unik";
 export * from "./fingerprint";
 export * from "./safetypo";
 export * from "./discloseDemandCertification";
+export * from "./wallet";

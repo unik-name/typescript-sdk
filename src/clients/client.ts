@@ -14,6 +14,7 @@ import {
 } from "./repositories";
 import { Network } from "../config";
 import { Repository } from "./repository";
+import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
 
 export class UNSClient {
     public repositories: Record<string, Repository> = {};
@@ -38,6 +39,10 @@ export class UNSClient {
         return this.getResource<UnikRepository>(UNIK_REPOSITORY_SUB);
     }
 
+    public get wallet(): WalletRepository {
+        return this.getResource<WalletRepository>(WALLET_REPOSITORY_SUB);
+    }
+
     public get fingerprint(): FingerprintRepository {
         return this.getResource<FingerprintRepository>(FINGERPRINT_REPOSITORY_SUB);
     }
@@ -54,6 +59,7 @@ export class UNSClient {
         this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(network);
         this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(network);
         this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(network);
+        this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(network);
         this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(network);
         this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(network);
         this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(
