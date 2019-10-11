@@ -27,7 +27,7 @@ export const UNSConfig: Record<Network, EndpointsConfig> = {
             url: "https://forger1.dalinet.uns.network/api/v2",
         },
         service: {
-            url: "ttps://us-central1-unik-name-development.cloudfunctions.net/api/v1",
+            url: "https://us-central1-unik-name-development.cloudfunctions.net/api/v1",
         },
     },
     testnet: {
