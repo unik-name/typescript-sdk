@@ -4,6 +4,8 @@ import {
     FingerprintRepositorySub,
     SafetypoRepository,
     SafetypoRepositorySub,
+    UnikRepository,
+    UnikRepositorySub,
 } from "./repository";
 import { UniknameConfig, Network } from "../../config";
 
@@ -21,9 +23,14 @@ export class UniknameClient extends APIClient {
         return this.getResource<SafetypoRepository>(SafetypoRepositorySub);
     }
 
+    public get unik(): UnikRepository {
+        return this.getResource<UnikRepository>(UnikRepositorySub);
+    }
+
     protected initRepositories(client: APIClient) {
         client.repositories[FingerprintRepositorySub] = new FingerprintRepository(client);
         client.repositories[SafetypoRepositorySub] = new SafetypoRepository(client);
+        client.repositories[UnikRepositorySub] = new UnikRepository(client);
     }
 
     protected config() {
