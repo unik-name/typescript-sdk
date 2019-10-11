@@ -9,6 +9,8 @@ import {
     NODE_REPOSITORY_SUB,
     FingerprintRepository,
     SafetypoRepository,
+    DiscloseDemandCertificationRepository,
+    DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
 } from "./repositories";
 import { Network } from "../config";
 import { Repository } from "./repository";
@@ -44,11 +46,16 @@ export class UNSClient {
         return this.getResource<SafetypoRepository>(SAFETYPO_REPOSITORY_SUB);
     }
 
+    public get discloseDemandCertification(): DiscloseDemandCertificationRepository {
+        return this.getResource<DiscloseDemandCertificationRepository>(DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB);
+    }
+
     private initRepositories(network: Network) {
         this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(network);
         this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(network);
         this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(network);
         this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(network);
         this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(network);
+        this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(network);
     }
 }

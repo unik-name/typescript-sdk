@@ -1,19 +1,20 @@
 import nock = require("nock");
 import { SafeTypoResult, Response, FingerprintResult, UNSClient, UNSConfig, Network } from "../../../src";
-
-const API_ENDPOINT = UNSConfig.devnet.service.url;
+import { parameters, unikid, discloseDemandCertification, safetypoResponse, fingerprintResponse } from "./__fixtures__";
+import { DiscloseDemandCertification } from "../../../src/clients/repositories";
 
 describe("UNSClient", () => {
     const client = new UNSClient(Network.devnet);
+
+    const mock = nock(UNSConfig.devnet.service.url);
 
     describe("default headers", () => {
         it("should send http request with uns-network header", async () => {
             expect.assertions(1);
 
-            const fn = jest.fn().mockReturnValue({ data: { core: "b0b" } });
+            const fn = jest.fn().mockReturnValue(safetypoResponse);
 
-            nock(API_ENDPOINT)
-                .matchHeader("Uns-Network", "devnet")
+            mock.matchHeader("Uns-Network", "devnet")
                 .post("/safetypo/")
                 .reply(200, fn);
 
@@ -27,28 +28,24 @@ describe("UNSClient", () => {
             nock.cleanAll();
         });
 
+        const safetypoMock = mock.post("/safetypo/");
+
         it("should return a safetypo result", async () => {
             expect.assertions(2);
 
-            const response = { data: { core: "b0b" } };
+            safetypoMock.reply(200, safetypoResponse);
 
-            nock(API_ENDPOINT)
-                .post("/safetypo/")
-                .reply(200, response);
-
-            const result: Response<SafeTypoResult> = await client.safetypo.analyze("b0b");
-            expect(result.data).toStrictEqual(response.data);
+            const result: Response<SafeTypoResult> = await client.safetypo.analyze(safetypoResponse.data.core);
+            expect(result.data).toStrictEqual(safetypoResponse.data);
             expect(result.error).toBeUndefined();
         });
 
         it("should return a functional error", async () => {
             expect.assertions(2);
 
-            nock(API_ENDPOINT)
-                .post("/safetypo/")
-                .reply(400);
+            safetypoMock.reply(400);
 
-            const result: Response<SafeTypoResult> = await client.safetypo.analyze("b0b");
+            const result: Response<SafeTypoResult> = await client.safetypo.analyze(safetypoResponse.data.core);
             expect(result.error).not.toBeUndefined();
             expect(result.data).toBeUndefined();
         });
@@ -56,23 +53,23 @@ describe("UNSClient", () => {
         it("should throw an exception", async () => {
             expect.assertions(1);
 
-            nock(API_ENDPOINT)
-                .post("/safetypo/")
-                .reply(500);
+            safetypoMock.reply(500);
 
-            await expect(client.safetypo.analyze("b0b")).rejects.toThrowError("Internal Server Error");
+            await expect(client.safetypo.analyze(safetypoResponse.data.core)).rejects.toThrowError(
+                "Internal Server Error",
+            );
         });
 
         it("should broadcast exception", async () => {
             expect.assertions(1);
 
-            nock(API_ENDPOINT)
-                .post("/safetypo/")
-                .reply(200, () => {
-                    throw new Error("this is a custom error");
-                });
+            safetypoMock.reply(200, () => {
+                throw new Error("this is a custom error");
+            });
 
-            await expect(client.safetypo.analyze("b0b")).rejects.toThrowError("this is a custom error");
+            await expect(client.safetypo.analyze(safetypoResponse.data.core)).rejects.toThrowError(
+                "this is a custom error",
+            );
         });
     });
 
@@ -81,28 +78,22 @@ describe("UNSClient", () => {
             nock.cleanAll();
         });
 
+        const fingerprintMock = mock.post("/unik-name-fingerprint/");
+
         it("should return a fingerprint", async () => {
             expect.assertions(2);
 
-            const response = {
-                data: { fingerprint: "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77" },
-            };
-
-            nock(API_ENDPOINT)
-                .post("/unik-name-fingerprint/")
-                .reply(200, response);
+            fingerprintMock.reply(200, fingerprintResponse);
 
             const result = await client.fingerprint.compute("myUnikName", "INDIVIDUAL");
-            expect(result.data).toStrictEqual(response.data);
+            expect(result.data).toStrictEqual(fingerprintResponse.data);
             expect(result.error).toBeUndefined();
         });
 
         it("should return a functional error", async () => {
             expect.assertions(2);
 
-            nock(API_ENDPOINT)
-                .post("/unik-name-fingerprint/")
-                .reply(400);
+            fingerprintMock.reply(400);
 
             const result: Response<FingerprintResult> = await client.fingerprint.compute("toto", "INDIVIDUAL");
             expect(result.error).not.toBeUndefined();
@@ -112,9 +103,7 @@ describe("UNSClient", () => {
         it("should throw an exception on 500 http code", async () => {
             expect.assertions(1);
 
-            nock(API_ENDPOINT)
-                .post("/unik-name-fingerprint/")
-                .reply(500);
+            fingerprintMock.reply(500);
 
             await expect(client.fingerprint.compute("toto", "INDIVIDUAL")).rejects.toThrowError(
                 "Internal Server Error",
@@ -124,13 +113,58 @@ describe("UNSClient", () => {
         it("should broadcast exception", async () => {
             expect.assertions(1);
 
-            nock(API_ENDPOINT)
-                .post("/unik-name-fingerprint/")
-                .reply(200, () => {
-                    throw new Error("this is a custom error");
-                });
+            fingerprintMock.reply(200, () => {
+                throw new Error("this is a custom error");
+            });
 
             await expect(client.fingerprint.compute("toto", "INDIVIDUAL")).rejects.toThrowError(
+                "this is a custom error",
+            );
+        });
+    });
+
+    describe("discloseDemandCertification", () => {
+        const discloseDemandCertificationMock = () => mock.post(`/disclose-demand-certification/`);
+
+        it("should return a DiscloseDemandCertification", async () => {
+            expect.assertions(1);
+
+            discloseDemandCertificationMock().reply(200, discloseDemandCertification);
+
+            const certification = await client.discloseDemandCertification.discloseDemandCertification(parameters);
+            expect(certification).toStrictEqual(discloseDemandCertification);
+        });
+
+        it("should return a functional error", async () => {
+            expect.assertions(2);
+
+            discloseDemandCertificationMock().reply(400);
+
+            const result: Response<DiscloseDemandCertification> = await client.discloseDemandCertification.discloseDemandCertification(
+                parameters,
+            );
+            expect(result.error).not.toBeUndefined();
+            expect(result.data).toBeUndefined();
+        });
+
+        it("should throw an exception on 500 http code", async () => {
+            expect.assertions(1);
+
+            discloseDemandCertificationMock().reply(500);
+
+            await expect(client.discloseDemandCertification.discloseDemandCertification(parameters)).rejects.toThrowError(
+                "Internal Server Error",
+            );
+        });
+
+        it("should broadcast exception", async () => {
+            expect.assertions(1);
+
+            discloseDemandCertificationMock().reply(200, () => {
+                throw new Error("this is a custom error");
+            });
+
+            await expect(client.discloseDemandCertification.discloseDemandCertification(parameters)).rejects.toThrowError(
                 "this is a custom error",
             );
         });
