@@ -1,5 +1,5 @@
 import { http } from "../clients/http";
-import { join } from "../utils";
+import { join, merge } from "../utils";
 import { APIClient } from "./client";
 
 export abstract class Repository {
@@ -10,11 +10,11 @@ export abstract class Repository {
     }
 
     protected async GET<T>(path: string): Promise<T> {
-        return (await http.get<T>(join(this.url, path))).body;
+        return (await http.get<T>(join(this.url, path), { headers: this.client.headers })).body;
     }
 
     protected async POST<T>(body: any = {}, path?: string): Promise<T> {
-        return (await http.post<T>(join(this.url, path), { body })).body;
+        return (await http.post<T>(join(this.url, path), { body, headers: this.client.headers })).body;
     }
 
     protected abstract sub(): string;

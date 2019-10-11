@@ -4,6 +4,22 @@ import { UniknameClient, SafeTypoResult, Response, UniknameConfig, FingerprintRe
 describe("UniknameClient", () => {
     const client = new UniknameClient();
 
+    describe("default headers", () => {
+        it("should send http request with uns-network header", async () => {
+            expect.assertions(1);
+
+            const fn = jest.fn().mockReturnValue({ data: { core: "b0b" } });
+
+            nock(UniknameConfig.devnet.url)
+                .matchHeader("Uns-Network", "devnet")
+                .post("/safetypo/")
+                .reply(200, fn);
+
+            await client.safetypo.analyze("explicitValue");
+            expect(fn).toHaveBeenCalled();
+        });
+    });
+
     describe("safetypo", () => {
         beforeEach(() => {
             nock.cleanAll();

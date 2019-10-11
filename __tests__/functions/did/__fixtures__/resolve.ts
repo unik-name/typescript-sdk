@@ -1,4 +1,4 @@
-import { Unik, UNSConfig, UniknameConfig, ResourceWithChainMeta } from "../../../../src";
+import { Unik, UNSConfig, UniknameConfig, DidResolution } from "../../../../src";
 import nock = require("nock");
 
 const UNIK_FINGERPRINT: string = "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77";
@@ -17,7 +17,7 @@ export const META = {
     },
 };
 
-export const RESOLVED_UNIK_TOKEN: ResourceWithChainMeta<Unik> = {
+export const RESOLVED_UNIK_TOKEN: DidResolution<Unik> = {
     data: {
         id: UNIK_FINGERPRINT,
         ownerId: WALLET_ADDRESS,

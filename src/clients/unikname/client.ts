@@ -5,9 +5,14 @@ import {
     SafetypoRepository,
     SafetypoRepositorySub,
 } from "./repository";
-import { UniknameConfig } from "../../config";
+import { UniknameConfig, Network } from "../../config";
 
 export class UniknameClient extends APIClient {
+    constructor(network: Network = APIClient.DEFAULT_NETWORK) {
+        super(network);
+        this.headers["Uns-Network"] = network;
+    }
+
     public get fingerprint(): FingerprintRepository {
         return this.getResource<FingerprintRepository>(FingerprintRepositorySub);
     }
