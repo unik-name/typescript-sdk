@@ -5,44 +5,49 @@ import { ServiceRepository } from "./types/ServiceRepository";
 
 export const DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB: string = "disclose-demand-certification";
 
-type JWT = {
+/**
+ * This type represents required properties for certification request payload.
+ */
+type Certificationable = {
     sub: string;
     iss: string;
     iat: number;
 };
 
-export type DiscloseDemandPayload = JWT & {
+export type DiscloseDemandPayload = Certificationable & {
     explicitValue: string[];
     type: DIDType;
 };
 
-export type DiscloseDemand = {
-    payload: DiscloseDemandPayload;
+type CertifiedDemand<T extends Certificationable> = {
+    payload: T;
     signature: string;
 };
 
-export type DiscloseDemandCertification = {
-    payload: JWT;
-    signature: string;
-};
+export type DiscloseDemand = CertifiedDemand<DiscloseDemandPayload>;
+
+export type DiscloseDemandCertification = CertifiedDemand<Certificationable>;
 
 export class DiscloseDemandCertificationRepository extends ServiceRepository {
     public async discloseDemandCertification(
         parameters: DiscloseDemand,
     ): Promise<Response<DiscloseDemandCertification>> {
-        try {
-            const response = await this.POST<Response<DiscloseDemandCertification>>(parameters);
-            return response;
-        } catch (error) {
-            if (error instanceof HTTPError && error.response.status === 400) {
-                return { error };
-            } else {
-                throw error;
-            }
-        }
+        return withHttpErrorsHandling(() => this.POST<Response<DiscloseDemandCertification>>(parameters));
     }
 
     protected sub(): string {
         return DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB;
     }
 }
+
+const withHttpErrorsHandling = async (fn: () => Promise<Response<DiscloseDemandCertification>>) => {
+    try {
+        return await fn();
+    } catch (error) {
+        if (error instanceof HTTPError && error.response.status === 400) {
+            return { error };
+        } else {
+            throw error;
+        }
+    }
+};

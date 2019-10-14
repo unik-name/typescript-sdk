@@ -310,7 +310,7 @@ describe("UNSClient", () => {
         });
 
         describe("discloseDemandCertification", () => {
-            const discloseDemandCertificationMock = () => mock.post(`/disclose-demand-certification/`);
+            const discloseDemandCertificationMock = () => mock.post("/disclose-demand-certification/");
 
             it("should return a DiscloseDemandCertification", async () => {
                 expect.assertions(1);
@@ -329,7 +329,7 @@ describe("UNSClient", () => {
                 const result: Response<
                     DiscloseDemandCertification
                 > = await client.discloseDemandCertification.discloseDemandCertification(parameters);
-                expect(result.error).not.toBeUndefined();
+                expect(result.error).toBeDefined();
                 expect(result.data).toBeUndefined();
             });
 
