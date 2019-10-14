@@ -1,3 +1,3 @@
-export * from "./uns";
-export * from "./unikname";
 export * from "./response";
+export * from "./client";
+export { NodeStatus, Transaction, Unik, PropertyValue, FingerprintResult, SafeTypoResult } from "./repositories";

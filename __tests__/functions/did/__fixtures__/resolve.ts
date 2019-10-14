@@ -1,12 +1,12 @@
-import { Unik, UNSConfig, UniknameConfig, DidResolution } from "../../../../src";
+import { Unik, UNSConfig, DidResolution } from "../../../../src";
 import nock = require("nock");
 
 const UNIK_FINGERPRINT: string = "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77";
 export const WALLET_ADDRESS: string = "DQLiVPs2b6rHYCANjVk7vWVfQqdo5rLvDU";
 const TRANSACTION_ID: string = "1473aa7b0d95ccbe66da2a06bc4f279c671e15fb02b7b6a69038b749265f2986";
 
-const CHAIN_ENDPOINT = UNSConfig.devnet.url;
-const API_ENDPOINT = UniknameConfig.devnet.url;
+const CHAIN_ENDPOINT = UNSConfig.devnet.chain.url;
+const API_ENDPOINT = UNSConfig.devnet.service.url;
 
 export const META = {
     height: "33",

@@ -1,13 +1,4 @@
-import {
-    UNSClient,
-    ChainMeta,
-    FingerprintResult,
-    UniknameClient,
-    Response,
-    FunctionalError,
-    Unik,
-    PropertyValue,
-} from "../..";
+import { UNSClient, ChainMeta, FingerprintResult, Response, FunctionalError, Unik, PropertyValue } from "../..";
 import { parse } from "./parse";
 import { DidParserError, DidParserResult } from "./types";
 import { Network } from "../../config";
@@ -27,7 +18,7 @@ export const didResolve = async (
 ): Promise<DidResolution<PropertyValue | Unik>> => {
     client = new UNSClient(network);
 
-    const parseResult: DidParserResult | DidParserError = await parse(did);
+    const parseResult: DidParserResult | DidParserError = await parse(did, client);
 
     if (parseResult instanceof Error) {
         return {
@@ -35,8 +26,7 @@ export const didResolve = async (
         };
     }
 
-    const apiClient = new UniknameClient(network);
-    const fingerprintResult: Response<FingerprintResult> = await apiClient.fingerprint.compute(
+    const fingerprintResult: Response<FingerprintResult> = await client.fingerprint.compute(
         parseResult.explicitValue,
         parseResult.type,
     );

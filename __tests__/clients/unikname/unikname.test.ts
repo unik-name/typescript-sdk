@@ -1,8 +1,10 @@
 import nock = require("nock");
-import { UniknameClient, SafeTypoResult, Response, UniknameConfig, FingerprintResult } from "../../../src";
+import { SafeTypoResult, Response, FingerprintResult, UNSClient, UNSConfig, Network } from "../../../src";
 
-describe("UniknameClient", () => {
-    const client = new UniknameClient();
+const API_ENDPOINT = UNSConfig.devnet.service.url;
+
+describe("UNSClient", () => {
+    const client = new UNSClient(Network.devnet);
 
     describe("default headers", () => {
         it("should send http request with uns-network header", async () => {
@@ -10,7 +12,7 @@ describe("UniknameClient", () => {
 
             const fn = jest.fn().mockReturnValue({ data: { core: "b0b" } });
 
-            nock(UniknameConfig.devnet.url)
+            nock(API_ENDPOINT)
                 .matchHeader("Uns-Network", "devnet")
                 .post("/safetypo/")
                 .reply(200, fn);
@@ -30,7 +32,7 @@ describe("UniknameClient", () => {
 
             const response = { data: { core: "b0b" } };
 
-            nock(UniknameConfig.devnet.url)
+            nock(API_ENDPOINT)
                 .post("/safetypo/")
                 .reply(200, response);
 
@@ -42,7 +44,7 @@ describe("UniknameClient", () => {
         it("should return a functional error", async () => {
             expect.assertions(2);
 
-            nock(UniknameConfig.devnet.url)
+            nock(API_ENDPOINT)
                 .post("/safetypo/")
                 .reply(400);
 
@@ -54,7 +56,7 @@ describe("UniknameClient", () => {
         it("should throw an exception", async () => {
             expect.assertions(1);
 
-            nock(UniknameConfig.devnet.url)
+            nock(API_ENDPOINT)
                 .post("/safetypo/")
                 .reply(500);
 
@@ -64,7 +66,7 @@ describe("UniknameClient", () => {
         it("should broadcast exception", async () => {
             expect.assertions(1);
 
-            nock(UniknameConfig.devnet.url)
+            nock(API_ENDPOINT)
                 .post("/safetypo/")
                 .reply(200, () => {
                     throw new Error("this is a custom error");
@@ -86,7 +88,7 @@ describe("UniknameClient", () => {
                 data: { fingerprint: "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77" },
             };
 
-            nock(UniknameConfig.devnet.url)
+            nock(API_ENDPOINT)
                 .post("/unik-name-fingerprint/")
                 .reply(200, response);
 
@@ -98,7 +100,7 @@ describe("UniknameClient", () => {
         it("should return a functional error", async () => {
             expect.assertions(2);
 
-            nock(UniknameConfig.devnet.url)
+            nock(API_ENDPOINT)
                 .post("/unik-name-fingerprint/")
                 .reply(400);
 
@@ -110,7 +112,7 @@ describe("UniknameClient", () => {
         it("should throw an exception on 500 http code", async () => {
             expect.assertions(1);
 
-            nock(UniknameConfig.devnet.url)
+            nock(API_ENDPOINT)
                 .post("/unik-name-fingerprint/")
                 .reply(500);
 
@@ -122,7 +124,7 @@ describe("UniknameClient", () => {
         it("should broadcast exception", async () => {
             expect.assertions(1);
 
-            nock(UniknameConfig.devnet.url)
+            nock(API_ENDPOINT)
                 .post("/unik-name-fingerprint/")
                 .reply(200, () => {
                     throw new Error("this is a custom error");
