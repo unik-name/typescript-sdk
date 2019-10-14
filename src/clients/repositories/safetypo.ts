@@ -1,14 +1,14 @@
-import { Repository } from "../../repository";
-import { Response } from "../../response";
+import { Response } from "../response";
 import { HTTPError } from "ky-universal";
+import { ServiceRepository } from "./types/ServiceRepository";
 
-export const SafetypoRepositorySub: string = "safetypo";
+export const SAFETYPO_REPOSITORY_SUB: string = "safetypo";
 
 export type SafeTypoResult = {
     core: string;
 };
 
-export class SafetypoRepository extends Repository {
+export class SafetypoRepository extends ServiceRepository {
     public async analyze(explicitValue: string): Promise<Response<SafeTypoResult>> {
         try {
             const response = await this.POST<Response<SafeTypoResult>>({ explicitValue });
@@ -23,6 +23,6 @@ export class SafetypoRepository extends Repository {
     }
 
     protected sub(): string {
-        return SafetypoRepositorySub;
+        return SAFETYPO_REPOSITORY_SUB;
     }
 }

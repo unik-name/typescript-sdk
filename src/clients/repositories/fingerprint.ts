@@ -1,15 +1,16 @@
-import { Repository } from "../../repository";
-import { Response } from "../../response";
-import { DIDType } from "../../../types";
+import { Repository } from "../repository";
+import { Response } from "../response";
+import { DIDType } from "../../types";
 import { HTTPError } from "ky-universal";
+import { ServiceRepository } from "./types/ServiceRepository";
 
-export const FingerprintRepositorySub: string = "unik-name-fingerprint";
+export const FINGERPRINT_REPOSITORY_SUB: string = "unik-name-fingerprint";
 
 export type FingerprintResult = {
     fingerprint: string;
 };
 
-export class FingerprintRepository extends Repository {
+export class FingerprintRepository extends ServiceRepository {
     public async compute(explicitValue: string, type: DIDType): Promise<Response<FingerprintResult>> {
         try {
             const response = await this.POST<Response<FingerprintResult>>({ explicitValue, type });
@@ -24,6 +25,6 @@ export class FingerprintRepository extends Repository {
     }
 
     protected sub(): string {
-        return FingerprintRepositorySub;
+        return FINGERPRINT_REPOSITORY_SUB;
     }
 }

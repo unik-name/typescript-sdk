@@ -1,9 +1,9 @@
 import nock = require("nock");
-import { UNSClient, NodeStatus, Response, UNSConfig, ResponseWithChainMeta, Transaction } from "../../../src";
+import { UNSClient, NodeStatus, Response, UNSConfig, ResponseWithChainMeta, Transaction, Network } from "../../../src";
 
 describe("UNSClient", () => {
-    const client = new UNSClient();
-    const mock = nock(UNSConfig.devnet.url);
+    const client = new UNSClient(Network.devnet);
+    const mock = nock(UNSConfig.devnet.chain.url);
 
     describe("node", () => {
         const nodeMock = mock.get("/node/status");
@@ -73,7 +73,9 @@ describe("UNSClient", () => {
 
             transactionMock(response.data.id).reply(200, response);
 
-            const result: ResponseWithChainMeta<Transaction> = await new UNSClient().transaction.get(response.data.id);
+            const result: ResponseWithChainMeta<Transaction> = await new UNSClient(Network.devnet).transaction.get(
+                response.data.id,
+            );
             expect(result.data).toStrictEqual(response.data);
             expect(result.chainmeta).toStrictEqual(response.chainmeta);
             expect(result.error).toBeUndefined();
@@ -84,7 +86,7 @@ describe("UNSClient", () => {
 
             transactionMock(id).reply(404);
 
-            await expect(new UNSClient().transaction.get(id)).rejects.toThrowError("Not Found");
+            await expect(new UNSClient(Network.devnet).transaction.get(id)).rejects.toThrowError("Not Found");
         });
     });
 

@@ -1,7 +1,7 @@
-import { Repository } from "../../repository";
-import { Response } from "../../response";
+import { Response } from "../response";
+import { ChainRepository } from "./types/ChainRepository";
 
-export const NodeRepositorySub: string = "node";
+export const NODE_REPOSITORY_SUB: string = "node";
 
 export type NodeStatus = {
     synced: boolean;
@@ -9,12 +9,12 @@ export type NodeStatus = {
     blocksCount: number;
 };
 
-export class NodeRepository extends Repository {
+export class NodeRepository extends ChainRepository {
     public async status(): Promise<Response<NodeStatus>> {
         return this.GET<Response<NodeStatus>>("status");
     }
 
     protected sub(): string {
-        return NodeRepositorySub;
+        return NODE_REPOSITORY_SUB;
     }
 }

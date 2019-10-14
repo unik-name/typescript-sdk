@@ -1,7 +1,7 @@
-import { Repository } from "../../repository";
-import { ResponseWithChainMeta } from "../../response";
+import { ResponseWithChainMeta } from "../response";
+import { ChainRepository } from "./types/ChainRepository";
 
-export const UnikRepositorySub: string = "uniks";
+export const UNIK_REPOSITORY_SUB: string = "uniks";
 
 export type Unik = {
     id: string;
@@ -18,7 +18,7 @@ export type Unik = {
 
 export type PropertyValue = string;
 
-export class UnikRepository extends Repository {
+export class UnikRepository extends ChainRepository {
     public async get(id: string): Promise<ResponseWithChainMeta<Unik>> {
         return this.GET<ResponseWithChainMeta<Unik>>(`${id}`);
     }
@@ -28,6 +28,6 @@ export class UnikRepository extends Repository {
     }
 
     protected sub(): string {
-        return UnikRepositorySub;
+        return UNIK_REPOSITORY_SUB;
     }
 }
