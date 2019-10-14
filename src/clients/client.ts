@@ -56,6 +56,8 @@ export class UNSClient {
         this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(network);
         this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(network);
         this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(network);
-        this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(network);
+        this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(
+            network,
+        );
     }
 }
