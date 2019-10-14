@@ -8,4 +8,6 @@ export {
     FingerprintResult,
     SafeTypoResult,
     Wallet,
+    DiscloseDemand,
+    DiscloseDemandCertification,
 } from "./repositories";

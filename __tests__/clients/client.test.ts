@@ -339,7 +339,7 @@ describe("UNSClient", () => {
 
                 discloseDemandCertificationMock().reply(200, discloseDemandCertification);
 
-                const certification = await client.discloseDemandCertification.discloseDemandCertification(parameters);
+                const certification = await client.discloseDemandCertification.get(parameters);
                 expect(certification).toStrictEqual(discloseDemandCertification);
             });
 
@@ -348,9 +348,9 @@ describe("UNSClient", () => {
 
                 discloseDemandCertificationMock().reply(400);
 
-                const result: Response<
-                    DiscloseDemandCertification
-                > = await client.discloseDemandCertification.discloseDemandCertification(parameters);
+                const result: Response<DiscloseDemandCertification> = await client.discloseDemandCertification.get(
+                    parameters,
+                );
                 expect(result.error).toBeDefined();
                 expect(result.data).toBeUndefined();
             });
@@ -360,9 +360,9 @@ describe("UNSClient", () => {
 
                 discloseDemandCertificationMock().reply(500);
 
-                await expect(
-                    client.discloseDemandCertification.discloseDemandCertification(parameters),
-                ).rejects.toThrowError("Internal Server Error");
+                await expect(client.discloseDemandCertification.get(parameters)).rejects.toThrowError(
+                    "Internal Server Error",
+                );
             });
 
             it("should broadcast exception", async () => {
@@ -372,9 +372,9 @@ describe("UNSClient", () => {
                     throw new Error("this is a custom error");
                 });
 
-                await expect(
-                    client.discloseDemandCertification.discloseDemandCertification(parameters),
-                ).rejects.toThrowError("this is a custom error");
+                await expect(client.discloseDemandCertification.get(parameters)).rejects.toThrowError(
+                    "this is a custom error",
+                );
             });
         });
     });

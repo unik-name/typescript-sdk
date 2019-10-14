@@ -29,9 +29,7 @@ export type DiscloseDemand = CertifiedDemand<DiscloseDemandPayload>;
 export type DiscloseDemandCertification = CertifiedDemand<Certificationable>;
 
 export class DiscloseDemandCertificationRepository extends ServiceRepository {
-    public async discloseDemandCertification(
-        parameters: DiscloseDemand,
-    ): Promise<Response<DiscloseDemandCertification>> {
+    public async get(parameters: DiscloseDemand): Promise<Response<DiscloseDemandCertification>> {
         return withHttpErrorsHandling(() => this.POST<Response<DiscloseDemandCertification>>(parameters));
     }
 
