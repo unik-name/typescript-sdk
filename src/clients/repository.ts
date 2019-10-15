@@ -1,11 +1,16 @@
 import { http } from "../clients/http";
 import { join } from "../utils";
-import { UNSClient } from "./client";
 import { Network, UNSConfig } from "../config";
+import { merge } from "../utils";
+import { HTTPError } from "ky-universal";
 
 export abstract class Repository {
     private url: string;
     protected network: Network;
+
+    private defaultHeaders = {
+        "content-type": "application/json",
+    };
 
     constructor(network: Network) {
         this.network = network;
@@ -13,11 +18,12 @@ export abstract class Repository {
     }
 
     protected async GET<T>(path: string): Promise<T> {
-        return (await http.get<T>(join(this.url, path), { headers: this.headers })).body;
+        return (await http.get<T>(join(this.url, path), { headers: merge(this.defaultHeaders, this.headers) })).body;
     }
 
     protected async POST<T>(body: any = {}, path?: string): Promise<T> {
-        return (await http.post<T>(join(this.url, path), { body, headers: this.headers })).body;
+        return (await http.post<T>(join(this.url, path), { body, headers: merge(this.defaultHeaders, this.headers) }))
+            .body;
     }
 
     protected abstract sub(): string;
@@ -25,4 +31,16 @@ export abstract class Repository {
     protected abstract endpointType(): string;
 
     protected headers: { [_: string]: string } = {};
+
+    protected async withHttpErrorsHandling<T>(fn: () => Promise<T>) {
+        try {
+            return await fn();
+        } catch (error) {
+            if (error instanceof HTTPError && [400].includes(error.response.status)) {
+                return { error };
+            } else {
+                throw error;
+            }
+        }
+    }
 }
