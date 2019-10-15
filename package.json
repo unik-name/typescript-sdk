@@ -14,11 +14,11 @@
     ],
     "scripts": {
         "prepublishOnly": "yarn build && yarn bundle",
-        "compile": "./node_modules/typescript/bin/tsc -p ./tsconfig/tsconfig.json",
+        "compile": "tsc -p ./tsconfig/tsconfig.json",
         "build": "yarn clean && yarn compile",
         "build:watch": "yarn clean && yarn compile -w",
         "clean": "del dist",
-        "bundle": "del dist && cross-env NODE_ENV=production webpack --config build/webpack.config.js",
+        "bundle": "yarn clean && cross-env NODE_ENV=production webpack --config build/webpack.config.js",
         "lint": "eslint -c ./eslintrc.js \"./src/**/*.ts\"",
         "lint:fix": "yarn lint --fix",
         "lint:tests": "eslint -c ./eslintrc.js \"./__tests__/**/*.ts\"",
@@ -32,7 +32,7 @@
         "format:tests": "yarn lint:tests && yarn prettier:tests",
         "format:tests:fix": "yarn lint:tests:fix && yarn prettier:tests:fix",
         "test": "cross-env CORE_ENV=test jest --runInBand",
-        "test:coverage": "cross-env CORE_ENV=test jest --coverage --coveragePathIgnorePatterns='/(index.ts)$' --runInBand"
+        "test:coverage": "yarn test --coverage --coveragePathIgnorePatterns='/(index.ts)$'"
     },
     "dependencies": {
         "@uns/crypto": "^3.0.0-alpha.3",
