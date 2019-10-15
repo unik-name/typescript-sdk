@@ -30,22 +30,12 @@ export type DiscloseDemandCertification = CertifiedDemand<Certificationable>;
 
 export class DiscloseDemandCertificationRepository extends ServiceRepository {
     public async get(parameters: DiscloseDemand): Promise<Response<DiscloseDemandCertification>> {
-        return withHttpErrorsHandling(() => this.POST<Response<DiscloseDemandCertification>>(parameters));
+        return this.withHttpErrorsHandling<Response<DiscloseDemandCertification>>(() =>
+            this.POST<Response<DiscloseDemandCertification>>(parameters),
+        );
     }
 
     protected sub(): string {
         return DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB;
     }
 }
-
-const withHttpErrorsHandling = async (fn: () => Promise<Response<DiscloseDemandCertification>>) => {
-    try {
-        return await fn();
-    } catch (error) {
-        if (error instanceof HTTPError && error.response.status === 400) {
-            return { error };
-        } else {
-            throw error;
-        }
-    }
-};

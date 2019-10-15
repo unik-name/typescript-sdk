@@ -12,16 +12,9 @@ export type FingerprintResult = {
 
 export class FingerprintRepository extends ServiceRepository {
     public async compute(explicitValue: string, type: DIDType): Promise<Response<FingerprintResult>> {
-        try {
-            const response = await this.POST<Response<FingerprintResult>>({ explicitValue, type });
-            return response;
-        } catch (error) {
-            if (error instanceof HTTPError && error.response.status === 400) {
-                return { error };
-            } else {
-                throw error;
-            }
-        }
+        return this.withHttpErrorsHandling<Response<FingerprintResult>>(() =>
+            this.POST<Response<FingerprintResult>>({ explicitValue, type: type.toLowerCase() }),
+        );
     }
 
     protected sub(): string {
