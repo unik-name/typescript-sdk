@@ -27,7 +27,7 @@ attach_workspace: &attach_workspace
     at: ~/
 
 export_date_week: &export_date_week
-    run: 
+    run:
       name: Create a cache key based on week of year
       command: |
         date +%Y-%V >> .circle-week
@@ -57,7 +57,7 @@ slack_notification: &slack_notification
     fail_only: true
     only_for_branches: 'master,develop'
     failure_message: "😭 build failed > $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH:$CIRCLE_SHA1 ( 🤖 $CIRCLE_WORKFLOW_ID/$CIRCLE_JOB)"
-    
+
 
 ####################################
 ## Jobs
@@ -84,7 +84,7 @@ jobs:
       - run:
           command: yarn build
       - *slack_notification
-  
+
   format:
     <<: *job_config
     steps:
@@ -92,7 +92,7 @@ jobs:
       - *attach_workspace
       - run:
           command: |
-            yarn format 
+            yarn format
             yarn format:tests
       - *slack_notification
 
@@ -127,10 +127,11 @@ workflows:
             - checkout_prepare_dependencies
       - format:
           requires:
-            - build
+            - checkout_prepare_dependencies
       - test:
           requires:
-            - format
+            - checkout_prepare_dependencies
+
 
   weekly:
     triggers:
@@ -145,9 +146,6 @@ workflows:
       - build:
           requires:
             - checkout_prepare_dependencies
-      - format:
-          requires:
-            - build
       - test:
           requires:
-            - format
+            - checkout_prepare_dependencies
