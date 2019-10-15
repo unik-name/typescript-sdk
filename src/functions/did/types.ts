@@ -1,10 +1,7 @@
 import { DIDType } from "../../types";
 
-export class DidParserError extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
+/* tslint:disable:no-empty */
+export class DidParserError extends Error {}
 
 export type DidParserResult = {
     tokenName: string;
