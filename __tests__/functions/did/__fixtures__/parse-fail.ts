@@ -158,36 +158,9 @@ export const shouldFail: any[] = [
         message: INVALID_EXPLICIT_VALUE_FORMAT_MSG,
     },
     {
-        did: "@unik:individual/f@bien?*",
-        error: DidParserError,
-        message: INVALID_EXPLICIT_VALUE_FORMAT_MSG,
-    },
-    {
-        did: "@unik:individual/the space?*",
-        error: DidParserError,
-        message: INVALID_EXPLICIT_VALUE_FORMAT_MSG,
-    },
-    {
         did: "@unik:individual/nop:qon?*",
         error: DidParserError,
         message: PATTERN_MATCHING_ERROR_MSG,
-    },
-    {
-        did: "@unik:individual/α-romeo?*",
-        error: DidParserError,
-        message: INVALID_EXPLICIT_VALUE_FORMAT_MSG,
-    },
-    {
-        // Ε => charCode 917, not included in Safetypo alphabet (E from our alphabet is 69)
-        did: "@unik:individual/ΕPSILON?*",
-        error: DidParserError,
-        message: INVALID_EXPLICIT_VALUE_FORMAT_MSG,
-    },
-    {
-        // Empty core value
-        did: "@unik:individual/*-*?*",
-        error: DidParserError,
-        message: INVALID_EXPLICIT_VALUE_FORMAT_MSG,
     },
     {
         did: "@unik:individual/Space_Elephant?a*b",
