@@ -11,4 +11,5 @@ export type Response<T> = {
 
 export type ResponseWithChainMeta<T> = Response<T> & {
     chainmeta: ChainMeta;
+    confirmations?: number;
 };
