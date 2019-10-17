@@ -9,6 +9,7 @@ import {
     META,
     WALLET_ADDRESS,
     RESOLVED_UNIK_TOKEN,
+    NETWORK,
 } from "./__fixtures__/resolve";
 
 describe("DID Resolver", () => {
@@ -21,18 +22,18 @@ describe("DID Resolver", () => {
     });
 
     it("should return UNIK token", async () => {
-        const resolved = await didResolve("@unik:individual/myUnikName");
+        const resolved = await didResolve("@unik:individual/myUnikName", NETWORK);
         expect(resolved).toEqual(RESOLVED_UNIK_TOKEN);
     });
 
     it("should return UNIK token wallet owner id id", async () => {
-        const resolved = await didResolve("@unik:individual/myUnikName?*");
+        const resolved = await didResolve("@unik:individual/myUnikName?*", NETWORK);
         expect(resolved).toEqual({ data: WALLET_ADDRESS, chainmeta: META, confirmations: 20 });
     });
 
     it("should return UNIK token type property value", async () => {
         mockPropertyRequest();
-        const resolved = await didResolve("@unik:individual/myUnikName?type");
+        const resolved = await didResolve("@unik:individual/myUnikName?type", NETWORK);
         expect((resolved as DidResolution<string>).data).toEqual("1");
     });
 });
