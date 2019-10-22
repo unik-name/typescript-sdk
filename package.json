@@ -16,7 +16,7 @@
     ],
     "scripts": {
         "prepublishOnly": "yarn build && yarn bundle",
-        "compile": "tsc -p ./tsconfig/tsconfig.json",
+        "compile": "tsc",
         "build": "yarn clean && yarn compile",
         "build:watch": "yarn clean && yarn compile -w",
         "clean": "del dist",
@@ -83,14 +83,15 @@
         "transform": {
             "^.+\\.tsx?$": "ts-jest"
         },
-        "testMatch": [
-            "**/*.test.ts"
-        ],
         "globals": {
             "ts-jest": {
-                "tsConfig": "<rootDir>/tsconfig/tsconfig.json"
+                "tsConfig": "./__tests__/tsconfig.json"
             }
-        }
+        },
+        "preset": "ts-jest",
+        "testMatch": [
+            "**/*.test.ts"
+        ]
     },
     "repository": "git@github.com:spacelephant/typescript-sdk.git",
     "license": "MIT",
