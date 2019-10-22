@@ -24,12 +24,20 @@ import { DiscloseDemandCertification } from "../../src/clients/repositories";
 import { Wallet } from "../../src/clients/repositories/wallet";
 
 describe("UNSClient", () => {
+    let client;
+    let mock;
     describe("chain APIs", () => {
-        const client = new UNSClient(Network.devnet);
-        const mock = nock(UNSConfig.devnet.chain.url);
+        beforeEach(() => {
+            client = new UNSClient(Network.devnet);
+            mock = nock(UNSConfig.devnet.chain.url);
+        });
 
         describe("node", () => {
-            const nodeMock = mock.get("/node/status");
+            let nodeMock;
+
+            beforeEach(() => {
+                nodeMock = mock.get("/node/status");
+            });
 
             it("should return a valid NodeStatus object", async () => {
                 expect.assertions(2);
@@ -69,7 +77,11 @@ describe("UNSClient", () => {
         });
 
         describe("wallets", () => {
-            const walletMock = mock.get(`/wallets/${walletId}`);
+            let walletMock;
+
+            beforeEach(() => {
+                walletMock = mock.get(`/wallets/${walletId}`);
+            });
 
             it("get should return wallet with chainmeta", async () => {
                 walletMock.reply(200, walletResponse);
@@ -81,7 +93,11 @@ describe("UNSClient", () => {
         });
 
         describe("transactions", () => {
-            const transactionMock = id => mock.get(`/transactions/${id}`);
+            let transactionMock;
+
+            beforeEach(() => {
+                transactionMock = id => mock.get(`/transactions/${id}`);
+            });
 
             it("should return Transaction with chainmeta", async () => {
                 expect.assertions(3);
@@ -126,7 +142,11 @@ describe("UNSClient", () => {
         });
 
         describe("unik", () => {
-            const unikMock = id => mock.get(`/uniks/${id}`);
+            let unikMock;
+
+            beforeEach(() => {
+                unikMock = id => mock.get(`/uniks/${id}`);
+            });
 
             describe("get", () => {
                 it("should return a Unik with chain meta", async () => {
@@ -173,7 +193,11 @@ describe("UNSClient", () => {
             });
 
             describe("property", () => {
-                const propertyMock = (id, key) => mock.get(`/uniks/${id}/properties/${key}`);
+                let propertyMock;
+
+                beforeEach(() => {
+                    propertyMock = (id, key) => mock.get(`/uniks/${id}/properties/${key}`);
+                });
 
                 it("should return unik property with chain meta", async () => {
                     expect.assertions(1);
@@ -212,9 +236,10 @@ describe("UNSClient", () => {
     });
 
     describe("service APIs", () => {
-        const client = new UNSClient(Network.devnet);
-
-        const mock = nock(UNSConfig.devnet.service.url);
+        beforeEach(() => {
+            client = new UNSClient(Network.devnet);
+            mock = nock(UNSConfig.devnet.service.url);
+        });
 
         describe("default headers", () => {
             it("should send http request with uns-network header", async () => {
@@ -232,11 +257,11 @@ describe("UNSClient", () => {
         });
 
         describe("safetypo", () => {
-            beforeEach(() => {
-                nock.cleanAll();
-            });
+            let safetypoMock;
 
-            const safetypoMock = mock.post("/safetypo/");
+            beforeEach(() => {
+                safetypoMock = mock.post("/safetypo/");
+            });
 
             it("should return a safetypo result", async () => {
                 expect.assertions(2);
@@ -282,11 +307,11 @@ describe("UNSClient", () => {
         });
 
         describe("unik-name-fingerprint", () => {
-            beforeEach(() => {
-                nock.cleanAll();
-            });
+            let fingerprintMock;
 
-            const fingerprintMock = mock.post("/unik-name-fingerprint/");
+            beforeEach(() => {
+                fingerprintMock = mock.post("/unik-name-fingerprint/");
+            });
 
             it("should return a fingerprint", async () => {
                 expect.assertions(2);
@@ -332,7 +357,11 @@ describe("UNSClient", () => {
         });
 
         describe("discloseDemandCertification", () => {
-            const discloseDemandCertificationMock = () => mock.post("/disclose-demand-certification/");
+            let discloseDemandCertificationMock;
+
+            beforeEach(() => {
+                discloseDemandCertificationMock = () => mock.post("/disclose-demand-certification/");
+            });
 
             it("should return a DiscloseDemandCertification", async () => {
                 expect.assertions(1);
