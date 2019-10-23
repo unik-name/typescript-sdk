@@ -1,5 +1,4 @@
 import { Response } from "../response";
-import { HTTPError } from "ky-universal";
 import { DIDType } from "../..";
 import { ServiceRepository } from "./types/ServiceRepository";
 
