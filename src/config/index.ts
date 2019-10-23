@@ -4,13 +4,13 @@ export enum Network {
     testnet = "testnet",
 }
 
-export type Config = {
+type Url = {
     url: string;
 };
 
-export type EndpointsConfig = {
-    chain: Config;
-    service: Config;
+type EndpointsConfig = {
+    chain: Url;
+    service: Url;
 };
 
 export const UNSConfig: Record<Network, EndpointsConfig> = {
@@ -39,3 +39,29 @@ export const UNSConfig: Record<Network, EndpointsConfig> = {
         },
     },
 };
+
+export type Config = {
+    network: Network;
+    headers: { [_: string]: string };
+};
+
+/**
+ * Function to check if an object is a `Config` type.
+ *
+ * Ugly.
+ *
+ * That's the way Typescript works.
+ *
+ * See https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types
+ * @param config Object that is maybe a `Config`
+ */
+export function isConfig(config: any): config is Config {
+    return config.network !== undefined && config.headers !== undefined;
+}
+
+export function fromNetwork(networkKey: keyof typeof Network): Config {
+    return {
+        network: Network[networkKey],
+        headers: {},
+    };
+}

@@ -9,6 +9,7 @@ import {
     Network,
     SafeTypoResult,
     FingerprintResult,
+    fromNetwork,
 } from "../../src";
 import {
     parameters,
@@ -26,6 +27,7 @@ import { Wallet } from "../../src/clients/repositories/wallet";
 describe("UNSClient", () => {
     let client;
     let mock;
+
     describe("chain APIs", () => {
         beforeEach(() => {
             client = new UNSClient(Network.devnet);
@@ -241,7 +243,7 @@ describe("UNSClient", () => {
             mock = nock(UNSConfig.devnet.service.url);
         });
 
-        describe("default headers", () => {
+        describe("headers", () => {
             it("should send http request with uns-network header", async () => {
                 expect.assertions(1);
 
@@ -252,6 +254,26 @@ describe("UNSClient", () => {
                     .reply(200, fn);
 
                 await client.safetypo.analyze("explicitValue");
+                expect(fn).toHaveBeenCalled();
+            });
+
+            it("should send http request with custom header", async () => {
+                expect.assertions(1);
+
+                const fn = jest.fn().mockReturnValue(safetypoResponse);
+
+                mock.matchHeader("CustomHeader", "customValue")
+                    .post("/safetypo/")
+                    .reply(200, fn);
+
+                const clientWithHeader = new UNSClient({
+                    network: Network.devnet,
+                    headers: {
+                        CustomHeader: "customValue",
+                    },
+                });
+
+                await clientWithHeader.safetypo.analyze("explicitValue");
                 expect(fn).toHaveBeenCalled();
             });
         });

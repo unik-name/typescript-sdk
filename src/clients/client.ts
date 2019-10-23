@@ -12,15 +12,24 @@ import {
     DiscloseDemandCertificationRepository,
     DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
 } from "./repositories";
-import { Network } from "../config";
+import { Network, Config, isConfig, fromNetwork } from "../config";
 import { Repository } from "./repository";
 import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
 
 export class UNSClient {
     public repositories: Record<string, Repository> = {};
 
-    constructor(network: Network) {
-        this.initRepositories(network);
+    private readonly config: Config;
+
+    constructor(config: Network | Config) {
+        if (isConfig(config)) {
+            // config is Config type
+            this.config = config;
+        } else {
+            // config is Network type
+            this.config = fromNetwork(config);
+        }
+        this.initRepositories();
     }
 
     private getResource<T extends Repository>(name: string): T {
@@ -55,15 +64,15 @@ export class UNSClient {
         return this.getResource<DiscloseDemandCertificationRepository>(DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB);
     }
 
-    private initRepositories(network: Network) {
-        this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(network);
-        this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(network);
-        this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(network);
-        this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(network);
-        this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(network);
-        this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(network);
+    private initRepositories() {
+        this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(this.config);
+        this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(this.config);
+        this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(this.config);
+        this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(this.config);
+        this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(this.config);
+        this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(this.config);
         this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(
-            network,
+            this.config,
         );
     }
 }
