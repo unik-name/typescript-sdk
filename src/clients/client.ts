@@ -5,6 +5,9 @@ import {
     DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
     FingerprintRepository,
     FINGERPRINT_REPOSITORY_SUB,
+    MINT_DEMAND_CERTIFICATION_REPOSITORY_SUB,
+    NftRepository,
+    NFT_REPOSITORY_SUB,
     NodeRepository,
     NODE_REPOSITORY_SUB,
     SafetypoRepository,
@@ -13,16 +16,13 @@ import {
     TRANSACTION_REPOSITORY_SUB,
     UnikRepository,
     UNIK_REPOSITORY_SUB,
-    NFT_REPOSITORY_SUB,
-    NftRepository,
-    MINT_DEMAND_CERTIFICATION_REPOSITORY_SUB,
-    UPDATE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
     UpdateDemandCertificationRepository,
+    UPDATE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
 } from "./repositories";
 import { BlockchainRepository } from "./repositories/blockchain";
+import { MintDemandCertificationRepository } from "./repositories/nftMintDemandCertification";
 import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
 import { Repository } from "./repository";
-import { MintDemandCertificationRepository } from "./repositories/nftMintDemandCertification";
 
 export class UNSClient {
     public repositories: Record<string, Repository> = {};
@@ -96,24 +96,36 @@ export class UNSClient {
 
     private initRepositories() {
         // Chain repositories
-        this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(this.currentEndpointsConfig);
-        this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(this.currentEndpointsConfig);
-        this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(this.currentEndpointsConfig);
-        this.repositories[NFT_REPOSITORY_SUB] = new NftRepository(this.currentEndpointsConfig);
-        this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(this.currentEndpointsConfig);
+        this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(this.currentEndpointsConfig, this.config);
+        this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(
+            this.currentEndpointsConfig,
+            this.config,
+        );
+        this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(this.currentEndpointsConfig, this.config);
+        this.repositories[NFT_REPOSITORY_SUB] = new NftRepository(this.currentEndpointsConfig, this.config);
+        this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(this.currentEndpointsConfig, this.config);
         this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(
             this.currentEndpointsConfig,
+            this.config,
         );
-        this.repositories[BLOCKCHAIN_REPOSITORY_SUB] = new BlockchainRepository(this.currentEndpointsConfig);
+        this.repositories[BLOCKCHAIN_REPOSITORY_SUB] = new BlockchainRepository(
+            this.currentEndpointsConfig,
+            this.config,
+        );
 
         // Unik-name services
-        this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(this.currentEndpointsConfig);
-        this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(this.currentEndpointsConfig);
+        this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(
+            this.currentEndpointsConfig,
+            this.config,
+        );
+        this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(this.currentEndpointsConfig, this.config);
         this.repositories[MINT_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new MintDemandCertificationRepository(
             this.currentEndpointsConfig,
+            this.config,
         );
         this.repositories[UPDATE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new UpdateDemandCertificationRepository(
             this.currentEndpointsConfig,
+            this.config,
         );
     }
 

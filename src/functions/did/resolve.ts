@@ -4,8 +4,6 @@ import { DidParserError, DidParserResult } from "./types";
 import { Network } from "../../config";
 import { getPropertyValueWithChainmeta, getUnikWithChainMetaAndConfirmations } from "../../utils";
 
-let client: UNSClient;
-
 export interface DidResolution<T> {
     data?: T;
     chainmeta?: ChainMeta;
@@ -22,11 +20,19 @@ export type ResolutionResult = {
 /**
  * Returns owner address (string), UNIK informations or Property value with UNIK informations (ResolutionResult)
  * @param did
- * @param network
+ * @param networkOrClient Pass the current network or an already instanciated `UNSClient`
  */
-export const didResolve = async (did: string, network: Network): Promise<DidResolution<string | ResolutionResult>> => {
-    client = new UNSClient();
-    client.init({ network });
+export const didResolve = async (
+    did: string,
+    networkOrClient: Network | UNSClient,
+): Promise<DidResolution<string | ResolutionResult>> => {
+    let client: UNSClient;
+    if (typeof (networkOrClient as any).init === "function") {
+        client = networkOrClient as UNSClient;
+    } else {
+        client = new UNSClient();
+        client.init({ network: networkOrClient as Network });
+    }
 
     const parseResult: DidParserResult | DidParserError = await parse(did, client);
 

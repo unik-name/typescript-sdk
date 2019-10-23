@@ -11,7 +11,7 @@ export function escapeSlashes(toEscape: string): string {
     return toEscape.replace(/\//g, "%2F");
 }
 
-export function merge<T>(a: Partial<T>, b: Partial<T>): T {
+export function merge<T>(a: Partial<T> | undefined, b: Partial<T> | undefined): T {
     return deepmerge(a || {}, b || {}) as T;
 }
 

@@ -1,6 +1,6 @@
 import { HTTPError } from "ky-universal";
 import { http } from "../clients/http";
-import { Config, EndpointsConfig } from "../config";
+import { Config, EndpointsConfig, UNSClientConfig } from "../config";
 import { codes } from "../types/errors";
 import { computeRequestUrl, join, merge } from "../utils";
 import { Response } from "./response";
@@ -8,14 +8,17 @@ import { Response } from "./response";
 export abstract class Repository {
     protected endpointsConfig: EndpointsConfig;
 
+    protected globalConfig: UNSClientConfig;
+
     protected url: string;
 
-    private defaultHeaders = {
+    private readonly defaultHeaders = {
         "content-type": "application/json",
     };
 
-    constructor(endpointsConfig: EndpointsConfig) {
+    constructor(endpointsConfig: EndpointsConfig, globalConfig: UNSClientConfig) {
         this.endpointsConfig = endpointsConfig;
+        this.globalConfig = globalConfig;
 
         const result = this.computeUrls();
 
@@ -26,7 +29,7 @@ export abstract class Repository {
     protected async GET<T>(path: string, query?: string): Promise<T> {
         return (
             await http.get<T>(computeRequestUrl(this.url, path, query), {
-                headers: merge(this.defaultHeaders, this.headers),
+                headers: this.getAllHeaders(),
             })
         ).body;
     }
@@ -35,16 +38,27 @@ export abstract class Repository {
         return (
             await http.post<T>(computeRequestUrl(this.url, path), {
                 body,
-                headers: merge(this.defaultHeaders, this.headers),
+                headers: this.getAllHeaders(),
             })
         ).body;
+    }
+
+    private getAllHeaders(): { [_: string]: string } {
+        // Priority:
+        // 1. headers provided by SDK user
+        // 2. headers provided by repository
+        // 3. default headers
+        return merge(this.defaultHeaders, merge(this.headers, this.globalConfig.headers));
     }
 
     protected abstract sub(): string;
 
     protected abstract getEndpoint(): Config;
 
-    protected headers: { [_: string]: string } = {};
+    /**
+     * Just push new entries to add custom header to a repository
+     */
+    protected readonly headers: { [_: string]: string } = {};
 
     protected async withHttpErrorsHandling<T>(fn: () => Promise<Response<T>>): Promise<Response<T>> {
         try {
