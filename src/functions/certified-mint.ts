@@ -9,7 +9,6 @@ import {
     ICertifiedDemand,
 } from "@uns/crypto";
 import { Response, UNSClient } from "../clients";
-import { Network } from "../config";
 import { codes } from "../types/errors";
 import { SdkResult } from "../types/results";
 import { Transactions as NftTransactions, Interfaces as NftInterfaces } from "@uns/core-nft-crypto";
@@ -17,7 +16,7 @@ import { Builders } from "@uns/core-nft-crypto";
 import { getCurrentIAT } from "../utils";
 
 export const createCertifiedNnfMintTransaction = async (
-    network: Network,
+    client: UNSClient,
     tokenId: string,
     tokenType: string,
     fees: number,
@@ -27,9 +26,6 @@ export const createCertifiedNnfMintTransaction = async (
     nftName: string,
     certification: boolean = true,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
-    const client = new UNSClient();
-    client.init({ network });
-
     let builder;
 
     if (certification) {

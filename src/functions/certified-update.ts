@@ -9,14 +9,13 @@ import {
     ICertifiedDemand,
 } from "@uns/crypto";
 import { Response, UNSClient } from "../clients";
-import { Network } from "../config";
 import { codes } from "../types/errors";
 import { SdkResult } from "../types/results";
 import { Interfaces as NftInterfaces } from "@uns/core-nft-crypto";
 import { getCurrentIAT } from "../utils";
 
 export const createCertifiedNftUpdateTransaction = async (
-    network: Network,
+    client: UNSClient,
     tokenId: string,
     properties: { [_: string]: string },
     fees: number,
@@ -25,9 +24,6 @@ export const createCertifiedNftUpdateTransaction = async (
     secondPassPhrase: string,
     nftName: string,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
-    const client = new UNSClient();
-    client.init({ network });
-
     Transactions.TransactionRegistry.registerTransactionType(CertifiedNftUpdateTransaction);
 
     const builder = new UNSCertifiedNftUpdateBuilder(nftName, tokenId).properties(properties);

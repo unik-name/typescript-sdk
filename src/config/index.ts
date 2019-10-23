@@ -55,6 +55,7 @@ export const UNSConfig: Record<Network, EndpointsConfig> = {
 export type UNSClientConfig = {
     network: Network;
     customNode?: string;
+    headers?: { [_: string]: string };
 };
 
 export const DEFAULT_CLIENT_CONFIG: UNSClientConfig = { network: Network.default };

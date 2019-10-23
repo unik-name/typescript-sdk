@@ -1,5 +1,5 @@
-import { ResponseWithChainMeta, UNSClient, Network, PropertyValue } from "..";
-import { merge, getPropertyValueWithChainmeta } from "../utils";
+import { PropertyValue, ResponseWithChainMeta, UNSClient } from "..";
+import { getPropertyValueWithChainmeta, merge } from "../utils";
 
 export type PropertyOptions = {
     withChainmeta?: boolean;
@@ -16,13 +16,10 @@ const defaultPropertyOptions = {
 export const getPropertyValue = async (
     unikid: string,
     propertyKey: string,
-    network: Network,
+    client: UNSClient,
     opts: PropertyOptions = defaultPropertyOptions,
 ): Promise<ResponseWithChainMeta<PropertyValue> | PropertyValue> => {
     const options: PropertyOptions = merge(defaultPropertyOptions, opts);
-
-    const client = new UNSClient();
-    client.init({ network });
 
     const propertyValue: ResponseWithChainMeta<PropertyValue> = await getPropertyValueWithChainmeta(
         unikid,

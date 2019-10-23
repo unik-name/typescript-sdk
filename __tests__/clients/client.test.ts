@@ -24,6 +24,9 @@ import {
 } from "./__fixtures__";
 
 describe("UNSClient", () => {
+    beforeEach(() => {
+        nock.cleanAll();
+    });
     describe("chain APIs", () => {
         const client = new UNSClient();
         client.init({ network: Network.sandbox });
@@ -217,9 +220,13 @@ describe("UNSClient", () => {
         const client = new UNSClient();
         client.init({ network: Network.sandbox });
 
-        const mock = nock(UNSConfig.sandbox.service.url);
+        let mock: nock.Scope;
 
-        describe("default headers", () => {
+        beforeEach(() => {
+            mock = nock(UNSConfig.sandbox.service.url);
+        });
+
+        describe("headers", () => {
             it("should send http request with uns-network header", async () => {
                 expect.assertions(1);
 
@@ -232,14 +239,35 @@ describe("UNSClient", () => {
                 await client.safetypo.analyze("explicitValue");
                 expect(fn).toHaveBeenCalled();
             });
+
+            it("should send http request with custom header", async () => {
+                expect.assertions(1);
+
+                const fn = jest.fn().mockReturnValue(safetypoResponse);
+
+                mock.matchHeader("Uns-Network", "sandbox")
+                    .matchHeader("CustomHeader", "customValue")
+                    .post("/safetypo")
+                    .reply(200, fn);
+
+                const clientWithHeader = new UNSClient();
+                clientWithHeader.init({
+                    network: Network.sandbox,
+                    headers: {
+                        CustomHeader: "customValue",
+                    },
+                });
+                await clientWithHeader.safetypo.analyze("explicitValue");
+                expect(fn).toHaveBeenCalled();
+            });
         });
 
         describe("safetypo", () => {
-            beforeEach(() => {
-                nock.cleanAll();
-            });
+            let safetypoMock: nock.Interceptor;
 
-            const safetypoMock = mock.post("/safetypo");
+            beforeEach(() => {
+                safetypoMock = mock.post("/safetypo");
+            });
 
             it("should return a safetypo result", async () => {
                 expect.assertions(2);
@@ -285,11 +313,11 @@ describe("UNSClient", () => {
         });
 
         describe("unik-name-fingerprint", () => {
-            beforeEach(() => {
-                nock.cleanAll();
-            });
+            let fingerprintMock: nock.Interceptor;
 
-            const fingerprintMock = mock.post("/unik-name-fingerprint");
+            beforeEach(() => {
+                fingerprintMock = mock.post("/unik-name-fingerprint");
+            });
 
             it("should return a fingerprint", async () => {
                 expect.assertions(2);
