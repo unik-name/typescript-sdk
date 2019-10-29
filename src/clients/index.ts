@@ -8,6 +8,11 @@ export {
     FingerprintResult,
     SafeTypoResult,
     Wallet,
+} from "./repositories";
+
+export {
     DiscloseDemand,
     DiscloseDemandCertification,
-} from "./repositories";
+    DiscloseDemandPayload,
+    DiscloseDemandCertificationPayload,
+} from "@uns/crypto";

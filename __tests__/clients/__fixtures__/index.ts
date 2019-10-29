@@ -1,5 +1,6 @@
 import { Response } from "../../../src";
-import { DiscloseDemandCertification, DiscloseDemand } from "../../../src/clients/repositories";
+import { DiscloseDemandCertification, DiscloseDemand } from "@uns/crypto";
+import { DIDTypes } from "../../../src/types";
 
 export const unikid = "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77";
 
@@ -20,7 +21,7 @@ export const parameters: DiscloseDemand = {
         iss: unikid,
         iat: 1570699816,
         explicitValue: ["explicit1", "explicit2"],
-        type: "INDIVIDUAL",
+        type: DIDTypes.INDIVIDUAL,
     },
     signature: "abcd",
 };

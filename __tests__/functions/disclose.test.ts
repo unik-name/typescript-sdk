@@ -1,11 +1,12 @@
 import { buildDiscloseDemand } from "../../src";
+import { DIDTypes } from "../../src/types";
 
 describe("Functions > disclose", () => {
     describe("buildDiscloseDemand", () => {
         it("should built a DiscloseDemand", () => {
             const unikid = "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77";
             const explicitValues = ["explicit1", "explicit2"];
-            const type = "INDIVIDUAL";
+            const type = DIDTypes.INDIVIDUAL;
             const passphrase = "passphrase";
 
             const demand = buildDiscloseDemand(unikid, explicitValues, type, passphrase);
