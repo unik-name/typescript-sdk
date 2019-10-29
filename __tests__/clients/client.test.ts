@@ -12,16 +12,17 @@ import {
 } from "../../src";
 import {
     parameters,
-    discloseDemandCertification,
     safetypoResponse,
     fingerprintResponse,
     walletId,
     walletResponse,
     wallet,
     chainmeta,
+    discloseDemandCertification,
 } from "./__fixtures__";
-import { DiscloseDemandCertification } from "../../src/clients/repositories";
+
 import { Wallet } from "../../src/clients/repositories/wallet";
+import { DiscloseDemandCertification } from "@uns/crypto";
 
 describe("UNSClient", () => {
     describe("chain APIs", () => {
