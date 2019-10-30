@@ -2,7 +2,7 @@ import { UNSClient } from "../../clients/client";
 import { DIDHelpers, DIDTypes, DIDType } from "../../types/did";
 import { DidParserResult, DidParserError } from "./types";
 
-const DID_PATTERN = /@(unik:)?((?:individual|organization|network|1|2|3)\/)?([^\?\/\:]+)(\?(?:[a-zA-Z0-9]+|\*{1}))?/;
+const DID_PATTERN = /@?(unik:)?((?:individual|organization|network|1|2|3):)?([^\?\/\:@]+)(\?(?:[a-zA-Z0-9]+|\*{1}))?/;
 const DID_TYPES: string[] = Object.keys(DIDTypes).map(type => type.toLowerCase());
 
 export const allowedTypesByToken: {} = {
@@ -26,7 +26,7 @@ export const parse = async (did: string, client: UNSClient): Promise<DidParserRe
     const tokenName = matching[1] ? matching[1].replace(":", "") : "unik";
     let type: number = DIDTypes.INDIVIDUAL;
     if (matching[2]) {
-        const rawType = matching[2].replace("/", "");
+        const rawType = matching[2].replace(":", "");
         type = !Number.isNaN(+rawType) ? +rawType : DIDTypes[rawType.toUpperCase()];
     }
     const explicitValue = matching[3];
