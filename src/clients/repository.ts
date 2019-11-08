@@ -1,11 +1,11 @@
 import { http } from "../clients/http";
 import { join } from "../utils";
-import { Network, UNSConfig } from "../config";
+import { Network } from "../config";
 import { merge } from "../utils";
 import { HTTPError } from "ky-universal";
 
 export abstract class Repository {
-    private url: string;
+    protected url: string;
     protected network: Network;
 
     private defaultHeaders = {
@@ -14,7 +14,7 @@ export abstract class Repository {
 
     constructor(network: Network) {
         this.network = network;
-        this.url = join(UNSConfig[network][this.endpointType()].url, this.sub());
+        this.url = join(this.getEndpoint(network), this.sub());
     }
 
     protected async GET<T>(path: string): Promise<T> {
@@ -28,7 +28,7 @@ export abstract class Repository {
 
     protected abstract sub(): string;
 
-    protected abstract endpointType(): string;
+    protected abstract getEndpoint(network: Network): string;
 
     protected headers: { [_: string]: string } = {};
 

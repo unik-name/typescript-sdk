@@ -19,8 +19,8 @@ import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
 export class UNSClient {
     public repositories: Record<string, Repository> = {};
 
-    constructor(network: Network) {
-        this.initRepositories(network);
+    constructor(network: Network, customNode?: string) {
+        this.initRepositories(network, customNode);
     }
 
     private getResource<T extends Repository>(name: string): T {
@@ -55,11 +55,11 @@ export class UNSClient {
         return this.getResource<DiscloseDemandCertificationRepository>(DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB);
     }
 
-    private initRepositories(network: Network) {
-        this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(network);
-        this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(network);
-        this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(network);
-        this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(network);
+    private initRepositories(network: Network, customNode?: string) {
+        this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(network, customNode);
+        this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(network, customNode);
+        this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(network, customNode);
+        this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(network, customNode);
         this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(network);
         this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(network);
         this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(
