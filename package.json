@@ -35,7 +35,7 @@
         "test:coverage": "yarn test --coverage --coveragePathIgnorePatterns='/(index.ts)$'"
     },
     "dependencies": {
-        "@uns/crypto": "^3.1.0-beta.1",
+        "@uns/crypto": "^3.1.1",
         "deepmerge": "^4.0.0",
         "is-url-superb": "^3.0.0",
         "ky": "^0.13.0",
