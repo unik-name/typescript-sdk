@@ -33,13 +33,17 @@ export const didResolve = async (did: string, network: Network): Promise<DidReso
         return { error: fingerprintResult.error };
     }
 
-    const tokenId = fingerprintResult.data.fingerprint;
+    const tokenId = fingerprintResult?.data?.fingerprint;
+
+    if (!tokenId) {
+        return { error: new Error("Unable to compute DID id") };
+    }
 
     if (parseResult.query) {
         if (parseResult.query === "?*") {
             const unik = await getUnikWithChainMetaAndConfirmations(tokenId, client);
             return {
-                data: unik.data.ownerId,
+                data: unik?.data?.ownerId,
                 chainmeta: unik.chainmeta,
                 confirmations: unik.confirmations,
             };

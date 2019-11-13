@@ -1,5 +1,4 @@
 import { Response } from "../response";
-import { HTTPError } from "ky-universal";
 import { ServiceRepository } from "./types/ServiceRepository";
 
 export const SAFETYPO_REPOSITORY_SUB: string = "safetypo";

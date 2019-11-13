@@ -3,6 +3,7 @@
 import ky, { ResponsePromise } from "ky-universal";
 import { HTTPOptions } from "./options";
 import { IHTTPResponse } from "./response";
+import { Method } from "./methods";
 
 export class HTTPClient {
     public async get<T = any>(url: string, opts?: HTTPOptions): Promise<IHTTPResponse<T>> {
@@ -31,7 +32,7 @@ export class HTTPClient {
     //     return this.sendRequest("delete", url, opts);
     // }
 
-    private async sendRequest<T>(method: string, url: string, opts: HTTPOptions = {}): Promise<IHTTPResponse<T>> {
+    private async sendRequest<T>(method: Method, url: string, opts: HTTPOptions = {}): Promise<IHTTPResponse<T>> {
         if (opts.body && typeof opts !== "string") {
             opts.body = JSON.stringify(opts.body);
         }

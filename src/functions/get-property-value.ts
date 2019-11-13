@@ -42,5 +42,13 @@ export const getPropertyValue = async (
         delete propertyValue.confirmations;
     }
 
-    return options.confirmations || options.withChainmeta ? propertyValue : propertyValue.data;
+    if (options.confirmations || options.withChainmeta) {
+        return propertyValue;
+    }
+
+    if (!propertyValue.data) {
+        throw new Error("Internal error, data attribute could not be undefined");
+    }
+
+    return propertyValue.data;
 };
