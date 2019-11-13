@@ -15,7 +15,7 @@ export const parse = async (did: string, client: UNSClient): Promise<DidParserRe
     }
 
     // A DID has to start with DID_PREFIX
-    const matching: RegExpMatchArray = did.match(DID_PATTERN);
+    const matching: RegExpMatchArray | null = did.match(DID_PATTERN);
 
     // Need full matching (matching[0] should be equal to did)
     if (!matching || matching[0] !== did) {
@@ -27,7 +27,7 @@ export const parse = async (did: string, client: UNSClient): Promise<DidParserRe
     let type: number = DIDTypes.INDIVIDUAL;
     if (matching[2]) {
         const rawType = matching[2].replace(":", "");
-        type = !Number.isNaN(+rawType) ? +rawType : DIDTypes[rawType.toUpperCase()];
+        type = !Number.isNaN(+rawType) ? +rawType : DIDHelpers.fromLabel(rawType.toUpperCase() as DIDType);
     }
     const explicitValue = matching[3];
     const query = matching[4];
@@ -40,7 +40,7 @@ export const parse = async (did: string, client: UNSClient): Promise<DidParserRe
         tokenName,
         explicitValue,
         query,
-        type: DIDHelpers.fromCode(type),
+        type: DIDHelpers.fromCode(type) as DIDType,
     };
 };
 

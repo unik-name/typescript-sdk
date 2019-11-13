@@ -21,7 +21,7 @@ export abstract class Repository {
         return (await http.get<T>(join(this.url, path), { headers: merge(this.defaultHeaders, this.headers) })).body;
     }
 
-    protected async POST<T>(body: any = {}, path?: string): Promise<T> {
+    protected async POST<T>(body: any = {}, path: string = ""): Promise<T> {
         return (await http.post<T>(join(this.url, path), { body, headers: merge(this.defaultHeaders, this.headers) }))
             .body;
     }

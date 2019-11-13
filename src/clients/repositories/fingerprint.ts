@@ -1,7 +1,5 @@
-import { Repository } from "../repository";
 import { Response } from "../response";
 import { DIDType } from "../../types";
-import { HTTPError } from "ky-universal";
 import { ServiceRepository } from "./types/ServiceRepository";
 
 export const FINGERPRINT_REPOSITORY_SUB: string = "unik-name-fingerprint";
