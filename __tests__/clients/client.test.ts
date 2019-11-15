@@ -26,7 +26,8 @@ import { DiscloseDemandCertification } from "@uns/crypto";
 
 describe("UNSClient", () => {
     describe("chain APIs", () => {
-        const client = new UNSClient(Network.devnet);
+        const client = new UNSClient();
+        client.init({ network: Network.devnet });
         const mock = nock(UNSConfig.devnet.chain.url);
 
         describe("node", () => {
@@ -108,10 +109,9 @@ describe("UNSClient", () => {
                 };
 
                 transactionMock(response.data.id).reply(200, response);
-
-                const result: ResponseWithChainMeta<Transaction> = await new UNSClient(Network.devnet).transaction.get(
-                    response.data.id,
-                );
+                const client = new UNSClient();
+                client.init({ network: Network.devnet });
+                const result: ResponseWithChainMeta<Transaction> = await client.transaction.get(response.data.id);
                 expect(result.data).toStrictEqual(response.data);
                 expect(result.chainmeta).toStrictEqual(response.chainmeta);
                 expect(result.error).toBeUndefined();
@@ -121,8 +121,10 @@ describe("UNSClient", () => {
                 const id = "invalidId";
 
                 transactionMock(id).reply(404);
+                const client = new UNSClient();
+                client.init({ network: Network.devnet });
 
-                await expect(new UNSClient(Network.devnet).transaction.get(id)).rejects.toThrowError("Not Found");
+                await expect(client.transaction.get(id)).rejects.toThrowError("Not Found");
             });
         });
 
@@ -213,7 +215,8 @@ describe("UNSClient", () => {
     });
 
     describe("service APIs", () => {
-        const client = new UNSClient(Network.devnet);
+        const client = new UNSClient();
+        client.init({ network: Network.devnet });
 
         const mock = nock(UNSConfig.devnet.service.url);
 
