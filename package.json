@@ -81,7 +81,12 @@
         },
         "testMatch": [
             "**/*.test.ts"
-        ]
+        ],
+        "globals": {
+            "ts-jest": {
+                "tsConfig": "<rootDir>/tsconfig/tsconfig.json"
+            }
+        }
     },
     "repository": "git@github.com:spacelephant/typescript-sdk.git",
     "license": "MIT",

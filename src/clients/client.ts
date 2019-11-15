@@ -19,8 +19,9 @@ import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
 export class UNSClient {
     public repositories: Record<string, Repository> = {};
 
-    public init(config: UNSClientConfig) {
+    public init(config: UNSClientConfig): UNSClient {
         this.initRepositories(config.network, config.customNode);
+        return this;
     }
 
     private getResource<T extends Repository>(name: string): T {
