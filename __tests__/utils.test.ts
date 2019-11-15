@@ -3,8 +3,8 @@ import { merge, join } from "../src/utils";
 describe("Utilities", () => {
     describe("merge", () => {
         it("should allow null parameters", () => {
-            expect(merge({ a: 1 }, null)).toStrictEqual({ a: 1 });
-            expect(merge(null, { b: 2 })).toStrictEqual({ b: 2 });
+            expect(merge({ a: 1 }, {})).toStrictEqual({ a: 1 });
+            expect(merge({}, { b: 2 })).toStrictEqual({ b: 2 });
         });
     });
 

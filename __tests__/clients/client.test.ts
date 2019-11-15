@@ -83,7 +83,7 @@ describe("UNSClient", () => {
         });
 
         describe("transactions", () => {
-            const transactionMock = id => mock.get(`/transactions/${id}`);
+            const transactionMock = (id: string) => mock.get(`/transactions/${id}`);
 
             it("should return Transaction with chainmeta", async () => {
                 expect.assertions(3);
@@ -129,7 +129,7 @@ describe("UNSClient", () => {
         });
 
         describe("unik", () => {
-            const unikMock = id => mock.get(`/uniks/${id}`);
+            const unikMock = (id: string) => mock.get(`/uniks/${id}`);
 
             describe("get", () => {
                 it("should return a Unik with chain meta", async () => {
@@ -176,7 +176,7 @@ describe("UNSClient", () => {
             });
 
             describe("property", () => {
-                const propertyMock = (id, key) => mock.get(`/uniks/${id}/properties/${key}`);
+                const propertyMock = (id: string, key: string) => mock.get(`/uniks/${id}/properties/${key}`);
 
                 it("should return unik property with chain meta", async () => {
                     expect.assertions(1);

@@ -7,7 +7,7 @@ describe("DID types", () => {
         expect(DIDHelpers.codes).toBeDefined();
         expect(DIDHelpers.fromLabel).toBeDefined();
         expect(DIDHelpers.fromCode).toBeDefined();
-        const t: DIDType = DIDHelpers.fromCode(DIDTypes.INDIVIDUAL);
+        const t: DIDType | undefined = DIDHelpers.fromCode(DIDTypes.INDIVIDUAL);
         expect(t).toBe("INDIVIDUAL");
     });
 });
