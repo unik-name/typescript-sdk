@@ -8,7 +8,9 @@ import nock = require("nock");
 // TODO: these tests are testing safetypo webservice when we want to test `parse` function.
 // It must be re-worked
 describe("DID Parser", () => {
-    const client = new UNSClient(Network.devnet);
+    const client = new UNSClient();
+    client.init({ network: Network.devnet });
+
     describe("Fails: ", () => {
         shouldFail.forEach(fail => {
             it(fail.did, async () => {

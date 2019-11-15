@@ -21,7 +21,8 @@ export const getPropertyValue = async (
 ): Promise<ResponseWithChainMeta<PropertyValue> | PropertyValue> => {
     const options: PropertyOptions = merge(defaultPropertyOptions, opts);
 
-    const client = new UNSClient(network);
+    const client = new UNSClient();
+    client.init({ network });
 
     const propertyValue: ResponseWithChainMeta<PropertyValue> = await getPropertyValueWithChainmeta(
         unikid,

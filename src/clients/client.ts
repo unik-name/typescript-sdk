@@ -12,15 +12,15 @@ import {
     DiscloseDemandCertificationRepository,
     DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
 } from "./repositories";
-import { Network } from "../config";
+import { Network, UNSClientConfig } from "../config";
 import { Repository } from "./repository";
 import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
 
 export class UNSClient {
     public repositories: Record<string, Repository> = {};
 
-    constructor(network: Network, customNode?: string) {
-        this.initRepositories(network, customNode);
+    public init(config: UNSClientConfig) {
+        this.initRepositories(config.network, config.customNode);
     }
 
     private getResource<T extends Repository>(name: string): T {

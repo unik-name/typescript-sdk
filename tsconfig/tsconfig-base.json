@@ -5,6 +5,7 @@
         "target": "es2018",
         "module": "commonjs",
         "moduleResolution": "node",
+        "declaration": true,
         "sourceMap": true,
         "strict": true,
         "noUnusedLocals": true,

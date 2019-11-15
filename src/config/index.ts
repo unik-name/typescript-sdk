@@ -39,3 +39,8 @@ export const UNSConfig: Record<Network, EndpointsConfig> = {
         },
     },
 };
+
+export type UNSClientConfig = {
+    network: Network;
+    customNode?: string;
+};

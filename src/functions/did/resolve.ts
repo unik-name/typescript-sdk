@@ -14,7 +14,8 @@ export interface DidResolution<T> {
 }
 
 export const didResolve = async (did: string, network: Network): Promise<DidResolution<PropertyValue | Unik>> => {
-    client = new UNSClient(network);
+    client = new UNSClient();
+    client.init({ network });
 
     const parseResult: DidParserResult | DidParserError = await parse(did, client);
 
