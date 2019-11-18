@@ -17,8 +17,10 @@ export abstract class Repository {
         this.url = join(this.getEndpoint(network), this.sub());
     }
 
-    protected async GET<T>(path: string): Promise<T> {
-        return (await http.get<T>(join(this.url, path), { headers: merge(this.defaultHeaders, this.headers) })).body;
+    protected async GET<T>(path: string, query?: string): Promise<T> {
+        const pathWithQuery = query ? `${path}?${query}` : path;
+        return (await http.get<T>(join(this.url, pathWithQuery), { headers: merge(this.defaultHeaders, this.headers) }))
+            .body;
     }
 
     protected async POST<T>(body: any = {}, path: string = ""): Promise<T> {
