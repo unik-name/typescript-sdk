@@ -5,3 +5,4 @@ export * from "./fingerprint";
 export * from "./safetypo";
 export * from "./discloseDemandCertification";
 export * from "./wallet";
+export * from "./blockchain";

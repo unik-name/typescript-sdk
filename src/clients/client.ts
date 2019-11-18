@@ -11,10 +11,12 @@ import {
     SafetypoRepository,
     DiscloseDemandCertificationRepository,
     DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
+    BLOCKCHAIN_REPOSITORY_SUB,
 } from "./repositories";
 import { Network, UNSClientConfig } from "../config";
 import { Repository } from "./repository";
 import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
+import { BlockchainRepository } from "./repositories/blockchain";
 
 export class UNSClient {
     public repositories: Record<string, Repository> = {};
@@ -56,6 +58,10 @@ export class UNSClient {
         return this.getResource<DiscloseDemandCertificationRepository>(DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB);
     }
 
+    public get blockchain(): BlockchainRepository {
+        return this.getResource<BlockchainRepository>(BLOCKCHAIN_REPOSITORY_SUB);
+    }
+
     private initRepositories(network: Network, customNode?: string) {
         this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(network, customNode);
         this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(network, customNode);
@@ -66,5 +72,6 @@ export class UNSClient {
         this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(
             network,
         );
+        this.repositories[BLOCKCHAIN_REPOSITORY_SUB] = new BlockchainRepository(network, customNode);
     }
 }
