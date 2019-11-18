@@ -23,6 +23,11 @@ export class UnikRepository extends ChainRepository {
         return this.GET<ResponseWithChainMeta<Unik>>(`${id}`);
     }
 
+    public async totalCount(): Promise<number> {
+        const uniks = await this.GET<ResponseWithChainMeta<Unik[]>>("", "limit=1");
+        return uniks && uniks.meta ? uniks.meta.totalCount : 0;
+    }
+
     public async property(id: string, key: string): Promise<ResponseWithChainMeta<PropertyValue>> {
         return this.GET<ResponseWithChainMeta<PropertyValue>>(`${id}/properties/${key}`);
     }
