@@ -2,6 +2,8 @@ export * from "./response";
 export * from "./client";
 export {
     NodeStatus,
+    NodeConfiguration,
+    BlockchainState,
     Transaction,
     Unik,
     PropertyValue,
