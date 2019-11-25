@@ -13,8 +13,8 @@ export {
 } from "./repositories";
 
 export {
-    DiscloseDemand,
-    DiscloseDemandCertification,
-    DiscloseDemandPayload,
-    DiscloseDemandCertificationPayload,
+    IDiscloseDemand,
+    IDiscloseDemandCertification,
+    IDiscloseDemandPayload,
+    IDiscloseDemandCertificationPayload,
 } from "@uns/crypto";

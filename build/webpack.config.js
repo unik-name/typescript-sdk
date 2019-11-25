@@ -66,4 +66,4 @@ const moduleConfig = {
     },
 };
 
-module.exports = [browserConfig, moduleConfig].map(({ babel, ...entry }) => merge(base(babel), entry));
+module.exports = [moduleConfig].map(({ babel, ...entry }) => merge(base(babel), entry));

@@ -1,7 +1,7 @@
 {
     "name": "@uns/ts-sdk",
     "description": "UNS typescript SDK",
-    "version": "2.0.0-alpha.0",
+    "version": "2.0.0-alpha.3",
     "contributors": [
         "Pierre Seznec <pierre.seznec@spacelephant.org>",
         "Guillaume Nicolas <guillaume@spacelephant.org>"
@@ -35,7 +35,8 @@
         "test:coverage": "yarn test --coverage --coveragePathIgnorePatterns='/(index.ts)$'"
     },
     "dependencies": {
-        "@uns/crypto": "^3.1.1",
+        "@uns/core-nft-crypto": "^4.0.0-dev.201911271454",
+        "@uns/crypto": "^4.0.0-dev.201911271449",
         "deepmerge": "^4.0.0",
         "is-url-superb": "^3.0.0",
         "ky": "^0.13.0",
@@ -56,8 +57,8 @@
         "lint-staged": "^9.2.5",
         "nock": "^11.3.3",
         "prettier": "^1.18.2",
-        "ts-loader": "^6.0.4",
         "ts-jest": "^24.0.2",
+        "ts-loader": "^6.0.4",
         "tslint": "^5.20.1",
         "typescript": "^3.7.2",
         "webpack": "^4.39.3",

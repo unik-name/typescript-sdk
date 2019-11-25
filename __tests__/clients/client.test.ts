@@ -22,7 +22,7 @@ import {
 } from "./__fixtures__";
 
 import { Wallet } from "../../src/clients/repositories/wallet";
-import { DiscloseDemandCertification } from "@uns/crypto";
+import { IDiscloseDemandCertification } from "@uns/crypto";
 
 describe("UNSClient", () => {
     describe("chain APIs", () => {
@@ -352,7 +352,7 @@ describe("UNSClient", () => {
 
                 discloseDemandCertificationMock().reply(400);
 
-                const result: Response<DiscloseDemandCertification> = await client.discloseDemandCertification.get(
+                const result: Response<IDiscloseDemandCertification> = await client.discloseDemandCertification.get(
                     parameters,
                 );
                 expect(result.error).toBeDefined();
