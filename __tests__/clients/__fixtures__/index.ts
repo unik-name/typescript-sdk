@@ -1,10 +1,10 @@
 import { Response } from "../../../src";
-import { DiscloseDemandCertification, DiscloseDemand } from "@uns/crypto";
+import { IDiscloseDemandCertification, IDiscloseDemand } from "@uns/crypto";
 import { DIDTypes } from "../../../src/types";
 
 export const unikid = "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77";
 
-export const discloseDemandCertification: Response<DiscloseDemandCertification> = {
+export const discloseDemandCertification: Response<IDiscloseDemandCertification> = {
     data: {
         payload: {
             sub: unikid,
@@ -15,7 +15,7 @@ export const discloseDemandCertification: Response<DiscloseDemandCertification> 
     },
 };
 
-export const parameters: DiscloseDemand = {
+export const parameters: IDiscloseDemand = {
     payload: {
         sub: unikid,
         iss: unikid,

@@ -1,13 +1,13 @@
 import { Response } from "../response";
-import { DiscloseDemand, DiscloseDemandCertification } from "@uns/crypto";
+import { IDiscloseDemand, IDiscloseDemandCertification } from "@uns/crypto";
 import { ServiceRepository } from "./types/ServiceRepository";
 
 export const DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB: string = "disclose-demand-certification";
 
 export class DiscloseDemandCertificationRepository extends ServiceRepository {
-    public async get(parameters: DiscloseDemand): Promise<Response<DiscloseDemandCertification>> {
-        return this.withHttpErrorsHandling<Response<DiscloseDemandCertification>>(() =>
-            this.POST<Response<DiscloseDemandCertification>>(parameters),
+    public async get(parameters: IDiscloseDemand): Promise<Response<IDiscloseDemandCertification>> {
+        return this.withHttpErrorsHandling<Response<IDiscloseDemandCertification>>(() =>
+            this.POST<Response<IDiscloseDemandCertification>>(parameters),
         );
     }
 

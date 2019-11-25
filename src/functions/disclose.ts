@@ -1,12 +1,12 @@
-import { models, unsCrypto, DiscloseDemand, DiscloseDemandPayload } from "@uns/crypto";
+import { DIDTypes, unsCrypto, IDiscloseDemand, IDiscloseDemandPayload } from "@uns/crypto";
 
 export function buildDiscloseDemand(
     unikid: string,
     explicitValues: string[],
-    type: models.DIDTypes,
+    type: DIDTypes,
     passphrase: string,
-): DiscloseDemand {
-    const payload: DiscloseDemandPayload = {
+): IDiscloseDemand {
+    const payload: IDiscloseDemandPayload = {
         explicitValue: explicitValues,
         type,
         iss: unikid,
