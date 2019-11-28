@@ -1,29 +1,36 @@
+import { DEFAULT_CLIENT_CONFIG, UNSClientConfig } from "../config";
 import {
-    TransactionRepository,
-    UnikRepository,
-    NodeRepository,
-    FINGERPRINT_REPOSITORY_SUB,
-    SAFETYPO_REPOSITORY_SUB,
-    UNIK_REPOSITORY_SUB,
-    TRANSACTION_REPOSITORY_SUB,
-    NODE_REPOSITORY_SUB,
-    FingerprintRepository,
-    SafetypoRepository,
+    BLOCKCHAIN_REPOSITORY_SUB,
     DiscloseDemandCertificationRepository,
     DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
-    BLOCKCHAIN_REPOSITORY_SUB,
+    FingerprintRepository,
+    FINGERPRINT_REPOSITORY_SUB,
+    NodeRepository,
+    NODE_REPOSITORY_SUB,
+    SafetypoRepository,
+    SAFETYPO_REPOSITORY_SUB,
+    TransactionRepository,
+    TRANSACTION_REPOSITORY_SUB,
+    UnikRepository,
+    UNIK_REPOSITORY_SUB,
 } from "./repositories";
-import { Network, UNSClientConfig } from "../config";
-import { Repository } from "./repository";
-import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
 import { BlockchainRepository } from "./repositories/blockchain";
+import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
+import { Repository } from "./repository";
 
 export class UNSClient {
     public repositories: Record<string, Repository> = {};
 
+    private config: UNSClientConfig = DEFAULT_CLIENT_CONFIG;
+
     public init(config: UNSClientConfig): UNSClient {
-        this.initRepositories(config.network, config.customNode);
+        this.config = config;
+        this.initRepositories();
         return this;
+    }
+
+    public get configuration(): UNSClientConfig {
+        return this.config;
     }
 
     private getResource<T extends Repository>(name: string): T {
@@ -62,7 +69,8 @@ export class UNSClient {
         return this.getResource<BlockchainRepository>(BLOCKCHAIN_REPOSITORY_SUB);
     }
 
-    private initRepositories(network: Network, customNode?: string) {
+    private initRepositories() {
+        const { network, customNode } = this.configuration;
         this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(network, customNode);
         this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(network, customNode);
         this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(network, customNode);
