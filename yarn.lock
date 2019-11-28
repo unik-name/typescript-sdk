@@ -11,7 +11,7 @@
     awilix "^4.2.2"
     dayjs "^1.8.15"
 
-"@arkecosystem/crypto@^2.6.0-next.4", "@arkecosystem/crypto@^2.6.0-next.6":
+"@arkecosystem/crypto@^2.6.0-next.6":
   version "2.6.0-next.6"
   resolved "https://registry.yarnpkg.com/@arkecosystem/crypto/-/crypto-2.6.0-next.6.tgz#588cd91938ca0c2b1442ca9479357ace9788afd2"
   integrity sha512-mLX83o+p6beaSxpIV8nNunfXyN0n56Q6Z0rS3pSFdqLQ1ViBPIQZxlFyPQgoerz4Nl0FBvS5+pRbNFa2N82LpQ==
@@ -546,20 +546,72 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@uns/core-nft-crypto@^4.0.0-dev.201911271454":
-  version "4.0.0-dev.201911271454"
-  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-4.0.0-dev.201911271454.tgz#cc250dcb999fd1c596c28f3f9c6e199b3912805a"
-  integrity sha512-mL2PgyrpNvdBxtZ9G0sMlwRb8gBA8W89Wk1AZ/vunmhD59ng4EFZlXYj4tHe08y7DAwCHrOdr4J5jw+XsVV0wQ==
+"@uns/ark-crypto@^4.0.0-dev", "@uns/ark-crypto@^4.0.0-dev.201911281737":
+  version "4.0.0-dev.201911281737"
+  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-4.0.0-dev.201911281737.tgz#e6c1f67bf70d1dc83b468293a8edf5580db9dff1"
+  integrity sha512-ROlUOIfYCudvTUzsO7A21f18V40wuXBfxP514CdJxzECQAe8/0p/P1kweAGH4Qyeq5aYMDcAXVGb+6WT1jx+AQ==
+  dependencies:
+    "@arkecosystem/utils" "0.8.3"
+    ajv "^6.10.2"
+    ajv-keywords "^3.4.1"
+    bcrypto "^4.1.0"
+    bip32 "^2.0.3"
+    bip39 "^3.0.2"
+    browserify-aes "^1.2.0"
+    bstring "^0.3.9"
+    buffer-xor "^2.0.2"
+    bytebuffer "^5.0.1"
+    dayjs "^1.8.15"
+    deepmerge "^4.0.0"
+    fast-memoize "^2.5.1"
+    ipaddr.js "^1.9.0"
+    lodash.get "^4.4.2"
+    lodash.set "^4.3.2"
+    lodash.sumby "^4.6.0"
+    long "~3"
+    tiny-glob "^0.2.6"
+    wif "^2.0.6"
+
+"@uns/ark-crypto@^4.0.0-dev.201911281815":
+  version "4.0.0-dev.201911281815"
+  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-4.0.0-dev.201911281815.tgz#037c632f685a0d7381a56f510ce7374747d67255"
+  integrity sha512-gJOMUnWlVCGDymSwqWBK1KuN0ho3NKuT4P9fsYg3W8YKOKCw4/ddaiE9nQ4+PmT7SAhjX+VKVf1S9+JPHsITQg==
+  dependencies:
+    "@arkecosystem/utils" "0.8.3"
+    ajv "^6.10.2"
+    ajv-keywords "^3.4.1"
+    bcrypto "^4.1.0"
+    bip32 "^2.0.3"
+    bip39 "^3.0.2"
+    browserify-aes "^1.2.0"
+    bstring "^0.3.9"
+    buffer-xor "^2.0.2"
+    bytebuffer "^5.0.1"
+    dayjs "^1.8.15"
+    deepmerge "^4.0.0"
+    fast-memoize "^2.5.1"
+    ipaddr.js "^1.9.0"
+    lodash.get "^4.4.2"
+    lodash.set "^4.3.2"
+    lodash.sumby "^4.6.0"
+    long "~3"
+    tiny-glob "^0.2.6"
+    wif "^2.0.6"
+
+"@uns/core-nft-crypto@^4.0.0-dev.201911281241":
+  version "4.0.0-dev.201911281241"
+  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-4.0.0-dev.201911281241.tgz#e00a0aa050da454cd99237ae2ce50dae906df652"
+  integrity sha512-obiuhiYPzHb2KobEoRem7vXz+NQcv7SZ9U1pgOkq4gowPvrzJnRvqnuyeqUWt+h/0E+6J1xUUE7Iq7su5PLv0w==
   dependencies:
     "@arkecosystem/core-interfaces" "^2.6.0-next.4"
-    "@arkecosystem/crypto" "^2.6.0-next.4"
+    "@uns/ark-crypto" "^4.0.0-dev"
 
-"@uns/crypto@^4.0.0-dev.201911271449":
-  version "4.0.0-dev.201911271449"
-  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-4.0.0-dev.201911271449.tgz#fda2174fc9465705a12e85d1b9c28c9eace12223"
-  integrity sha512-/VSC2OqUFENnkP/1MyfKCauHaNqTXteMwBN9eTQhqZzF5loWJSR1XXkqG8vSMkTDB/IkR8yBmmvwEfmfR7FSwQ==
+"@uns/crypto@^4.0.0-dev.201911281750":
+  version "4.0.0-dev.201911281750"
+  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-4.0.0-dev.201911281750.tgz#3a773a1b3a2e79ebf7aa91f6a8aa8006a6659ea0"
+  integrity sha512-fpkn8wGIFK729rccG6RO0l6ltnaYc8/sENwpFOqifiL+Sslo7XoRQ1pLlEmSaJNh9Ud9GXCoWPh+RvCXauajGg==
   dependencies:
-    "@arkecosystem/crypto" "^2.6.0-next.4"
+    "@uns/ark-crypto" "^4.0.0-dev.201911281737"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
