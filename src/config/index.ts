@@ -44,3 +44,5 @@ export type UNSClientConfig = {
     network: Network;
     customNode?: string;
 };
+
+export const DEFAULT_CLIENT_CONFIG: UNSClientConfig = { network: Network.dalinet };
