@@ -1,7 +1,7 @@
 {
     "name": "@uns/ts-sdk",
     "description": "UNS typescript SDK",
-    "version": "2.0.0-alpha.4",
+    "version": "2.0.0-alpha.7",
     "contributors": [
         "Pierre Seznec <pierre.seznec@spacelephant.org>",
         "Guillaume Nicolas <guillaume@spacelephant.org>"
@@ -36,7 +36,8 @@
     },
     "dependencies": {
         "@uns/core-nft-crypto": "^4.0.0-dev.201911281241",
-        "@uns/crypto": "^4.0.0-dev.201911281239",
+        "@uns/crypto": "^4.0.0-dev.201911281750",
+        "@uns/ark-crypto": "^4.0.0-dev.201911281815",
         "deepmerge": "^4.0.0",
         "is-url-superb": "^3.0.0",
         "ky": "^0.13.0",
