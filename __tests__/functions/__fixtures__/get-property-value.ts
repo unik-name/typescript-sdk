@@ -1,8 +1,6 @@
 import nock = require("nock");
-import { ResponseWithChainMeta, Unik, UNSConfig, Network } from "../../../src";
-
-export const NETWORK = Network.devnet;
-const CHAIN_ENDPOINT = UNSConfig[NETWORK].chain.url;
+import { ResponseWithChainMeta, Unik } from "../../../src";
+import { CHAIN_ENDPOINT } from "./tests-commons";
 
 export const UNIK_FINGERPRINT: string = "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77";
 const WALLET_ADDRESS: string = "DQLiVPs2b6rHYCANjVk7vWVfQqdo5rLvDU";

@@ -1,28 +1,27 @@
 import nock = require("nock");
+import { IDiscloseDemandCertification } from "@uns/crypto";
 import {
-    UNSClient,
+    FingerprintResult,
+    Network,
     NodeStatus,
     Response,
-    UNSConfig,
     ResponseWithChainMeta,
-    Transaction,
-    Network,
     SafeTypoResult,
-    FingerprintResult,
+    Transaction,
+    UNSClient,
+    Wallet,
 } from "../../src";
+import { UNSConfig } from "../../src/config";
 import {
-    parameters,
-    safetypoResponse,
-    fingerprintResponse,
-    walletId,
-    walletResponse,
-    wallet,
     chainmeta,
     discloseDemandCertification,
+    fingerprintResponse,
+    parameters,
+    safetypoResponse,
+    wallet,
+    walletId,
+    walletResponse,
 } from "./__fixtures__";
-
-import { Wallet } from "../../src/clients/repositories/wallet";
-import { IDiscloseDemandCertification } from "@uns/crypto";
 
 describe("UNSClient", () => {
     describe("chain APIs", () => {

@@ -1,8 +1,7 @@
-import { parse, UNSClient, Network, UNSConfig } from "../../../src";
-import { DidParserError } from "../../../src";
-import { shouldPass } from "./__fixtures__/parse-success";
+import { DidParserError, DidParserResult, Network, parse, UNSClient } from "../../../src";
+import { UNSConfig } from "../../../src/config";
 import { shouldFail } from "./__fixtures__/parse-fail";
-import { DidParserResult } from "../../../src";
+import { shouldPass } from "./__fixtures__/parse-success";
 import nock = require("nock");
 
 // TODO: these tests are testing safetypo webservice when we want to test `parse` function.

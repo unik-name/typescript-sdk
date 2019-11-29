@@ -1,16 +1,16 @@
-import { didResolve, DidResolution } from "../../../src";
-import nock = require("nock");
+import { DidResolution, didResolve } from "../../../src";
+import { NETWORK } from "../__fixtures__/tests-commons";
 import {
-    mockSafetypoRequest,
-    mockFingerprintRequest,
-    mockUnikRequest,
-    mockTransactionRequest,
-    mockPropertyRequest,
     META,
-    WALLET_ADDRESS,
+    mockFingerprintRequest,
+    mockPropertyRequest,
+    mockSafetypoRequest,
+    mockTransactionRequest,
+    mockUnikRequest,
     RESOLVED_UNIK_TOKEN,
-    NETWORK,
+    WALLET_ADDRESS,
 } from "./__fixtures__/resolve";
+import nock = require("nock");
 
 describe("DID Resolver", () => {
     beforeEach(() => {

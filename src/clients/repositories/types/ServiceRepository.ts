@@ -1,14 +1,20 @@
+import { Config } from "../../../config";
 import { Repository } from "../../repository";
-import { UNSConfig, Network } from "../../../config";
 
 export abstract class ServiceRepository extends Repository {
+    private static ENDPOINT_SUFFIX = "/api/v1";
+
     protected abstract sub(): string;
 
-    protected getEndpoint(network: Network): string {
-        return UNSConfig[network].service.url;
+    protected getEndpoint(): Config {
+        return this.endpointsConfig.service;
+    }
+
+    protected getEnpointSuffix(): string {
+        return ServiceRepository.ENDPOINT_SUFFIX;
     }
 
     protected headers = {
-        "Uns-Network": this.network,
+        "Uns-Network": this.endpointsConfig.network,
     };
 }
