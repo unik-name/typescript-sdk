@@ -4,9 +4,9 @@ import {
     mockPropertyRequest,
     UNIK_FINGERPRINT,
     META,
-    NETWORK,
 } from "./__fixtures__/get-property-value";
 import { ResponseWithChainMeta, PropertyValue, getPropertyValue } from "../../src";
+import { NETWORK } from "./__fixtures__/tests-commons";
 
 describe("Functions > getPropertyValue", () => {
     beforeEach(() => {

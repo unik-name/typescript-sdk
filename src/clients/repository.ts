@@ -1,36 +1,47 @@
-import { http } from "../clients/http";
-import { join } from "../utils";
-import { Network } from "../config";
-import { merge } from "../utils";
 import { HTTPError } from "ky-universal";
+import { http } from "../clients/http";
+import { Config, EndpointsConfig } from "../config";
+import { join, merge } from "../utils";
 
 export abstract class Repository {
+    protected endpointsConfig: EndpointsConfig;
+
     protected url: string;
-    protected network: Network;
 
     private defaultHeaders = {
         "content-type": "application/json",
     };
 
-    constructor(network: Network) {
-        this.network = network;
-        this.url = join(this.getEndpoint(network), this.sub());
+    constructor(endpointsConfig: EndpointsConfig) {
+        this.endpointsConfig = endpointsConfig;
+
+        const result = this.computeUrls();
+
+        this.getEndpoint().url = result.endpointUrl;
+        this.url = result.repositoryUrl;
     }
 
     protected async GET<T>(path: string, query?: string): Promise<T> {
         const pathWithQuery = query ? `${path}?${query}` : path;
-        return (await http.get<T>(join(this.url, pathWithQuery), { headers: merge(this.defaultHeaders, this.headers) }))
-            .body;
+        return (
+            await http.get<T>(join(this.url, pathWithQuery), {
+                headers: merge(this.defaultHeaders, this.headers),
+            })
+        ).body;
     }
 
     protected async POST<T>(body: any = {}, path: string = ""): Promise<T> {
-        return (await http.post<T>(join(this.url, path), { body, headers: merge(this.defaultHeaders, this.headers) }))
-            .body;
+        return (
+            await http.post<T>(join(this.url, path), {
+                body,
+                headers: merge(this.defaultHeaders, this.headers),
+            })
+        ).body;
     }
 
     protected abstract sub(): string;
 
-    protected abstract getEndpoint(network: Network): string;
+    protected abstract getEndpoint(): Config;
 
     protected headers: { [_: string]: string } = {};
 
@@ -45,4 +56,15 @@ export abstract class Repository {
             }
         }
     }
+
+    private computeUrls() {
+        const endpointUrl = new URL(this.getEnpointSuffix(), this.getEndpoint().url).toString();
+        // /!\ if you try to use URL(...) with the previous 'this.getEndpoint().url',
+        // Some parts of the full URL will be missing
+        const repositoryUrl = new URL(join(this.getEnpointSuffix(), this.sub()), this.getEndpoint().url).toString();
+
+        return { endpointUrl, repositoryUrl };
+    }
+
+    protected abstract getEnpointSuffix(): string;
 }

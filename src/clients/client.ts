@@ -1,4 +1,4 @@
-import { DEFAULT_CLIENT_CONFIG, UNSClientConfig } from "../config";
+import { DEFAULT_CLIENT_CONFIG, EndpointsConfig, UNSClientConfig, UNSConfig } from "../config";
 import {
     BLOCKCHAIN_REPOSITORY_SUB,
     DiscloseDemandCertificationRepository,
@@ -23,14 +23,21 @@ export class UNSClient {
 
     private config: UNSClientConfig = DEFAULT_CLIENT_CONFIG;
 
+    private endpointsConfig: EndpointsConfig = UNSClient.computeCurrentEndpointsConfig(DEFAULT_CLIENT_CONFIG);
+
     public init(config: UNSClientConfig): UNSClient {
         this.config = config;
+        this.endpointsConfig = UNSClient.computeCurrentEndpointsConfig(config);
         this.initRepositories();
         return this;
     }
 
     public get configuration(): UNSClientConfig {
         return this.config;
+    }
+
+    public get currentEndpointsConfig(): EndpointsConfig {
+        return this.endpointsConfig;
     }
 
     private getResource<T extends Repository>(name: string): T {
@@ -70,16 +77,29 @@ export class UNSClient {
     }
 
     private initRepositories() {
-        const { network, customNode } = this.configuration;
-        this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(network, customNode);
-        this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(network, customNode);
-        this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(network, customNode);
-        this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(network, customNode);
-        this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(network);
-        this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(network);
+        // Chain repositories
+        this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(this.currentEndpointsConfig);
+        this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(this.currentEndpointsConfig);
+        this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(this.currentEndpointsConfig);
+        this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(this.currentEndpointsConfig);
         this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(
-            network,
+            this.currentEndpointsConfig,
         );
-        this.repositories[BLOCKCHAIN_REPOSITORY_SUB] = new BlockchainRepository(network, customNode);
+        this.repositories[BLOCKCHAIN_REPOSITORY_SUB] = new BlockchainRepository(this.currentEndpointsConfig);
+
+        // Unik-name services
+        this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(this.currentEndpointsConfig);
+        this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(this.currentEndpointsConfig);
+    }
+
+    private static computeCurrentEndpointsConfig(unsClientConfig: UNSClientConfig): EndpointsConfig {
+        const { network, customNode } = unsClientConfig;
+
+        const currentEndpointsConfig = UNSConfig[network];
+
+        if (customNode) {
+            currentEndpointsConfig.chain = { url: customNode, customValue: true };
+        }
+        return currentEndpointsConfig;
     }
 }

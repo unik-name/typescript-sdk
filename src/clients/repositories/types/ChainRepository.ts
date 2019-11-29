@@ -1,18 +1,16 @@
+import { Config } from "../../../config";
 import { Repository } from "../../repository";
-import { UNSConfig, Network } from "../../../config";
-import { join } from "../../../utils";
 
 export abstract class ChainRepository extends Repository {
+    private static ENDPOINT_SUFFIX = "/api/v2";
+
     protected abstract sub(): string;
 
-    protected getEndpoint(network: Network): string {
-        return UNSConfig[network].chain.url;
+    protected getEnpointSuffix(): string {
+        return ChainRepository.ENDPOINT_SUFFIX;
     }
 
-    constructor(network: Network, customNode?: string) {
-        super(network);
-        if (customNode) {
-            this.url = join(`${customNode}/api/v2`, this.sub());
-        }
+    protected getEndpoint(): Config {
+        return this.endpointsConfig.chain;
     }
 }
