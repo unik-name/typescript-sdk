@@ -1,4 +1,4 @@
-import { DidResolution, Unik } from "../../../../src";
+import { DidResolution, ResolutionResult, Unik } from "../../../../src";
 import { API_ENDPOINT, CHAIN_ENDPOINT } from "../../__fixtures__/tests-commons";
 import nock = require("nock");
 
@@ -15,7 +15,16 @@ export const META = {
     },
 };
 
-export const RESOLVED_UNIK_TOKEN: DidResolution<Unik> = {
+export const RESOLVED_UNIK_TOKEN: DidResolution<ResolutionResult> = {
+    data: {
+        unikid: UNIK_FINGERPRINT,
+        ownerAddress: WALLET_ADDRESS,
+    },
+    chainmeta: META,
+    confirmations: 20,
+};
+
+export const UNIK_TOKEN: DidResolution<Unik> = {
     data: {
         id: UNIK_FINGERPRINT,
         ownerId: WALLET_ADDRESS,
@@ -56,7 +65,7 @@ export const mockUnikRequest = () => {
     nock(CHAIN_ENDPOINT)
         .get("/uniks/a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77")
         .reply(200, {
-            ...RESOLVED_UNIK_TOKEN,
+            ...UNIK_TOKEN,
         });
 };
 

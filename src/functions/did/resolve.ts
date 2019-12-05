@@ -1,4 +1,4 @@
-import { UNSClient, ChainMeta, FingerprintResult, Response, FunctionalError, Unik, PropertyValue } from "../..";
+import { UNSClient, ChainMeta, FingerprintResult, Response, FunctionalError, Unik } from "../..";
 import { parse } from "./parse";
 import { DidParserError, DidParserResult } from "./types";
 import { Network } from "../../config";
@@ -13,7 +13,18 @@ export interface DidResolution<T> {
     error?: FunctionalError | DidParserError;
 }
 
-export const didResolve = async (did: string, network: Network): Promise<DidResolution<PropertyValue | Unik>> => {
+export type ResolutionResult = {
+    unikid: string;
+    ownerAddress: string;
+    [_: string]: string;
+};
+
+/**
+ * Returns owner address (string), UNIK informations or Property value with UNIK informations (ResolutionResult)
+ * @param did
+ * @param network
+ */
+export const didResolve = async (did: string, network: Network): Promise<DidResolution<string | ResolutionResult>> => {
     client = new UNSClient();
     client.init({ network });
 
@@ -40,19 +51,42 @@ export const didResolve = async (did: string, network: Network): Promise<DidReso
         return { error: new Error("Unable to compute DID id") };
     }
 
+    const unik = await getUnikWithChainMetaAndConfirmations(tokenId, client);
+
+    if (!unik.data) {
+        return { error: new Error(`Unable to find UNIK ${tokenId}`) };
+    }
+
+    let datas;
+
     if (parseResult.query) {
         if (parseResult.query === "?*") {
-            const unik = await getUnikWithChainMetaAndConfirmations(tokenId, client);
-            return {
-                data: unik?.data?.ownerId,
-                chainmeta: unik.chainmeta,
-                confirmations: unik.confirmations,
-            };
+            // Returns DID owner address
+            datas = unik?.data?.ownerId;
         } else {
-            // Return property
+            // Returns UNIK infomations with property value
             const query = parseResult.query.substr(1);
-            return getPropertyValueWithChainmeta(tokenId, query, client);
+            const propertyValue = await getPropertyValueWithChainmeta(tokenId, query, client);
+
+            datas = {
+                ...computeUnikDatas(unik.data),
+                [query]: propertyValue?.data,
+            };
         }
+    } else {
+        // Returns UNIK informations
+        datas = computeUnikDatas(unik.data);
     }
-    return getUnikWithChainMetaAndConfirmations(tokenId, client);
+    return {
+        data: datas,
+        chainmeta: unik.chainmeta,
+        confirmations: unik.confirmations,
+    };
 };
+
+function computeUnikDatas(unik: Unik) {
+    return {
+        unikid: unik.id,
+        ownerAddress: unik.ownerId,
+    };
+}
