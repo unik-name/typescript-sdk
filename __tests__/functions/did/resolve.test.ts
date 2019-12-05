@@ -1,4 +1,4 @@
-import { DidResolution, didResolve } from "../../../src";
+import { DidResolution, didResolve, ResolutionResult } from "../../../src";
 import { NETWORK } from "../__fixtures__/tests-commons";
 import {
     META,
@@ -21,7 +21,7 @@ describe("DID Resolver", () => {
         mockTransactionRequest();
     });
 
-    it("should return UNIK token", async () => {
+    it("should return UNIK token informations", async () => {
         const resolved = await didResolve("@unik:individual:myUnikName", NETWORK);
         expect(resolved).toEqual(RESOLVED_UNIK_TOKEN);
     });
@@ -32,8 +32,10 @@ describe("DID Resolver", () => {
     });
 
     it("should return UNIK token type property value", async () => {
+        mockUnikRequest();
         mockPropertyRequest();
+        mockTransactionRequest();
         const resolved = await didResolve("@unik:individual:myUnikName?type", NETWORK);
-        expect((resolved as DidResolution<string>).data).toEqual("1");
+        expect((resolved as DidResolution<ResolutionResult>).data?.type).toEqual("1");
     });
 });
