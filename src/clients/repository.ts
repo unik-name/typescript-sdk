@@ -1,7 +1,7 @@
 import { HTTPError } from "ky-universal";
 import { http } from "../clients/http";
 import { Config, EndpointsConfig } from "../config";
-import { join, merge } from "../utils";
+import { join, merge, computeRequestUrl } from "../utils";
 
 export abstract class Repository {
     protected endpointsConfig: EndpointsConfig;
@@ -22,18 +22,8 @@ export abstract class Repository {
     }
 
     protected async GET<T>(path: string, query?: string): Promise<T> {
-        let requestUrl: string = this.url;
-
-        if (path) {
-            requestUrl = join(requestUrl, path);
-        }
-
-        if (query) {
-            requestUrl = `${requestUrl}?${query}`;
-        }
-
         return (
-            await http.get<T>(requestUrl, {
+            await http.get<T>(computeRequestUrl(this.url, path, query), {
                 headers: merge(this.defaultHeaders, this.headers),
             })
         ).body;
