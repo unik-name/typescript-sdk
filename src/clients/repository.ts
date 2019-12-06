@@ -22,9 +22,18 @@ export abstract class Repository {
     }
 
     protected async GET<T>(path: string, query?: string): Promise<T> {
-        const pathWithQuery = query ? `${path}?${query}` : path;
+        let requestUrl: string = this.url;
+
+        if (path) {
+            requestUrl = join(requestUrl, path);
+        }
+
+        if (query) {
+            requestUrl = `${requestUrl}?${query}`;
+        }
+
         return (
-            await http.get<T>(join(this.url, pathWithQuery), {
+            await http.get<T>(requestUrl, {
                 headers: merge(this.defaultHeaders, this.headers),
             })
         ).body;
