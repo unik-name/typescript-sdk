@@ -10,6 +10,7 @@ export {
     FingerprintResult,
     SafeTypoResult,
     Wallet,
+    INftStatus,
 } from "./repositories";
 
 export {

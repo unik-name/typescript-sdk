@@ -6,3 +6,4 @@ export * from "./safetypo";
 export * from "./discloseDemandCertification";
 export * from "./wallet";
 export * from "./blockchain";
+export * from "./nft";

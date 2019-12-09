@@ -13,6 +13,8 @@ import {
     TRANSACTION_REPOSITORY_SUB,
     UnikRepository,
     UNIK_REPOSITORY_SUB,
+    NFT_REPOSITORY_SUB,
+    NftRepository,
 } from "./repositories";
 import { BlockchainRepository } from "./repositories/blockchain";
 import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
@@ -56,6 +58,10 @@ export class UNSClient {
         return this.getResource<UnikRepository>(UNIK_REPOSITORY_SUB);
     }
 
+    public get nft(): NftRepository {
+        return this.getResource<NftRepository>(NFT_REPOSITORY_SUB);
+    }
+
     public get wallet(): WalletRepository {
         return this.getResource<WalletRepository>(WALLET_REPOSITORY_SUB);
     }
@@ -81,6 +87,7 @@ export class UNSClient {
         this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(this.currentEndpointsConfig);
         this.repositories[TRANSACTION_REPOSITORY_SUB] = new TransactionRepository(this.currentEndpointsConfig);
         this.repositories[UNIK_REPOSITORY_SUB] = new UnikRepository(this.currentEndpointsConfig);
+        this.repositories[NFT_REPOSITORY_SUB] = new NftRepository(this.currentEndpointsConfig);
         this.repositories[WALLET_REPOSITORY_SUB] = new WalletRepository(this.currentEndpointsConfig);
         this.repositories[DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new DiscloseDemandCertificationRepository(
             this.currentEndpointsConfig,

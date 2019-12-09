@@ -1,5 +1,6 @@
 import { ResponseWithChainMeta } from "../response";
 import { ChainRepository } from "./types/ChainRepository";
+import { INftStatus } from "./nft";
 
 export const UNIK_REPOSITORY_SUB: string = "uniks";
 
@@ -30,6 +31,10 @@ export class UnikRepository extends ChainRepository {
 
     public async property(id: string, key: string): Promise<ResponseWithChainMeta<PropertyValue>> {
         return this.GET<ResponseWithChainMeta<PropertyValue>>(`${id}/properties/${key}`);
+    }
+
+    public async status(): Promise<ResponseWithChainMeta<INftStatus>> {
+        return this.GET<ResponseWithChainMeta<INftStatus>>("status");
     }
 
     protected sub(): string {
