@@ -1,5 +1,5 @@
 export enum Network {
-    devnet = "devnet",
+    sandbox = "sandbox",
     dalinet = "dalinet",
     default = dalinet,
     testnet = "testnet",
@@ -17,10 +17,10 @@ export type EndpointsConfig = {
 };
 
 export const UNSConfig: Record<Network, EndpointsConfig> = {
-    devnet: {
-        network: Network.devnet,
+    sandbox: {
+        network: Network.sandbox,
         chain: {
-            url: "https://forger1.devnet.uns.network",
+            url: "https://forger1.sandbox.uns.network",
             customValue: false,
         },
         service: {

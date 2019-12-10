@@ -8,7 +8,7 @@ import nock = require("nock");
 // It must be re-worked
 describe("DID Parser", () => {
     const client = new UNSClient();
-    client.init({ network: Network.devnet });
+    client.init({ network: Network.sandbox });
 
     describe("Fails: ", () => {
         shouldFail.forEach(fail => {
@@ -22,7 +22,7 @@ describe("DID Parser", () => {
     describe("Successes: ", () => {
         beforeEach(() => {
             // We only mock safetypo, we don't test safetypo result here, just parser
-            nock(UNSConfig.devnet.service.url)
+            nock(UNSConfig.sandbox.service.url)
                 .post("/safetypo/")
                 .reply(200, { data: {} });
         });

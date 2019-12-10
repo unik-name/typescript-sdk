@@ -26,8 +26,8 @@ import {
 describe("UNSClient", () => {
     describe("chain APIs", () => {
         const client = new UNSClient();
-        client.init({ network: Network.devnet });
-        const mock = nock(UNSConfig.devnet.chain.url);
+        client.init({ network: Network.sandbox });
+        const mock = nock(UNSConfig.sandbox.chain.url);
 
         describe("node", () => {
             const nodeMock = mock.get("/node/status");
@@ -109,7 +109,7 @@ describe("UNSClient", () => {
 
                 transactionMock(response.data.id).reply(200, response);
                 const client = new UNSClient();
-                client.init({ network: Network.devnet });
+                client.init({ network: Network.sandbox });
                 const result: ResponseWithChainMeta<Transaction> = await client.transaction.get(response.data.id);
                 expect(result.data).toStrictEqual(response.data);
                 expect(result.chainmeta).toStrictEqual(response.chainmeta);
@@ -121,7 +121,7 @@ describe("UNSClient", () => {
 
                 transactionMock(id).reply(404);
                 const client = new UNSClient();
-                client.init({ network: Network.devnet });
+                client.init({ network: Network.sandbox });
 
                 await expect(client.transaction.get(id)).rejects.toThrowError("Not Found");
             });
@@ -137,7 +137,7 @@ describe("UNSClient", () => {
                     const response = {
                         data: {
                             id: "51615becbd39ad96344919dffa7b972f293b0a3973b05145fd6d0a1a20cac169",
-                            ownerId: "DQ377ETcezsrPamYsQE4FyiXkXcUxhSsFW",
+                            ownerId: "SQ377ETcezsrPamYsQE4FyiXkXcUxhSsFW",
                             transactions: {
                                 first: {
                                     id: "d05caaf67e5e04a0d6bef4463ec808ba1527b54bcb36f3c9d188cb6202930900",
@@ -215,9 +215,9 @@ describe("UNSClient", () => {
 
     describe("service APIs", () => {
         const client = new UNSClient();
-        client.init({ network: Network.devnet });
+        client.init({ network: Network.sandbox });
 
-        const mock = nock(UNSConfig.devnet.service.url);
+        const mock = nock(UNSConfig.sandbox.service.url);
 
         describe("default headers", () => {
             it("should send http request with uns-network header", async () => {
@@ -225,7 +225,7 @@ describe("UNSClient", () => {
 
                 const fn = jest.fn().mockReturnValue(safetypoResponse);
 
-                mock.matchHeader("Uns-Network", "devnet")
+                mock.matchHeader("Uns-Network", "sandbox")
                     .post("/safetypo/")
                     .reply(200, fn);
 
