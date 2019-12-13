@@ -39,6 +39,7 @@ export const didResolve = async (did: string, network: Network): Promise<DidReso
     const fingerprintResult: Response<FingerprintResult> = await client.fingerprint.compute(
         parseResult.explicitValue,
         parseResult.type,
+        parseResult.tokenName,
     );
 
     if (fingerprintResult.error) {
