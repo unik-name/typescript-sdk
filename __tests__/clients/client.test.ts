@@ -296,7 +296,7 @@ describe("UNSClient", () => {
 
                 fingerprintMock.reply(200, fingerprintResponse);
 
-                const result = await client.fingerprint.compute("myUnikName", "INDIVIDUAL");
+                const result = await client.fingerprint.compute("myUnikName", "INDIVIDUAL", "UNIK");
                 expect(result.data).toStrictEqual(fingerprintResponse.data);
                 expect(result.error).toBeUndefined();
             });
@@ -306,7 +306,11 @@ describe("UNSClient", () => {
 
                 fingerprintMock.reply(400);
 
-                const result: Response<FingerprintResult> = await client.fingerprint.compute("toto", "INDIVIDUAL");
+                const result: Response<FingerprintResult> = await client.fingerprint.compute(
+                    "toto",
+                    "INDIVIDUAL",
+                    "UNIK",
+                );
                 expect(result.error).not.toBeUndefined();
                 expect(result.data).toBeUndefined();
             });
@@ -316,7 +320,7 @@ describe("UNSClient", () => {
 
                 fingerprintMock.reply(500);
 
-                await expect(client.fingerprint.compute("toto", "INDIVIDUAL")).rejects.toThrowError(
+                await expect(client.fingerprint.compute("toto", "INDIVIDUAL", "UNIK")).rejects.toThrowError(
                     "Internal Server Error",
                 );
             });
@@ -328,7 +332,7 @@ describe("UNSClient", () => {
                     throw new Error("this is a custom error");
                 });
 
-                await expect(client.fingerprint.compute("toto", "INDIVIDUAL")).rejects.toThrowError(
+                await expect(client.fingerprint.compute("toto", "INDIVIDUAL", "UNIK")).rejects.toThrowError(
                     "this is a custom error",
                 );
             });
