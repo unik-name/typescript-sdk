@@ -12,8 +12,8 @@ export class NftRepository extends ChainRepository {
     /**
      * Returns NFTs' name list
      */
-    public async status(): Promise<ResponseWithChainMeta<string[]>> {
-        return this.GET<ResponseWithChainMeta<string[]>>("status");
+    public async status(): Promise<ResponseWithChainMeta<INftStatus[]>> {
+        return this.GET<ResponseWithChainMeta<INftStatus[]>>("status");
     }
 
     protected sub(): string {
