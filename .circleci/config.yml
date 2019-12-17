@@ -113,7 +113,7 @@ jobs:
       - *setup_envvars
       - *attach_workspace
       - run:
-          command: ./scripts/publish_nightly
+          command: ./scripts/publish-nightly.sh
       - *slack_notification
 
 ####################################
