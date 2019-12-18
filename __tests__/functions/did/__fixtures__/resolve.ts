@@ -43,7 +43,7 @@ export const UNIK_TOKEN: DidResolution<Unik> = {
 
 export const mockSafetypoRequest = () => {
     nock(API_ENDPOINT)
-        .post("/safetypo/")
+        .post("/safetypo")
         .reply(200, {
             data: {
                 core: "rnyun1knarne",
@@ -53,7 +53,7 @@ export const mockSafetypoRequest = () => {
 
 export const mockFingerprintRequest = () => {
     nock(API_ENDPOINT)
-        .post("/unik-name-fingerprint/")
+        .post("/unik-name-fingerprint")
         .reply(200, {
             data: {
                 fingerprint: "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77",

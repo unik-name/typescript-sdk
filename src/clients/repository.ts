@@ -31,7 +31,7 @@ export abstract class Repository {
 
     protected async POST<T>(body: any = {}, path: string = ""): Promise<T> {
         return (
-            await http.post<T>(join(this.url, path), {
+            await http.post<T>(computeRequestUrl(this.url, path), {
                 body,
                 headers: merge(this.defaultHeaders, this.headers),
             })

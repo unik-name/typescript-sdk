@@ -11,6 +11,8 @@ export {
     SafeTypoResult,
     Wallet,
     INftStatus,
+    IProcessorResult,
+    Token,
 } from "./repositories";
 
 export {
