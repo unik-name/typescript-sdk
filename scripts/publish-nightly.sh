@@ -19,7 +19,7 @@ fi
 echo "Bump package version."
 DATE=$(date +%Y%m%d)
 dev="-dev.$DATE"
-sed  -i '' '/version/s/[^0-9]*$/'"$dev\",/" package.json
+sed  -i.bak '/version/s/[^0-9]*$/'"$dev\",/" package.json
 
 echo "Authenticate with registry."
 if [[ -z "$NPM_TOKEN" ]];then
