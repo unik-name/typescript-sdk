@@ -30,6 +30,3 @@ echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
 
 echo "Publish package"
 npm publish --tag=dev
-
-echo "Add dist-tags @next"
-npm dist-tag add $name@$version$dev next
