@@ -13,9 +13,18 @@ export type Wallet = {
     vote?: string;
 };
 
+export interface Token {
+    id: string;
+    ownerId: string;
+}
+
 export class WalletRepository extends ChainRepository {
     public async get(id: string): Promise<ResponseWithChainMeta<Wallet>> {
         return this.GET<ResponseWithChainMeta<Wallet>>(`${id}`);
+    }
+
+    public async tokens(id: string, nftName: string): Promise<ResponseWithChainMeta<Token[]>> {
+        return this.GET<ResponseWithChainMeta<Token[]>>(`${id}/${nftName}s`);
     }
 
     protected sub(): string {

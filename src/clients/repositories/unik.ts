@@ -32,6 +32,10 @@ export class UnikRepository extends ChainRepository {
         return this.GET<ResponseWithChainMeta<PropertyValue>>(`${id}/properties/${key}`);
     }
 
+    public async properties(id: string): Promise<ResponseWithChainMeta<{ [_: string]: PropertyValue }[]>> {
+        return this.GET<ResponseWithChainMeta<{ [_: string]: PropertyValue }[]>>(`${id}/properties`);
+    }
+
     protected sub(): string {
         return UNIK_REPOSITORY_SUB;
     }

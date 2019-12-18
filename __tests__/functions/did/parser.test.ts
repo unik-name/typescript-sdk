@@ -23,7 +23,7 @@ describe("DID Parser", () => {
         beforeEach(() => {
             // We only mock safetypo, we don't test safetypo result here, just parser
             nock(UNSConfig.sandbox.service.url)
-                .post("/safetypo/")
+                .post("/safetypo")
                 .reply(200, { data: {} });
         });
         shouldPass.forEach(success => {

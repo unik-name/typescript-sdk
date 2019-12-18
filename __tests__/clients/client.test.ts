@@ -226,7 +226,7 @@ describe("UNSClient", () => {
                 const fn = jest.fn().mockReturnValue(safetypoResponse);
 
                 mock.matchHeader("Uns-Network", "sandbox")
-                    .post("/safetypo/")
+                    .post("/safetypo")
                     .reply(200, fn);
 
                 await client.safetypo.analyze("explicitValue");
@@ -239,7 +239,7 @@ describe("UNSClient", () => {
                 nock.cleanAll();
             });
 
-            const safetypoMock = mock.post("/safetypo/");
+            const safetypoMock = mock.post("/safetypo");
 
             it("should return a safetypo result", async () => {
                 expect.assertions(2);
@@ -289,7 +289,7 @@ describe("UNSClient", () => {
                 nock.cleanAll();
             });
 
-            const fingerprintMock = mock.post("/unik-name-fingerprint/");
+            const fingerprintMock = mock.post("/unik-name-fingerprint");
 
             it("should return a fingerprint", async () => {
                 expect.assertions(2);
@@ -339,7 +339,7 @@ describe("UNSClient", () => {
         });
 
         describe("discloseDemandCertification", () => {
-            const discloseDemandCertificationMock = () => mock.post("/disclose-demand-certification/");
+            const discloseDemandCertificationMock = () => mock.post("/disclose-demand-certification");
 
             it("should return a DiscloseDemandCertification", async () => {
                 expect.assertions(1);
