@@ -46,7 +46,7 @@ export const mockSafetypoRequest = () => {
         .post("/safetypo")
         .reply(200, {
             data: {
-                core: "rnyun1knarne",
+                core: Buffer.from(Uint16Array.from([0xff, 0xdd, 666, 777]).buffer),
             },
         });
 };
