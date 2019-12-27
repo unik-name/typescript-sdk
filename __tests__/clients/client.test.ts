@@ -243,11 +243,11 @@ describe("UNSClient", () => {
 
             it("should return a safetypo result", async () => {
                 expect.assertions(2);
-
                 safetypoMock.reply(200, safetypoResponse);
 
-                const result: Response<SafeTypoResult> = await client.safetypo.analyze(safetypoResponse.data.core);
-                expect(result.data).toStrictEqual(safetypoResponse.data);
+                const result: Response<SafeTypoResult> = await client.safetypo.analyze(safetypoResponse.data.explicit);
+
+                expect(Buffer.from(result.data?.core as Buffer)).toStrictEqual(safetypoResponse.data.core);
                 expect(result.error).toBeUndefined();
             });
 
@@ -256,7 +256,7 @@ describe("UNSClient", () => {
 
                 safetypoMock.reply(400);
 
-                const result: Response<SafeTypoResult> = await client.safetypo.analyze(safetypoResponse.data.core);
+                const result: Response<SafeTypoResult> = await client.safetypo.analyze(safetypoResponse.data.explicit);
                 expect(result.error).not.toBeUndefined();
                 expect(result.data).toBeUndefined();
             });
@@ -266,7 +266,7 @@ describe("UNSClient", () => {
 
                 safetypoMock.reply(500);
 
-                await expect(client.safetypo.analyze(safetypoResponse.data.core)).rejects.toThrowError(
+                await expect(client.safetypo.analyze(safetypoResponse.data.explicit)).rejects.toThrowError(
                     "Internal Server Error",
                 );
             });
@@ -278,7 +278,7 @@ describe("UNSClient", () => {
                     throw new Error("this is a custom error");
                 });
 
-                await expect(client.safetypo.analyze(safetypoResponse.data.core)).rejects.toThrowError(
+                await expect(client.safetypo.analyze(safetypoResponse.data.explicit)).rejects.toThrowError(
                     "this is a custom error",
                 );
             });
