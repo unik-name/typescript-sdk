@@ -103,4 +103,44 @@ export const shouldPass: any[] = [
         did: "@bob_123",
         result: { tokenName: "unik", type: "INDIVIDUAL", explicitValue: "bob_123", query: undefined },
     },
+    {
+        did: "@unik:organization:bob?phone_number",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?phone_number" },
+    },
+    {
+        did: "@unik:organization:bob?phone-number",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?phone-number" },
+    },
+    {
+        did: "@unik:organization:bob?phone.number",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?phone.number" },
+    },
+    {
+        did: "@unik:organization:bob?phone+number",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?phone+number" },
+    },
+    {
+        did: "@unik:organization:bob?phone/number",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?phone/number" },
+    },
+    {
+        did: "@unik:organization:bob?.",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?." },
+    },
+    {
+        did: "@unik:organization:bob?_",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?_" },
+    },
+    {
+        did: "@unik:organization:bob?+",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?+" },
+    },
+    {
+        did: "@unik:organization:bob?-",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?-" },
+    },
+    {
+        did: "@unik:organization:bob?/",
+        result: { tokenName: "unik", type: "ORGANIZATION", explicitValue: "bob", query: "?/" },
+    },
 ];

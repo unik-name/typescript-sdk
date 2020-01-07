@@ -96,11 +96,6 @@ export const shouldFail: any[] = [
         message: PATTERN_MATCHING_ERROR_MSG,
     },
     {
-        did: "@unik:organization:bob?phone_number",
-        error: DidParserError,
-        message: PATTERN_MATCHING_ERROR_MSG,
-    },
-    {
         did: "@unik:organization:bob?phone@number",
         error: DidParserError,
         message: PATTERN_MATCHING_ERROR_MSG,
@@ -108,11 +103,6 @@ export const shouldFail: any[] = [
     {
         // Only one property
         did: "@unik:organization:bob?phone?number",
-        error: DidParserError,
-        message: PATTERN_MATCHING_ERROR_MSG,
-    },
-    {
-        did: "@unik:organization:bob?phone-number",
         error: DidParserError,
         message: PATTERN_MATCHING_ERROR_MSG,
     },
