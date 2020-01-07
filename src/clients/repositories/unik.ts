@@ -1,5 +1,6 @@
 import { ResponseWithChainMeta } from "../response";
 import { ChainRepository } from "./types/ChainRepository";
+import { escapeSlashes } from "../../utils";
 
 export const UNIK_REPOSITORY_SUB: string = "uniks";
 
@@ -29,7 +30,9 @@ export class UnikRepository extends ChainRepository {
     }
 
     public async property(id: string, key: string): Promise<ResponseWithChainMeta<PropertyValue>> {
-        return this.GET<ResponseWithChainMeta<PropertyValue>>(`${id}/properties/${key}`);
+        // Slashes have to be escaped
+        const escapedKey: string = escapeSlashes(key);
+        return this.GET<ResponseWithChainMeta<PropertyValue>>(`${id}/properties/${escapedKey}`);
     }
 
     public async properties(id: string): Promise<ResponseWithChainMeta<{ [_: string]: PropertyValue }[]>> {

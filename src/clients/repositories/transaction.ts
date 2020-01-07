@@ -1,5 +1,5 @@
 import { Interfaces } from "@uns/ark-crypto";
-import { ResponseWithChainMeta, Response } from "../response";
+import { ResponseWithChainMeta } from "../response";
 import { ChainTimestamp } from "../../types";
 import { ChainRepository } from "./types/ChainRepository";
 
@@ -20,10 +20,12 @@ export type Transaction = {
 };
 
 export type IProcessorResult = {
-    accept: string[];
-    broadcast: string[];
-    invalid: string[];
-    excess: string[];
+    data: {
+        accept: string[];
+        broadcast: string[];
+        invalid: string[];
+        excess: string[];
+    };
     errors:
         | {
               [key: string]: ITransactionErrorResponse[];
@@ -44,7 +46,7 @@ export class TransactionRepository extends ChainRepository {
         return this.GET<ResponseWithChainMeta<Transaction>>(`${id}`);
     }
 
-    public async send(transaction: Interfaces.ITransactionData): Promise<Response<IProcessorResult>> {
-        return this.POST<Response<IProcessorResult>>({ transactions: [transaction] });
+    public async send(transaction: Interfaces.ITransactionData): Promise<IProcessorResult> {
+        return this.POST<IProcessorResult>({ transactions: [transaction] });
     }
 }

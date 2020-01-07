@@ -1,8 +1,27 @@
 import { UNSClient } from "../../clients/client";
 import { DIDHelpers, DIDTypes, DIDType } from "../../types/did";
 import { DidParserResult, DidParserError } from "./types";
+import { UNS_NFT_PROPERTY_KEY_REGEX } from "@uns/crypto";
 
-const DID_PATTERN = /@?(unik:)?((?:individual|organization|network|1|2|3):)?([^\?\/\:@]+)(\?(?:[a-zA-Z0-9]+|\*{1}))?/;
+const TOKEN_PATTERN = /@?(unik:)?/;
+const TYPE_PATTERN = /((?:individual|organization|network|1|2|3):)?/;
+const ID_PATTERN = /([^\?\/\:@]+)/;
+
+let KEY_PROP_REGEX: string = UNS_NFT_PROPERTY_KEY_REGEX.source;
+
+// Remove start and end anchors if exist, the property key regex has to be inserted in another regex
+if (KEY_PROP_REGEX.startsWith("^")) {
+    KEY_PROP_REGEX = KEY_PROP_REGEX.substr(1);
+}
+
+if (KEY_PROP_REGEX.endsWith("$")) {
+    KEY_PROP_REGEX = KEY_PROP_REGEX.substr(0, KEY_PROP_REGEX.length - 1);
+}
+
+const QUERY_PATTERN = `(\\?(?:${KEY_PROP_REGEX}|\\*{1}))?`;
+
+const DID_PATTERN = new RegExp(TOKEN_PATTERN.source + TYPE_PATTERN.source + ID_PATTERN.source + QUERY_PATTERN);
+
 const DID_TYPES: string[] = Object.keys(DIDTypes).map(type => type.toLowerCase());
 
 export const allowedTypesByToken: {} = {

@@ -546,10 +546,36 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@uns/ark-crypto@^4.0.0", "@uns/ark-crypto@^4.0.0-dev.201911281815":
+"@uns/ark-crypto@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-4.0.0.tgz#5d87aaed41b7d04bc64336d657011b2c35522a7c"
   integrity sha512-oBMh0RmMfcVuiNyNc5kKgVjIffHfVgVoV4HI12oSuqPayOmh+eMZlclof0t+EAwneSq4DK7gzGbOu/hp5iEsOA==
+  dependencies:
+    "@arkecosystem/utils" "0.8.3"
+    ajv "^6.10.2"
+    ajv-keywords "^3.4.1"
+    bcrypto "^4.1.0"
+    bip32 "^2.0.3"
+    bip39 "^3.0.2"
+    browserify-aes "^1.2.0"
+    bstring "^0.3.9"
+    buffer-xor "^2.0.2"
+    bytebuffer "^5.0.1"
+    dayjs "^1.8.15"
+    deepmerge "^4.0.0"
+    fast-memoize "^2.5.1"
+    ipaddr.js "^1.9.0"
+    lodash.get "^4.4.2"
+    lodash.set "^4.3.2"
+    lodash.sumby "^4.6.0"
+    long "~3"
+    tiny-glob "^0.2.6"
+    wif "^2.0.6"
+
+"@uns/ark-crypto@^4.1.0-dev", "@uns/ark-crypto@^4.1.0-dev.20200110122300":
+  version "4.1.0-dev.20200110122300"
+  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-4.1.0-dev.20200110122300.tgz#533dd3b44451a365e8d268bc5892cef7f3a22518"
+  integrity sha512-HZrqGU4+k6ZrcOU2xxLCck1Z7AWoutv85byeJmod4G4DhZQFGWwf/s7v7umn1+eCIsIDn701sMPhzBOTCTFgew==
   dependencies:
     "@arkecosystem/utils" "0.8.3"
     ajv "^6.10.2"
@@ -580,12 +606,12 @@
     "@arkecosystem/core-interfaces" "^2.6.0-next.4"
     "@uns/ark-crypto" "^4.0.0"
 
-"@uns/crypto@^4.0.0-dev.201911281750":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-4.0.0.tgz#3c1701522cf44918b0ce7991ca0ab549fb08c59c"
-  integrity sha512-NJQGHTtczvAr3+NWH5egkOxj6F1qmo1xgCFkg2XQ4DeBRWAWepdE0+rk2BGlatUA+irlrQtjEUf4Aa4VFm0nLw==
+"@uns/crypto@^4.1.0-dev":
+  version "4.1.0-dev.20200110122300"
+  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-4.1.0-dev.20200110122300.tgz#0b35ce852757c56b8d0b86c0c0e775e4ac9626e3"
+  integrity sha512-PWWCBiTG68SNVPWcEL5DfdyqTcQfxpwJr11Jp3REMwfpUBcZfweDKmv9a455n+4RWCKaNbhjvmVUE/oQtls5xA==
   dependencies:
-    "@uns/ark-crypto" "^4.0.0"
+    "@uns/ark-crypto" "^4.1.0-dev.20200110122300"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
