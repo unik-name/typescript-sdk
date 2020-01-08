@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 # Check new commits since 24h
 if [ $(git log --since="1 day" | wc -l) -eq 0 ]; then
@@ -17,7 +17,7 @@ if [[ $version =~ "-" ]]; then
 fi
 
 echo "Bump package version."
-DATE=$(date +%Y%m%d)
+DATE=$(date -u +%Y%m%d%H%M%S)
 dev="-dev.$DATE"
 sed  -i.bak '/version/s/[^0-9]*$/'"$dev\",/" package.json
 
@@ -26,7 +26,10 @@ if [[ -z "$NPM_TOKEN" ]];then
     echo "Error: NPM_TOKEN is not set."
     exit 1
 fi
+
+set +x
 echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+set -x
 
 echo "Publish package"
 npm publish --tag=dev
