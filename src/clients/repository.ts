@@ -1,7 +1,9 @@
 import { HTTPError } from "ky-universal";
 import { http } from "../clients/http";
 import { Config, EndpointsConfig } from "../config";
-import { join, merge, computeRequestUrl } from "../utils";
+import { codes } from "../types/errors";
+import { computeRequestUrl, join, merge } from "../utils";
+import { Response } from "./response";
 
 export abstract class Repository {
     protected endpointsConfig: EndpointsConfig;
@@ -44,12 +46,42 @@ export abstract class Repository {
 
     protected headers: { [_: string]: string } = {};
 
-    protected async withHttpErrorsHandling<T>(fn: () => Promise<T>) {
+    protected async withHttpErrorsHandling<T>(fn: () => Promise<Response<T>>): Promise<Response<T>> {
         try {
             return await fn();
         } catch (error) {
             if (error instanceof HTTPError && [400].includes(error.response.status)) {
-                return { error };
+                // try to detect JSONAPI error format
+                if (error.response.headers.get("content-type") === "application/vnd.api+json") {
+                    const body = await error.response.json();
+                    if (body.errors) {
+                        if (Array.isArray(body.errors)) {
+                            const errors = body.errors as any[];
+                            if (errors.length === 1) {
+                                const firstError = errors[0];
+                                return {
+                                    error: {
+                                        message: firstError.title,
+                                        code: firstError.code,
+                                    },
+                                };
+                            } else {
+                                // TODO someday when necessary
+                                throw new Error("UNS SDK: the requested remote services is not JSON API compatible");
+                            }
+                        } else {
+                            // TODO someday when necessary
+                            throw new Error("UNS SDK: the requested remote services is not JSON API compatible");
+                        }
+                    }
+                }
+
+                return {
+                    error: {
+                        code: codes.HTTP_ERROR_RECEIVED.code,
+                        message: error.message,
+                    },
+                };
             } else {
                 throw error;
             }

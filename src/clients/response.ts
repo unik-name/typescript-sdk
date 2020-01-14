@@ -2,6 +2,7 @@ import { ChainMeta } from "../types";
 
 export interface FunctionalError {
     message: string;
+    code: string;
 }
 
 export type ApiMeta = {

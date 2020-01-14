@@ -346,7 +346,7 @@ describe("UNSClient", () => {
 
                 discloseDemandCertificationMock().reply(200, discloseDemandCertification);
 
-                const certification = await client.discloseDemandCertification.get(parameters);
+                const certification = await client.discloseDemandCertification.create(parameters);
                 expect(certification).toStrictEqual(discloseDemandCertification);
             });
 
@@ -355,7 +355,7 @@ describe("UNSClient", () => {
 
                 discloseDemandCertificationMock().reply(400);
 
-                const result: Response<IDiscloseDemandCertification> = await client.discloseDemandCertification.get(
+                const result: Response<IDiscloseDemandCertification> = await client.discloseDemandCertification.create(
                     parameters,
                 );
                 expect(result.error).toBeDefined();
@@ -367,7 +367,7 @@ describe("UNSClient", () => {
 
                 discloseDemandCertificationMock().reply(500);
 
-                await expect(client.discloseDemandCertification.get(parameters)).rejects.toThrowError(
+                await expect(client.discloseDemandCertification.create(parameters)).rejects.toThrowError(
                     "Internal Server Error",
                 );
             });
@@ -379,7 +379,7 @@ describe("UNSClient", () => {
                     throw new Error("this is a custom error");
                 });
 
-                await expect(client.discloseDemandCertification.get(parameters)).rejects.toThrowError(
+                await expect(client.discloseDemandCertification.create(parameters)).rejects.toThrowError(
                     "this is a custom error",
                 );
             });
