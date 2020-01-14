@@ -5,8 +5,8 @@ import { ServiceRepository } from "./types/ServiceRepository";
 export const DISCLOSE_DEMAND_CERTIFICATION_REPOSITORY_SUB: string = "disclose-demand-certification";
 
 export class DiscloseDemandCertificationRepository extends ServiceRepository {
-    public async get(parameters: IDiscloseDemand): Promise<Response<IDiscloseDemandCertification>> {
-        return this.withHttpErrorsHandling<Response<IDiscloseDemandCertification>>(() =>
+    public async create(parameters: IDiscloseDemand): Promise<Response<IDiscloseDemandCertification>> {
+        return this.withHttpErrorsHandling<IDiscloseDemandCertification>(() =>
             this.POST<Response<IDiscloseDemandCertification>>(parameters),
         );
     }

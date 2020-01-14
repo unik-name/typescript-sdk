@@ -9,7 +9,7 @@ export type SafeTypoResult = {
 
 export class SafetypoRepository extends ServiceRepository {
     public async analyze(explicitValue: string): Promise<Response<SafeTypoResult>> {
-        return this.withHttpErrorsHandling<Response<SafeTypoResult>>(() =>
+        return this.withHttpErrorsHandling<SafeTypoResult>(() =>
             this.POST<Response<SafeTypoResult>>({ explicitValue }),
         );
     }

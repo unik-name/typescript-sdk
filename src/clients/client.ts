@@ -15,10 +15,12 @@ import {
     UNIK_REPOSITORY_SUB,
     NFT_REPOSITORY_SUB,
     NftRepository,
+    MINT_DEMAND_CERTIFICATION_REPOSITORY_SUB,
 } from "./repositories";
 import { BlockchainRepository } from "./repositories/blockchain";
 import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
 import { Repository } from "./repository";
+import { MintDemandCertificationRepository } from "./repositories/nftMintDemandCertification";
 
 export class UNSClient {
     public repositories: Record<string, Repository> = {};
@@ -82,6 +84,10 @@ export class UNSClient {
         return this.getResource<BlockchainRepository>(BLOCKCHAIN_REPOSITORY_SUB);
     }
 
+    public get mintDemandCertification(): MintDemandCertificationRepository {
+        return this.getResource<MintDemandCertificationRepository>(MINT_DEMAND_CERTIFICATION_REPOSITORY_SUB);
+    }
+
     private initRepositories() {
         // Chain repositories
         this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(this.currentEndpointsConfig);
@@ -97,6 +103,9 @@ export class UNSClient {
         // Unik-name services
         this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(this.currentEndpointsConfig);
         this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(this.currentEndpointsConfig);
+        this.repositories[MINT_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new MintDemandCertificationRepository(
+            this.currentEndpointsConfig,
+        );
     }
 
     private static computeCurrentEndpointsConfig(unsClientConfig: UNSClientConfig): EndpointsConfig {
