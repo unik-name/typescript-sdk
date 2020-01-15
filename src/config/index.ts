@@ -24,7 +24,7 @@ export const UNSConfig: Record<Network, EndpointsConfig> = {
             customValue: false,
         },
         service: {
-            url: "https://us-central1-unik-name.cloudfunctions.net",
+            url: "https://services.unik-name.com",
             customValue: false,
         },
     },
@@ -35,7 +35,7 @@ export const UNSConfig: Record<Network, EndpointsConfig> = {
             customValue: false,
         },
         service: {
-            url: "https://us-central1-unik-name-development.cloudfunctions.net",
+            url: "https://integ.services.unik-name.com",
             customValue: false,
         },
     },
@@ -46,7 +46,7 @@ export const UNSConfig: Record<Network, EndpointsConfig> = {
             customValue: false,
         },
         service: {
-            url: "https://us-central1-unik-name-development.cloudfunctions.net",
+            url: "https://integ.services.unik-name.com",
             customValue: false,
         },
     },
