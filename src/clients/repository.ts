@@ -52,7 +52,8 @@ export abstract class Repository {
         } catch (error) {
             if (error instanceof HTTPError && [400].includes(error.response.status)) {
                 // try to detect JSONAPI error format
-                if (error.response.headers.get("content-type") === "application/vnd.api+json") {
+                const contentTypeHeader: string | null = error.response.headers.get("content-type");
+                if (contentTypeHeader && contentTypeHeader.includes("application/vnd.api+json")) {
                     const body = await error.response.json();
                     if (body.errors) {
                         if (Array.isArray(body.errors)) {
