@@ -9,6 +9,8 @@ import { Response, UNSClient } from "../clients";
 import { Network } from "../config";
 import { codes } from "../types/errors";
 import { SdkResult } from "../types/results";
+import { Transactions as NftTransactions } from "@uns/core-nft-crypto";
+import { Builders } from "@uns/core-nft-crypto";
 
 export const createCertifiedNnfMintTransaction = async (
     network: Network,
@@ -19,28 +21,39 @@ export const createCertifiedNnfMintTransaction = async (
     passphrase: string,
     secondPassPhrase: string,
     nftName: string,
+    certification: boolean = true,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
-    Transactions.TransactionRegistry.registerTransactionType(CertifiedNftMintTransaction);
-
     const client = new UNSClient();
     client.init({ network });
 
-    const builder = new UNSCertifiedNftMintBuilder(nftName, tokenId).properties({ type: tokenType });
+    let builder;
 
-    const currentAsset: INftMintDemand = builder.getCurrentAsset() as INftMintDemand;
+    if (certification) {
+        Transactions.TransactionRegistry.registerTransactionType(CertifiedNftMintTransaction);
 
-    const reponse: Response<INftMintDemandCertification> = await client.mintDemandCertification.create(currentAsset);
+        builder = new UNSCertifiedNftMintBuilder(nftName, tokenId).properties({ type: tokenType });
 
-    if (reponse.error) {
-        return reponse.error;
-    }
+        const currentAsset: INftMintDemand = builder.getCurrentAsset() as INftMintDemand;
 
-    if (!reponse.data) {
-        return codes.MINT_ERROR_CREATION_DATA_NULL;
+        const reponse: Response<INftMintDemandCertification> = await client.mintDemandCertification.create(
+            currentAsset,
+        );
+
+        if (reponse.error) {
+            return reponse.error;
+        }
+
+        if (!reponse.data) {
+            return codes.MINT_ERROR_CREATION_DATA_NULL;
+        }
+
+        builder.certification(reponse.data);
+    } else {
+        Transactions.TransactionRegistry.registerTransactionType(NftTransactions.NftMintTransaction);
+        builder = new Builders.NftMintBuilder(nftName, tokenId).properties({ type: tokenType });
     }
 
     builder
-        .certification(reponse.data)
         .fee(`${fees}`)
         .nonce(nonce)
         .sign(passphrase);
