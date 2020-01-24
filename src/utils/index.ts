@@ -27,3 +27,7 @@ export function computeRequestUrl(baseUrl: string, path: string, query?: string)
 
     return requestUrl;
 }
+
+export function getCurrentIAT() {
+    return Math.floor(Date.now() / 1000);
+}
