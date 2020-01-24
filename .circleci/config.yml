@@ -107,7 +107,7 @@ jobs:
           file: ".coverage/*.json"
       - *slack_notification
 
-  publish_nightly:
+  publish_dev_build:
     <<: *job_config
     steps:
       - *setup_envvars
@@ -129,6 +129,7 @@ orbs:
 
 workflows:
   version: 2.1
+
   build-test:
     jobs:
       - checkout_prepare_dependencies
@@ -141,27 +142,36 @@ workflows:
       - format:
           requires:
             - checkout_prepare_dependencies
-
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 2 * * *" # Every day, at 02:00 am
+      - publish_dev_build:
+          requires:
+            - build
+            - test
+            - format
           filters:
             branches:
               only:
                 - develop
-    jobs:
-      - checkout_prepare_dependencies
-      - build:
-          requires:
-            - checkout_prepare_dependencies
-      - test:
-          requires:
-            - checkout_prepare_dependencies
-      - publish_nightly:
-          requires:
-            - build
-            - test
+
+#   nightly:
+#     triggers:
+#       - schedule:
+#           cron: "0 2 * * *" # Every day, at 02:00 am
+#           filters:
+#             branches:
+#               only:
+#                 - develop
+#     jobs:
+#       - checkout_prepare_dependencies
+#       - build:
+#           requires:
+#             - checkout_prepare_dependencies
+#       - test:
+#           requires:
+#             - checkout_prepare_dependencies
+#       - publish_dev_build:
+#           requires:
+#             - build
+#             - test
 
   weekly:
     triggers:
