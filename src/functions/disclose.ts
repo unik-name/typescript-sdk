@@ -1,4 +1,5 @@
 import { DIDTypes, unsCrypto, IDiscloseDemand, IDiscloseDemandPayload } from "@uns/crypto";
+import { getCurrentIAT } from "../utils";
 
 export function buildDiscloseDemand(
     unikid: string,
@@ -11,7 +12,7 @@ export function buildDiscloseDemand(
         type,
         iss: unikid,
         sub: unikid,
-        iat: Date.now(),
+        iat: getCurrentIAT(),
     };
 
     const signature = unsCrypto.signPayload(payload, passphrase);

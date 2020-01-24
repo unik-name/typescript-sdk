@@ -1,5 +1,6 @@
 import { buildDiscloseDemand } from "../../src";
 import { DIDTypes } from "../../src/types";
+import { getCurrentIAT } from "../../src/utils";
 
 describe("Functions > disclose", () => {
     describe("buildDiscloseDemand", () => {
@@ -17,7 +18,7 @@ describe("Functions > disclose", () => {
             expect(payload.type).toStrictEqual(type);
             expect(payload.iss).toStrictEqual(unikid);
             expect(payload.sub).toStrictEqual(unikid);
-            expect(Date.now()).toBeGreaterThan(payload.iat);
+            expect(getCurrentIAT()).toBeGreaterThan(payload.iat);
 
             expect(signature.length).toBeGreaterThan(64); // sha256
             // we do not verify signature content, maybe later.
