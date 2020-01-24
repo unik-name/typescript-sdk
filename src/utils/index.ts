@@ -1,4 +1,5 @@
 import deepmerge = require("deepmerge");
+import dayjs from "dayjs";
 
 export * from "./chainmeta";
 
@@ -29,5 +30,5 @@ export function computeRequestUrl(baseUrl: string, path: string, query?: string)
 }
 
 export function getCurrentIAT() {
-    return Math.floor(Date.now() / 1000);
+    return dayjs().unix();
 }
