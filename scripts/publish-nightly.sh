@@ -21,15 +21,17 @@ DATE=$(date -u +%Y%m%d%H%M%S)
 dev="-dev.$DATE"
 sed  -i.bak '/version/s/[^0-9]*$/'"$dev\",/" package.json
 
-echo "Authenticate with registry."
-if [[ -z "$NPM_TOKEN" ]];then
-    echo "Error: NPM_TOKEN is not set."
-    exit 1
-fi
+if [[ -n "$CI" ]];then
+    echo "Authenticate with registry."
+    if [[ -z "$NPM_TOKEN" ]];then
+        echo "Error: NPM_TOKEN is not set."
+        exit 1
+    fi
 
-set +x
-echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
-set -x
+    set +x
+    echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+    set -x
+fi
 
 echo "Publish package"
 npm publish --tag=dev
