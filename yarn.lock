@@ -2,41 +2,6 @@
 # yarn lockfile v1
 
 
-"@arkecosystem/core-interfaces@^2.6.0-next.4":
-  version "2.6.0-next.7"
-  resolved "https://registry.yarnpkg.com/@arkecosystem/core-interfaces/-/core-interfaces-2.6.0-next.7.tgz#2add2983796890a34da25a75572a3a7a62eef165"
-  integrity sha512-bQT2Fbsfn6DKnoECbUefxBLg0saL5rBCML7S/2mMwv4GENfGImHnF8BtK32k986MDlWZGyc3U0lt9KeAa2b/WA==
-  dependencies:
-    "@arkecosystem/crypto" "^2.6.0-next.7"
-    awilix "^4.2.2"
-    dayjs "^1.8.15"
-
-"@arkecosystem/crypto@^2.6.0-next.7":
-  version "2.6.0-next.7"
-  resolved "https://registry.yarnpkg.com/@arkecosystem/crypto/-/crypto-2.6.0-next.7.tgz#6c603881fc5a3387277f5e0ba5f762b03be3708c"
-  integrity sha512-LYtP8rv0qm/LL0Fj6oYb5UyZPTUEdOiyl4uWmv0u1fqPW08CQDiGOLIFq7VL9eI1diZW91OGocM9yAI5/WcQ3A==
-  dependencies:
-    "@arkecosystem/utils" "0.8.3"
-    ajv "^6.10.2"
-    ajv-keywords "^3.4.1"
-    bcrypto "^4.1.0"
-    bip32 "^2.0.3"
-    bip39 "^3.0.2"
-    browserify-aes "^1.2.0"
-    bstring "^0.3.9"
-    buffer-xor "^2.0.2"
-    bytebuffer "^5.0.1"
-    dayjs "^1.8.15"
-    deepmerge "^4.0.0"
-    fast-memoize "^2.5.1"
-    ipaddr.js "^1.9.0"
-    lodash.get "^4.4.2"
-    lodash.set "^4.3.2"
-    lodash.sumby "^4.6.0"
-    long "~3"
-    tiny-glob "^0.2.6"
-    wif "^2.0.6"
-
 "@arkecosystem/utils@0.8.3":
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/@arkecosystem/utils/-/utils-0.8.3.tgz#1ab84a463a5bf4df4788da9e4c92bc592e9bcfa6"
@@ -546,10 +511,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@uns/ark-crypto@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-4.1.0.tgz#110b095af27dd90431725e9496360bb4dceecfa1"
-  integrity sha512-bpXoQbgPKYY1bfzxHkDZ5M9PujoddVGqmUFbFJgJ1cs1HpXodqckr3JK8PhiOL6+SMIrU5H67zLQ6NnzQS0Tvg==
+"@uns/ark-crypto@^4.2.0-dev", "@uns/ark-crypto@^4.2.0-dev.20200130181300":
+  version "4.2.0-dev.20200130181300"
+  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-4.2.0-dev.20200130181300.tgz#278ed2cdf920b4a22b727891b1094d2e029b4427"
+  integrity sha512-4jnZdUNaJuGlpA/cpT88LZIM5xJ9BsSNpv/BITmtIuOoS56D5eNLdSdYqJvVwwIheSmut8bcLHx8XwwCzN6A5A==
   dependencies:
     "@arkecosystem/utils" "0.8.3"
     ajv "^6.10.2"
@@ -572,21 +537,20 @@
     tiny-glob "^0.2.6"
     wif "^2.0.6"
 
-"@uns/core-nft-crypto@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-4.1.0.tgz#269c2905a620c19994aa568b4bbef98dc505ba32"
-  integrity sha512-8P2JSXzD07coA6wi7ULS38hx055U48hfRUdX3Jg+mma7kovWGq+lzoBbOICQptsXlQmtTinDVKi8qWijL84Igw==
+"@uns/core-nft-crypto@^4.2.0 || ^4.2.0-dev", "@uns/core-nft-crypto@^4.2.0-dev":
+  version "4.2.0-dev.20200130181300"
+  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-4.2.0-dev.20200130181300.tgz#857962d77b81f07b001f466585cbe024637e704a"
+  integrity sha512-9Q6uUY2aLQXLVKMRXJZsFuflLSpJ3CpmlRCIVS/Mm74rt7BFhHxVM/4bXT+7Tleb5sBoEwnFfKW+/eUFiWGQxg==
   dependencies:
-    "@arkecosystem/core-interfaces" "^2.6.0-next.4"
-    "@uns/ark-crypto" "^4.1.0"
+    "@uns/ark-crypto" "^4.2.0-dev.20200130181300"
 
-"@uns/crypto@^4.1.0":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-4.1.1.tgz#d882cba1c5b51e3374d66bab02d285a90fb0b519"
-  integrity sha512-hX4cysgvCH1oz/QsbOKmwD+IWqztNJzYlxvm2d9yVFeB/AErrtYQiT1yCy2J/rsJTlg4JxsUposQqsIkKYHT1A==
+"@uns/crypto@^4.2.0-dev":
+  version "4.2.0-dev.20200130181300"
+  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-4.2.0-dev.20200130181300.tgz#d3c2e0eab77ffa1a913ef3e48dc7b425d5050f3a"
+  integrity sha512-4+uDgs4akEC/uHoJ1DA5QzmHGlh9/JMuuAuqGS+EBiEHRwgGFHk6AfG+thKF8r8CRsqYwssap0LBa7RSqBlJfA==
   dependencies:
-    "@uns/ark-crypto" "^4.1.0"
-    "@uns/core-nft-crypto" "^4.1.0"
+    "@uns/ark-crypto" "^4.2.0-dev.20200130181300"
+    "@uns/core-nft-crypto" "^4.2.0 || ^4.2.0-dev"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -1015,14 +979,6 @@ atob@^2.1.1:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-awilix@^4.2.2:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/awilix/-/awilix-4.2.3.tgz#9cf20037311970842620793d369b4dcbba8d7dd9"
-  integrity sha512-5a17FdZMI/VK+VtTI7mrXgYYtyq1trv1k5m2kp8PCikgWWbFpVBlEtK+SXCqCBhC+m2FBhcFla37HEUkbyvN1w==
-  dependencies:
-    camel-case "^3.0.0"
-    glob "^7.1.6"
-
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
@@ -1426,14 +1382,6 @@ callsites@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
-
-camel-case@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/camel-case/-/camel-case-3.0.0.tgz#ca3c3688a4e9cf3a4cda777dc4dcbc713249cf73"
-  integrity sha1-yjw2iKTpzzpM2nd9xNy8cTJJz3M=
-  dependencies:
-    no-case "^2.2.0"
-    upper-case "^1.1.1"
 
 camelcase-keys@^4.0.0:
   version "4.2.0"
@@ -4238,11 +4186,6 @@ loud-rejection@^1.0.0:
     currently-unhandled "^0.4.1"
     signal-exit "^3.0.0"
 
-lower-case@^1.1.1:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/lower-case/-/lower-case-1.1.4.tgz#9a2cabd1b9e8e0ae993a4bf7d5875c39c42e8eac"
-  integrity sha1-miyr0bno4K6ZOkv31YdcOcQujqw=
-
 lru-cache@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-5.1.1.tgz#1da27e6710271947695daf6848e847f01d84b920"
@@ -4578,13 +4521,6 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
-
-no-case@^2.2.0:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
-  integrity sha512-rmTZ9kz+f3rCvK2TD1Ue/oZlns7OGoIWP4fc3llxxRXlOkHKoWPPWJOfFYpITabSow43QJbRIoHQXtt10VldyQ==
-  dependencies:
-    lower-case "^1.1.1"
 
 nock@^11.3.3:
   version "11.7.0"
@@ -6509,11 +6445,6 @@ upath@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
   integrity sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==
-
-upper-case@^1.1.1:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/upper-case/-/upper-case-1.1.3.tgz#f6b4501c2ec4cdd26ba78be7222961de77621598"
-  integrity sha1-9rRQHC7EzdJrp4vnIilh3ndiFZg=
 
 uri-js@^4.2.2:
   version "4.2.2"
