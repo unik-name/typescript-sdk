@@ -58,3 +58,45 @@ export const walletResponse = {
     data: wallet,
     chainmeta,
 };
+
+export const properties = [
+    {
+        type: "2",
+    },
+    {
+        explicitValues: "forgefactory",
+    },
+    {
+        "Badges/Security/SecondPassphrase": "false",
+    },
+    {
+        "Badges/Security/Multisig": "false",
+    },
+    {
+        "Badges/Security/BackupPassphrase": "false",
+    },
+    {
+        "Badges/Rightness/Verified": "false",
+    },
+    {
+        "Badges/Rightness/Everlasting": "false",
+    },
+    {
+        "Badges/XPLevel": "1",
+    },
+    {
+        "Badges/Trust/TrustIn": "0",
+    },
+    {
+        "Badges/Trust/TrustOut": "0",
+    },
+    {
+        "Badges/NP/Delegate": "false",
+    },
+    {
+        "Badges/NP/StorageProvider": "false",
+    },
+    {
+        "Badges/NP/UNIKIssuer": "false",
+    },
+];

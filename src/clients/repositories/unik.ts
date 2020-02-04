@@ -19,7 +19,17 @@ export type Unik = {
 
 export type PropertyValue = string;
 
+export const BADGES_PREFIX = "Badges/";
+export const ACTIVE_BADGES = [`NP/Delegate`, `Security/SecondPassphrase`];
+
 export class UnikRepository extends ChainRepository {
+    private isActiveBadge(key: string): boolean {
+        if (key.startsWith(BADGES_PREFIX) && !ACTIVE_BADGES.some(e => new RegExp(key).test(BADGES_PREFIX + e))) {
+            return false;
+        }
+        return true;
+    }
+
     public async get(id: string): Promise<ResponseWithChainMeta<Unik>> {
         return this.GET<ResponseWithChainMeta<Unik>>(`${id}`);
     }
@@ -36,7 +46,9 @@ export class UnikRepository extends ChainRepository {
     }
 
     public async properties(id: string): Promise<ResponseWithChainMeta<{ [_: string]: PropertyValue }[]>> {
-        return this.GET<ResponseWithChainMeta<{ [_: string]: PropertyValue }[]>>(`${id}/properties`);
+        const response = await this.GET<ResponseWithChainMeta<{ [_: string]: PropertyValue }[]>>(`${id}/properties`);
+        response.data = response.data?.filter(prop => this.isActiveBadge(Object.getOwnPropertyNames(prop)[0]));
+        return response;
     }
 
     protected sub(): string {
