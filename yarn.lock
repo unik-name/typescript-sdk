@@ -511,10 +511,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@uns/ark-crypto@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-4.2.2.tgz#cc615638c692d6058fb61475a28db813bd261310"
-  integrity sha512-sWWScShNAOsQJoxnKNuCFJoCVRlNWbTPa6Ibzn8oIhB7Yh4YECjaewGH+PWmBM/nkZDT2wUlMU5CzDnwlmvvGw==
+"@uns/ark-crypto@^4.3.0-dev", "@uns/ark-crypto@^4.3.0-dev.20200205093054":
+  version "4.3.0-dev.20200205093054"
+  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-4.3.0-dev.20200205093054.tgz#64ebb40d64d2316fdfb61958307ee05e1b10aeb6"
+  integrity sha512-Pj/pSvE3PMlk3lU2FgO38QZ2Jra1aWUoutU8Hyo4Iq9I5pndExZwMnmLmBuAOQLClNmiNN955Y8zKfu4Cz1Amw==
   dependencies:
     "@arkecosystem/utils" "0.8.3"
     ajv "^6.10.2"
@@ -537,20 +537,20 @@
     tiny-glob "^0.2.6"
     wif "^2.0.6"
 
-"@uns/core-nft-crypto@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-4.2.2.tgz#ca8184b2530e5dd4cc2cfc3e8cce87122f535194"
-  integrity sha512-oQ7rLjgkGUmryX31GpuPY92m4AORJrZA26zbhHxl55eK5NBJr58s+TH4hvzeyGHtFwt6n6LeyEbho/gNMHLt3g==
+"@uns/core-nft-crypto@^4.3.0-dev":
+  version "4.3.0-dev.20200205093054"
+  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-4.3.0-dev.20200205093054.tgz#14c0567a38758cccd505ee682a0eddc1c0b4abd8"
+  integrity sha512-K+f7AkPF692ojxK4xT5V/hEVMn9AxbsnSAqgIzKzpcQD5H+Q1vJphVf/66GJv0TWZMs8ArBU+cKFHy8szP78ag==
   dependencies:
-    "@uns/ark-crypto" "^4.2.2"
+    "@uns/ark-crypto" "^4.3.0-dev.20200205093054"
 
-"@uns/crypto@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-4.2.2.tgz#8a3e682c017b9f590365fc0d639bbd58dfeaad1c"
-  integrity sha512-wsE7ylujMfPKt03kp5+p5CPYj6HvviwSo1U1xYFuWmLVgNpdl2g/ADtWECkyJYt4rCRUc5XHj6UWQsSTxf2sFQ==
+"@uns/crypto@^4.3.0-dev":
+  version "4.3.0-dev.20200205093054"
+  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-4.3.0-dev.20200205093054.tgz#088f0027b102312340514a9a97ab020f33b766f0"
+  integrity sha512-SDPXYY4lUHa3NqCSQWLdT278Se9ZnIyd+nGxkeRsI2osPMvQemq4SNQ+F2QEY38qsU7AVtjB7rYf9ccxUKJOng==
   dependencies:
-    "@uns/ark-crypto" "^4.2.2"
-    "@uns/core-nft-crypto" "^4.2.2"
+    "@uns/ark-crypto" "^4.3.0-dev.20200205093054"
+    "@uns/core-nft-crypto" "^4.3.0-dev"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
