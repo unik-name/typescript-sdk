@@ -16,6 +16,8 @@ import {
     NFT_REPOSITORY_SUB,
     NftRepository,
     MINT_DEMAND_CERTIFICATION_REPOSITORY_SUB,
+    UPDATE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
+    UpdateDemandCertificationRepository,
 } from "./repositories";
 import { BlockchainRepository } from "./repositories/blockchain";
 import { WalletRepository, WALLET_REPOSITORY_SUB } from "./repositories/wallet";
@@ -88,6 +90,10 @@ export class UNSClient {
         return this.getResource<MintDemandCertificationRepository>(MINT_DEMAND_CERTIFICATION_REPOSITORY_SUB);
     }
 
+    public get updateDemandCertification(): MintDemandCertificationRepository {
+        return this.getResource<MintDemandCertificationRepository>(UPDATE_DEMAND_CERTIFICATION_REPOSITORY_SUB);
+    }
+
     private initRepositories() {
         // Chain repositories
         this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(this.currentEndpointsConfig);
@@ -104,6 +110,9 @@ export class UNSClient {
         this.repositories[FINGERPRINT_REPOSITORY_SUB] = new FingerprintRepository(this.currentEndpointsConfig);
         this.repositories[SAFETYPO_REPOSITORY_SUB] = new SafetypoRepository(this.currentEndpointsConfig);
         this.repositories[MINT_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new MintDemandCertificationRepository(
+            this.currentEndpointsConfig,
+        );
+        this.repositories[UPDATE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new UpdateDemandCertificationRepository(
             this.currentEndpointsConfig,
         );
     }

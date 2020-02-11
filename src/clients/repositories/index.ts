@@ -8,3 +8,4 @@ export * from "./wallet";
 export * from "./blockchain";
 export * from "./nft";
 export * from "./nftMintDemandCertification";
+export * from "./nftUpdateDemandCertification";
