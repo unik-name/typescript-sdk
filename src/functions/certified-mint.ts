@@ -14,6 +14,7 @@ import { codes } from "../types/errors";
 import { SdkResult } from "../types/results";
 import { Transactions as NftTransactions, Interfaces as NftInterfaces } from "@uns/core-nft-crypto";
 import { Builders } from "@uns/core-nft-crypto";
+import { getCurrentIAT } from "../utils";
 
 export const createCertifiedNnfMintTransaction = async (
     network: Network,
@@ -40,7 +41,7 @@ export const createCertifiedNnfMintTransaction = async (
         const demandPayload: INftMintDemandPayload = {
             iss: tokenId,
             sub: tokenId,
-            iat: Date.now(),
+            iat: getCurrentIAT(),
             cryptoAccountAddress: Identities.Address.fromPassphrase(passphrase),
         };
 

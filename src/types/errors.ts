@@ -15,4 +15,12 @@ export const codes = {
         code: "10",
         message: "Error creating mint demand certification because 'reponse.data' is undefined or null",
     },
+
+    /**
+     * Nft update errors
+     */
+    UPDATE_ERROR_CREATION_DATA_NULL: {
+        code: "20",
+        message: "Error creating update demand certification because 'reponse.data' is undefined or null",
+    },
 };
