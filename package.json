@@ -33,7 +33,7 @@
         "format:fix": "yarn lint:fix && yarn prettier:fix",
         "format:tests": "yarn lint:tests && yarn prettier:tests",
         "format:tests:fix": "yarn lint:tests:fix && yarn prettier:tests:fix",
-        "test": "cross-env CORE_ENV=test jest --runInBand",
+        "test": "cross-env CORE_ENV=test jest",
         "test:coverage": "yarn test --coverage --coveragePathIgnorePatterns='/(index.ts)$'"
     },
     "dependencies": {
