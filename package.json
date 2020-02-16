@@ -21,18 +21,13 @@
         "build:watch": "yarn clean && yarn compile -w",
         "clean": "del dist",
         "bundle": "yarn clean && cross-env NODE_ENV=production webpack --config build/webpack.config.js",
-        "lint": "eslint -c ./eslintrc.js \"./src/**/*.ts\"",
+        "lint": "eslint -c ./eslintrc.js \"./src/**/*.ts\" \"./__tests__/**/*.ts\"",
         "lint:fix": "yarn lint --fix",
-        "lint:tests": "eslint -c ./eslintrc.js \"./__tests__/**/*.ts\"",
-        "lint:tests:fix": "yarn lint:tests --fix ",
-        "prettier": "prettier \"./*.{ts,js,json,md}\" \"./src/**/*.{ts,js,json,md}\" --check",
+        "lint:fix:partial": "eslint -c ./eslintrc.js --fix",
+        "prettier": "prettier \"./*.{ts,js,json,md}\" \"./{src,__tests}/**/*.{ts,js,json,md}\" --check",
         "prettier:fix": "yarn prettier --write",
-        "prettier:tests": "prettier \"./__tests__/**/*.{ts,js,json,md}\" --check",
-        "prettier:tests:fix": "yarn prettier:tests --write",
+        "prettier:fix:partial": "prettier --write",
         "format": "yarn lint && yarn prettier",
-        "format:fix": "yarn lint:fix && yarn prettier:fix",
-        "format:tests": "yarn lint:tests && yarn prettier:tests",
-        "format:tests:fix": "yarn lint:tests:fix && yarn prettier:tests:fix",
         "test": "cross-env CORE_ENV=test jest",
         "test:coverage": "yarn test --coverage --coveragePathIgnorePatterns='/(index.ts)$'"
     },
@@ -102,8 +97,8 @@
     },
     "lint-staged": {
         "*.ts": [
-            "yarn format:fix",
-            "yarn format:tests:fix",
+            "yarn lint:fix:partial",
+            "yarn prettier:fix:partial",
             "git add"
         ]
     },

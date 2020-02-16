@@ -91,9 +91,7 @@ jobs:
       - *setup_envvars
       - *attach_workspace
       - run:
-          command: |
-            yarn format
-            yarn format:tests
+          command: yarn format
       - *slack_notification
 
   test:
