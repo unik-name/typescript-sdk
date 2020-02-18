@@ -13,12 +13,14 @@ module.exports = (babelOptions = {}) => ({
         rules: [
             {
                 test: /\.ts$/,
-                use: [{
-                    loader: "ts-loader",
-                    options:{
-                        configFile: "../tsconfig/tsconfig.json"
-                    }
-                }],
+                use: [
+                    {
+                        loader: "ts-loader",
+                        options: {
+                            configFile: "../tsconfig.json",
+                        },
+                    },
+                ],
                 exclude: /node_modules/,
             },
         ],
