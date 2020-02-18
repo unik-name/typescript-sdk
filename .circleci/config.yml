@@ -81,8 +81,8 @@ jobs:
     steps:
       - *setup_envvars
       - *attach_workspace
-      - run:
-          command: yarn build
+      - run: yarn build
+      - run: yarn bundle
       - *slack_notification
 
   format:
