@@ -9,3 +9,5 @@ export * from "./blockchain";
 export * from "./nft";
 export * from "./nftMintDemandCertification";
 export * from "./nftUpdateDemandCertification";
+export * from "./networkUnitServices";
+export * from "./unikPattern";

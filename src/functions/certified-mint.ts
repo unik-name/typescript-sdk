@@ -7,6 +7,8 @@ import {
     INftMintDemandPayload,
     NftMintDemandSigner,
     ICertifiedDemand,
+    DIDHelpers,
+    DIDTypes,
 } from "@uns/crypto";
 import { Response, UNSClient } from "../clients";
 import { codes } from "../types/errors";
@@ -14,24 +16,36 @@ import { SdkResult } from "../types/results";
 import { Transactions as NftTransactions, Interfaces as NftInterfaces } from "@uns/core-nft-crypto";
 import { Builders } from "@uns/core-nft-crypto";
 import { getCurrentIAT } from "../utils";
+import { UNSServiceType } from "../types";
+import { NetworkUnitService, UnikPattern } from "../clients/repositories";
+import { parse, DidParserError, DidParserResult } from "./did";
 
-export const createCertifiedNnfMintTransaction = async (
+export const createCertifiedNftMintTransaction = async (
     client: UNSClient,
     tokenId: string,
-    tokenType: string,
+    unikname: string,
     fees: number,
     nonce: string,
     passphrase: string,
     secondPassPhrase: string,
-    nftName: string,
     certification: boolean = true,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
     let builder;
 
+    const unikParseResult: DidParserResult | DidParserError = await parse(unikname, client);
+
+    if (unikParseResult instanceof DidParserError) {
+        return codes.DID_PARSER_ERROR;
+    }
+
+    const tokenTypeAsNumber: number = DIDHelpers.fromLabel(unikParseResult.type);
+
     if (certification) {
         Transactions.TransactionRegistry.registerTransactionType(CertifiedNftMintTransaction);
 
-        builder = new UNSCertifiedNftMintBuilder(nftName, tokenId).properties({ type: tokenType });
+        builder = new UNSCertifiedNftMintBuilder(unikParseResult.tokenName, tokenId).properties({
+            type: `${tokenTypeAsNumber}`,
+        });
         const currentAsset: NftInterfaces.ITransactionNftAssetData = builder.getCurrentAsset();
 
         const demandPayload: INftMintDemandPayload = {
@@ -59,7 +73,35 @@ export const createCertifiedNnfMintTransaction = async (
             demand,
         };
 
-        const reponse: Response<INftMintDemandCertification> = await client.mintDemandCertification.create(mintDemand);
+        const patternResponse: Response<UnikPattern> = await client.unikPattern.compute({
+            explicitValue: unikParseResult.explicitValue,
+            type: DIDTypes[unikParseResult.type],
+        });
+
+        if (patternResponse.error) {
+            return patternResponse.error;
+        }
+
+        if (patternResponse.data?.lengthGroup === undefined || patternResponse.data?.script === undefined) {
+            return codes.UNIK_PATTERN_MALFORMED_ERROR;
+        }
+
+        const mintServiceResponse: Response<NetworkUnitService> = await client.networkUnitServices.search({
+            transaction: UNSServiceType.MINT,
+            lengthGroup: patternResponse.data?.lengthGroup,
+            didType: patternResponse.data?.didType,
+            script: patternResponse.data?.script,
+        });
+
+        if (mintServiceResponse.error) {
+            return mintServiceResponse.error;
+        }
+
+        const reponse: Response<INftMintDemandCertification> = await client.mintDemandCertification.create({
+            demand: mintDemand,
+            serviceId: mintServiceResponse.data?.id,
+            unikname,
+        });
 
         if (reponse.error) {
             return reponse.error;
@@ -69,10 +111,18 @@ export const createCertifiedNnfMintTransaction = async (
             return codes.MINT_ERROR_CREATION_DATA_NULL;
         }
 
-        builder.demand(demand).certification(reponse.data);
+        const issuerAddress: string | undefined = (await client.unik.get(reponse.data.payload.iss)).data?.ownerId;
+
+        if (!issuerAddress) {
+            return codes.CERTIFICATION_ISSUER_OWNER_ERROR;
+        }
+
+        builder.demand(demand).certification(reponse.data, issuerAddress);
     } else {
         Transactions.TransactionRegistry.registerTransactionType(NftTransactions.NftMintTransaction);
-        builder = new Builders.NftMintBuilder(nftName, tokenId).properties({ type: tokenType });
+        builder = new Builders.NftMintBuilder(unikParseResult.tokenName, tokenId).properties({
+            type: `${tokenTypeAsNumber}`,
+        });
     }
 
     builder

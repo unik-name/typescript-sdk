@@ -18,6 +18,10 @@ import {
     UNIK_REPOSITORY_SUB,
     UpdateDemandCertificationRepository,
     UPDATE_DEMAND_CERTIFICATION_REPOSITORY_SUB,
+    NetworkUnitServicesRepository,
+    NETWORK_UNIT_SERVICES_REPOSITORY_SUB,
+    UnikPatternRepository,
+    UNIK_PATTERN_REPOSITORY_SUB,
 } from "./repositories";
 import { BlockchainRepository } from "./repositories/blockchain";
 import { MintDemandCertificationRepository } from "./repositories/nftMintDemandCertification";
@@ -94,6 +98,14 @@ export class UNSClient {
         return this.getResource<MintDemandCertificationRepository>(UPDATE_DEMAND_CERTIFICATION_REPOSITORY_SUB);
     }
 
+    public get networkUnitServices(): NetworkUnitServicesRepository {
+        return this.getResource<NetworkUnitServicesRepository>(NETWORK_UNIT_SERVICES_REPOSITORY_SUB);
+    }
+
+    public get unikPattern(): UnikPatternRepository {
+        return this.getResource<UnikPatternRepository>(UNIK_PATTERN_REPOSITORY_SUB);
+    }
+
     private initRepositories() {
         // Chain repositories
         this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(this.currentEndpointsConfig, this.config);
@@ -124,6 +136,14 @@ export class UNSClient {
             this.config,
         );
         this.repositories[UPDATE_DEMAND_CERTIFICATION_REPOSITORY_SUB] = new UpdateDemandCertificationRepository(
+            this.currentEndpointsConfig,
+            this.config,
+        );
+        this.repositories[NETWORK_UNIT_SERVICES_REPOSITORY_SUB] = new NetworkUnitServicesRepository(
+            this.currentEndpointsConfig,
+            this.config,
+        );
+        this.repositories[UNIK_PATTERN_REPOSITORY_SUB] = new UnikPatternRepository(
             this.currentEndpointsConfig,
             this.config,
         );

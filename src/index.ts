@@ -7,3 +7,5 @@ export { getCurrentIAT } from "./utils";
 export { Network, DEFAULT_CLIENT_CONFIG } from "./config";
 
 export { UNS_NFT_PROPERTY_KEY_REGEX } from "@uns/crypto";
+
+export const USER_PROPERTY_PREFIX: string = "usr/";

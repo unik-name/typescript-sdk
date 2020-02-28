@@ -6,10 +6,11 @@ import {
     NodeStatus,
     Response,
     ResponseWithChainMeta,
-    SafeTypoResult,
     Transaction,
     UNSClient,
     Wallet,
+    SafetypoError,
+    SafeName,
 } from "../../src";
 import { UNSConfig } from "../../src/config";
 import {
@@ -273,9 +274,11 @@ describe("UNSClient", () => {
                 expect.assertions(2);
                 safetypoMock.reply(200, safetypoResponse);
 
-                const result: Response<SafeTypoResult> = await client.safetypo.analyze(safetypoResponse.data.explicit);
+                const result: Response<SafeName | SafetypoError> = await client.safetypo.analyze(
+                    safetypoResponse.data.explicit,
+                );
 
-                expect(Buffer.from(result.data?.core as Buffer)).toStrictEqual(safetypoResponse.data.core);
+                expect(Buffer.from((result.data as SafeName).core as Buffer)).toStrictEqual(safetypoResponse.data.core);
                 expect(result.error).toBeUndefined();
             });
 
@@ -284,7 +287,9 @@ describe("UNSClient", () => {
 
                 safetypoMock.reply(400);
 
-                const result: Response<SafeTypoResult> = await client.safetypo.analyze(safetypoResponse.data.explicit);
+                const result: Response<SafeName | SafetypoError> = await client.safetypo.analyze(
+                    safetypoResponse.data.explicit,
+                );
                 expect(result.error).not.toBeUndefined();
                 expect(result.data).toBeUndefined();
             });
