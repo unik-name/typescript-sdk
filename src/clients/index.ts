@@ -8,11 +8,16 @@ export {
     Unik,
     PropertyValue,
     FingerprintResult,
-    SafeTypoResult,
+    SafeName,
+    SafetypoError,
     Wallet,
     INftStatus,
     IProcessorResult,
     Token,
+    NetworkUnitService,
+    SearchNetworkUnitServiceRequest,
+    UnikPatterRequestBody,
+    UnikPattern,
 } from "./repositories";
 
 export {

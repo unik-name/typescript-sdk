@@ -7,6 +7,10 @@ export const codes = {
         code: "2",
         message: "HTTP error received",
     },
+    DID_PARSER_ERROR: {
+        code: "3",
+        message: "DID Parser error",
+    },
 
     /**
      * Minting errors
@@ -22,5 +26,15 @@ export const codes = {
     UPDATE_ERROR_CREATION_DATA_NULL: {
         code: "20",
         message: "Error creating update demand certification because 'reponse.data' is undefined or null",
+    },
+
+    CERTIFICATION_ISSUER_OWNER_ERROR: {
+        code: "30",
+        message: "Error fetching issuer crypto account address",
+    },
+
+    UNIK_PATTERN_MALFORMED_ERROR: {
+        code: "40",
+        message: "Malformed unik pattern",
     },
 };

@@ -23,6 +23,7 @@ export const createCertifiedNftUpdateTransaction = async (
     passphrase: string,
     secondPassPhrase: string,
     nftName: string,
+    unikname?: string,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
     Transactions.TransactionRegistry.registerTransactionType(CertifiedNftUpdateTransaction);
 
@@ -54,9 +55,11 @@ export const createCertifiedNftUpdateTransaction = async (
         demand,
     };
 
-    const reponse: Response<INftUpdateDemandCertification> = await client.updateDemandCertification.create(
-        updateDemand,
-    );
+    const reponse: Response<INftUpdateDemandCertification> = await client.updateDemandCertification.create({
+        demand: updateDemand,
+        // TODO serviceId
+        unikname,
+    });
 
     if (reponse.error) {
         return reponse.error;
@@ -66,9 +69,15 @@ export const createCertifiedNftUpdateTransaction = async (
         return codes.UPDATE_ERROR_CREATION_DATA_NULL;
     }
 
+    const issuerAddress: string | undefined = (await client.unik.get(reponse.data.payload.iss)).data?.ownerId;
+
+    if (!issuerAddress) {
+        return codes.CERTIFICATION_ISSUER_OWNER_ERROR;
+    }
+
     builder
         .demand(demand)
-        .certification(reponse.data)
+        .certification(reponse.data, issuerAddress)
         .fee(`${fees}`)
         .nonce(nonce)
         .sign(passphrase);
