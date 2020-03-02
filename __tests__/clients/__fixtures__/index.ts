@@ -73,7 +73,7 @@ export const properties = [
         "Badges/Security/Multisig": "false",
     },
     {
-        "Badges/Security/BackupPassphrase": "false",
+        "Badges/Security/Passphrase/Backup": "false",
     },
     {
         "Badges/Rightness/Verified": "false",
