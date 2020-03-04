@@ -10,7 +10,7 @@ import {
 } from "@uns/crypto";
 import { Response, UNSClient } from "../clients";
 import { codes } from "../types/errors";
-import { SdkResult } from "../types/results";
+import { SdkResult, NftFactoryServicesList } from "../types";
 import { Interfaces as NftInterfaces } from "@uns/core-nft-crypto";
 import { getCurrentIAT } from "../utils";
 
@@ -23,6 +23,7 @@ export const createCertifiedNftUpdateTransaction = async (
     passphrase: string,
     secondPassPhrase: string,
     nftName: string,
+    serviceId?: NftFactoryServicesList,
     unikname?: string,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
     Transactions.TransactionRegistry.registerTransactionType(CertifiedNftUpdateTransaction);
@@ -57,7 +58,7 @@ export const createCertifiedNftUpdateTransaction = async (
 
     const reponse: Response<INftUpdateDemandCertification> = await client.updateDemandCertification.create({
         demand: updateDemand,
-        // TODO serviceId
+        serviceId,
         unikname,
     });
 

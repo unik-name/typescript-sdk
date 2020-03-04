@@ -26,6 +26,7 @@ export enum NftFactoryServicesList {
     NFT_FACTORY_EVERLASTING_BAGDE_INDIVIDUAL = 23,
     NFT_FACTORY_EVERLASTING_BAGDE_ORGANIZATION = 24,
     NFT_FACTORY_EVERLASTING_BAGDE_NETWORK = 25,
+    NFT_FACTORY_URL_VERIFICATION = 26,
 }
 
 export interface CertificationRequestBody<T extends INftDemand> {
