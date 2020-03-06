@@ -24,6 +24,7 @@ export type PropertyValue = string;
 
 export const BADGES_PREFIX = "Badges/";
 export const ACTIVE_BADGES = [`NP/Delegate`, `Security/SecondPassphrase`, "Security/Passphrase/Backup"];
+export const ACTIVE_SYSTEM_PROPERTIES = ["type", "explicitValues", "LifeCycle/Status"];
 
 export class UnikRepository extends ChainRepository {
     private isActiveBadge(key: string): boolean {
@@ -31,6 +32,14 @@ export class UnikRepository extends ChainRepository {
             return false;
         }
         return true;
+    }
+
+    private isActiveSystemProperty(key: string): boolean {
+        return ACTIVE_SYSTEM_PROPERTIES.includes(key);
+    }
+
+    private activePropertiesFilter(propertyKey: string): boolean {
+        return this.isActiveBadge(propertyKey) || this.isActiveSystemProperty(propertyKey);
     }
 
     public async get(id: string): Promise<ResponseWithChainMeta<Unik>> {
@@ -54,7 +63,7 @@ export class UnikRepository extends ChainRepository {
 
     public async properties(id: string): Promise<ResponseWithChainMeta<{ [_: string]: PropertyValue }[]>> {
         const response = await this.GET<ResponseWithChainMeta<{ [_: string]: PropertyValue }[]>>(`${id}/properties`);
-        response.data = response.data?.filter(prop => this.isActiveBadge(Object.getOwnPropertyNames(prop)[0]));
+        response.data = response.data?.filter(prop => this.activePropertiesFilter(Object.getOwnPropertyNames(prop)[0]));
         return response;
     }
 

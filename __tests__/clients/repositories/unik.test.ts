@@ -1,8 +1,8 @@
 import nock = require("nock");
-import { UNSClient, Network, ResponseWithChainMeta, PropertyValue } from "../../../src";
+import { UNSClient, Network, ResponseWithChainMeta, PropertyValue, USER_PROPERTY_PREFIX } from "../../../src";
 import { UNSConfig } from "../../../src/config";
 import { properties, unikid } from "./../__fixtures__";
-import { ACTIVE_BADGES, BADGES_PREFIX } from "../../../src/clients/repositories/";
+import { ACTIVE_BADGES, BADGES_PREFIX, ACTIVE_SYSTEM_PROPERTIES } from "../../../src/clients/repositories/";
 
 describe("Unik repository tests", () => {
     const client = new UNSClient();
@@ -21,13 +21,15 @@ describe("Unik repository tests", () => {
                 unikid,
             );
 
-            response.data?.map(prop => {
+            response.data?.forEach(prop => {
                 const key = Object.getOwnPropertyNames(prop)[0];
                 if (key.startsWith(BADGES_PREFIX)) {
                     expect(ACTIVE_BADGES.some(e => new RegExp(key).test(BADGES_PREFIX + e))).toBeTruthy();
+                } else if (!key.startsWith(USER_PROPERTY_PREFIX)) {
+                    expect(ACTIVE_SYSTEM_PROPERTIES.includes(key)).toBeTruthy();
                 }
             });
-            expect.assertions(ACTIVE_BADGES.length);
+            expect.assertions(ACTIVE_BADGES.length + ACTIVE_SYSTEM_PROPERTIES.length);
         });
     });
 });
