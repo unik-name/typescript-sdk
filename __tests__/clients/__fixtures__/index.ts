@@ -99,4 +99,7 @@ export const properties = [
     {
         "Badges/NP/UNIKIssuer": "false",
     },
+    {
+        "LifeCycle/Status": "2",
+    },
 ];
