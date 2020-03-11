@@ -13,12 +13,12 @@ import {
 import { Response, UNSClient } from "../clients";
 import { codes } from "../types/errors";
 import { SdkResult } from "../types/results";
-import { Transactions as NftTransactions, Interfaces as NftInterfaces } from "@uns/core-nft-crypto";
-import { Builders } from "@uns/core-nft-crypto";
+import { Transactions as NftTransactions, Interfaces as NftInterfaces, Builders } from "@uns/core-nft-crypto";
 import { getCurrentIAT } from "../utils";
 import { UNSServiceType } from "../types";
 import { NetworkUnitService, UnikPattern } from "../clients/repositories";
 import { parse, DidParserError, DidParserResult } from "./did";
+import { decodeJWT } from "did-jwt";
 
 export const createCertifiedNftMintTransaction = async (
     client: UNSClient,
@@ -28,6 +28,7 @@ export const createCertifiedNftMintTransaction = async (
     nonce: string,
     passphrase: string,
     secondPassPhrase: string,
+    coupon?: string,
     certification: boolean = true,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
     let builder;
@@ -43,9 +44,10 @@ export const createCertifiedNftMintTransaction = async (
     if (certification) {
         Transactions.TransactionRegistry.registerTransactionType(CertifiedNftMintTransaction);
 
-        builder = new UNSCertifiedNftMintBuilder(unikParseResult.tokenName, tokenId).properties({
-            type: `${tokenTypeAsNumber}`,
-        });
+        builder = new UNSCertifiedNftMintBuilder(unikParseResult.tokenName, tokenId).properties(
+            computeProperties(tokenTypeAsNumber, coupon),
+        );
+
         const currentAsset: NftInterfaces.ITransactionNftAssetData = builder.getCurrentAsset();
 
         const demandPayload: INftMintDemandPayload = {
@@ -101,6 +103,7 @@ export const createCertifiedNftMintTransaction = async (
             demand: mintDemand,
             serviceId: mintServiceResponse.data?.id,
             unikname,
+            coupon, // To verify coupon and compare CouponId property
         });
 
         if (reponse.error) {
@@ -136,3 +139,25 @@ export const createCertifiedNftMintTransaction = async (
 
     return builder.getStruct();
 };
+
+function computeProperties(tokenTypeAsNumber: number, coupon?: string) {
+    const properties: NftInterfaces.INftProperties = {
+        type: `${tokenTypeAsNumber}`,
+    };
+
+    if (coupon) {
+        try {
+            const decodeCoupon: any = decodeJWT(coupon);
+            properties.CouponId = decodeCoupon.payload.jti; // CouponId has to be set, it will be compared to the coupon.payload.id in certification service after verification
+            properties["LifeCycle/Status"] = "3"; // Alive
+
+            if (DIDHelpers.fromCode(tokenTypeAsNumber) === "INDIVIDUAL") {
+                properties["Badges/XPLevel"] = "2"; // Beginner
+            }
+        } catch (e) {
+            console.debug(`[${codes.COUPON_FORMAT_ERROR.code}] ${codes.COUPON_FORMAT_ERROR.message} (${e.message})`);
+            return codes.COUPON_FORMAT_ERROR;
+        }
+    }
+    return properties;
+}

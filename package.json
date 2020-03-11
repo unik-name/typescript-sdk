@@ -36,6 +36,7 @@
         "@uns/core-nft-crypto": "^4.3.0-dev",
         "@uns/crypto": "^4.3.0-dev",
         "deepmerge": "^4.0.0",
+        "did-jwt": "^4.0.0",
         "is-url-superb": "^3.0.0",
         "ky": "^0.13.0",
         "ky-universal": "^0.3.0"
