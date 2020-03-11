@@ -37,4 +37,9 @@ export const codes = {
         code: "40",
         message: "Malformed unik pattern",
     },
+
+    COUPON_FORMAT_ERROR: {
+        code: "50",
+        message: "Malformed coupon",
+    },
 };

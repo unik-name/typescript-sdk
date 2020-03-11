@@ -33,6 +33,7 @@ export interface CertificationRequestBody<T extends INftDemand> {
     demand: T;
     unikname?: string; // DID
     serviceId?: NftFactoryServicesList;
+    coupon?: string;
 }
 
 export enum UNSServiceType {
