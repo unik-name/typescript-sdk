@@ -1,7 +1,7 @@
 /* eslint max-classes-per-file: ["error", 2] */
 import { Response } from "../response";
 import { ServiceRepository } from "./types/ServiceRepository";
-import { DIDScript } from "src/types";
+import { DIDScript } from "../../types";
 
 export const SAFETYPO_REPOSITORY_SUB: string = "safetypo";
 
