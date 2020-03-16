@@ -1,7 +1,7 @@
 export * from "./clients";
 export * from "./functions";
 export * from "./types";
-export { getCurrentIAT } from "./utils";
+export { getCurrentIAT, JwtUtils } from "./utils";
 
 // Please, do not re-export UNSConfig
 export { Network, DEFAULT_CLIENT_CONFIG } from "./config";

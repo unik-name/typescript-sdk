@@ -11,6 +11,7 @@ export type Wallet = {
     balance: number;
     isDelegate: boolean;
     vote?: string;
+    nonce?: string;
 };
 
 export interface Token {

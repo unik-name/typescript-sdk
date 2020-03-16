@@ -27,8 +27,8 @@ export const createCertifiedNftMintTransaction = async (
     fees: number,
     nonce: string,
     passphrase: string,
-    secondPassPhrase: string,
-    coupon?: string,
+    secondPassPhrase?: string,
+    unikVoucher?: string,
     certification: boolean = true,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
     let builder;
@@ -44,9 +44,18 @@ export const createCertifiedNftMintTransaction = async (
     if (certification) {
         Transactions.TransactionRegistry.registerTransactionType(CertifiedNftMintTransaction);
 
-        builder = new UNSCertifiedNftMintBuilder(unikParseResult.tokenName, tokenId).properties(
-            computeProperties(tokenTypeAsNumber, coupon),
-        );
+        let properties;
+
+        try {
+            properties = computeProperties(tokenTypeAsNumber, unikVoucher);
+        } catch (e) {
+            console.debug(
+                `[${codes.UNIK_VOUCHER_FORMAT_ERROR.code}] ${codes.UNIK_VOUCHER_FORMAT_ERROR.message} (${e.message})`,
+            );
+            return codes.UNIK_VOUCHER_FORMAT_ERROR;
+        }
+
+        builder = new UNSCertifiedNftMintBuilder(unikParseResult.tokenName, tokenId).properties(properties);
 
         const currentAsset: NftInterfaces.ITransactionNftAssetData = builder.getCurrentAsset();
 
@@ -103,7 +112,7 @@ export const createCertifiedNftMintTransaction = async (
             demand: mintDemand,
             serviceId: mintServiceResponse.data?.id,
             unikname,
-            coupon, // To verify coupon and compare CouponId property
+            unikVoucher,
         });
 
         if (reponse.error) {
@@ -140,23 +149,18 @@ export const createCertifiedNftMintTransaction = async (
     return builder.getStruct();
 };
 
-function computeProperties(tokenTypeAsNumber: number, coupon?: string) {
+function computeProperties(tokenTypeAsNumber: number, unikVoucher?: string): NftInterfaces.INftProperties {
     const properties: NftInterfaces.INftProperties = {
         type: `${tokenTypeAsNumber}`,
     };
 
-    if (coupon) {
-        try {
-            const decodeCoupon: any = decodeJWT(coupon);
-            properties.CouponId = decodeCoupon.payload.jti; // CouponId has to be set, it will be compared to the coupon.payload.id in certification service after verification
-            properties["LifeCycle/Status"] = "3"; // Alive
+    if (unikVoucher) {
+        const decodeUnikVoucher: any = decodeJWT(unikVoucher);
+        properties.UnikVoucherId = decodeUnikVoucher.payload.jti; // UnikVoucherId has to be set, it will be compared to the unikVoucher.payload.id in certification service after verification
+        properties["LifeCycle/Status"] = "3"; // Alive
 
-            if (DIDHelpers.fromCode(tokenTypeAsNumber) === "INDIVIDUAL") {
-                properties["Badges/XPLevel"] = "2"; // Beginner
-            }
-        } catch (e) {
-            console.debug(`[${codes.COUPON_FORMAT_ERROR.code}] ${codes.COUPON_FORMAT_ERROR.message} (${e.message})`);
-            return codes.COUPON_FORMAT_ERROR;
+        if (DIDHelpers.fromCode(tokenTypeAsNumber) === "INDIVIDUAL") {
+            properties["Badges/XPLevel"] = "2"; // Beginner
         }
     }
     return properties;

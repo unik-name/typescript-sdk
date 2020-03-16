@@ -38,8 +38,8 @@ export const codes = {
         message: "Malformed unik pattern",
     },
 
-    COUPON_FORMAT_ERROR: {
+    UNIK_VOUCHER_FORMAT_ERROR: {
         code: "50",
-        message: "Malformed coupon",
+        message: "Malformed unik-voucher",
     },
 };
