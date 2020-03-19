@@ -23,7 +23,7 @@ export type Unik = {
 export type PropertyValue = string;
 
 export const BADGES_PREFIX = "Badges/";
-export const ACTIVE_BADGES = [`NP/Delegate`, `Security/SecondPassphrase`, "Security/Passphrase/Backup"];
+export const ACTIVE_BADGES = [`NP/Delegate`, `Security/SecondPassphrase`];
 export const ACTIVE_SYSTEM_PROPERTIES = ["type", "explicitValues", "LifeCycle/Status"];
 
 export class UnikRepository extends ChainRepository {
