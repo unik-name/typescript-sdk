@@ -1,20 +1,21 @@
-import { Interfaces, Transactions, Identities } from "@uns/ark-crypto";
+import { Interfaces, Identities } from "@uns/ark-crypto";
 import {
     CertifiedNftMintTransaction,
     INftMintDemand,
     INftMintDemandCertification,
     UNSCertifiedNftMintBuilder,
-    INftMintDemandPayload,
-    NftMintDemandSigner,
     ICertifiedDemand,
     DIDHelpers,
     DIDTypes,
+    INftMintDemandPayload,
+    NftMintDemandSigner,
 } from "@uns/crypto";
 import { Response, UNSClient } from "../clients";
 import { codes } from "../types/errors";
 import { SdkResult } from "../types/results";
 import { Transactions as NftTransactions, Interfaces as NftInterfaces, Builders } from "@uns/core-nft-crypto";
 import { getCurrentIAT } from "../utils";
+import { registerTransaction } from "../utils/registerTransaction";
 import { UNSServiceType } from "../types";
 import { NetworkUnitService, UnikPattern } from "../clients/repositories";
 import { parse, DidParserError, DidParserResult } from "./did";
@@ -42,7 +43,7 @@ export const createCertifiedNftMintTransaction = async (
     const tokenTypeAsNumber: number = DIDHelpers.fromLabel(unikParseResult.type);
 
     if (certification) {
-        Transactions.TransactionRegistry.registerTransactionType(CertifiedNftMintTransaction);
+        registerTransaction(CertifiedNftMintTransaction);
 
         let properties;
 
@@ -131,7 +132,7 @@ export const createCertifiedNftMintTransaction = async (
 
         builder.demand(demand).certification(reponse.data, issuerAddress);
     } else {
-        Transactions.TransactionRegistry.registerTransactionType(NftTransactions.NftMintTransaction);
+        registerTransaction(NftTransactions.NftMintTransaction);
         builder = new Builders.NftMintBuilder(unikParseResult.tokenName, tokenId).properties({
             type: `${tokenTypeAsNumber}`,
         });
