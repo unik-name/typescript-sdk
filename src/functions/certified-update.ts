@@ -1,4 +1,4 @@
-import { Interfaces, Transactions, Identities } from "@uns/ark-crypto";
+import { Interfaces, Identities } from "@uns/ark-crypto";
 import {
     CertifiedNftUpdateTransaction,
     INftUpdateDemand,
@@ -13,6 +13,7 @@ import { codes } from "../types/errors";
 import { SdkResult, NftFactoryServicesList } from "../types";
 import { Interfaces as NftInterfaces } from "@uns/core-nft-crypto";
 import { getCurrentIAT } from "../utils";
+import { registerTransaction } from "../utils/registerTransaction";
 
 export const createCertifiedNftUpdateTransaction = async (
     client: UNSClient,
@@ -26,7 +27,7 @@ export const createCertifiedNftUpdateTransaction = async (
     serviceId?: NftFactoryServicesList,
     unikname?: string,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
-    Transactions.TransactionRegistry.registerTransactionType(CertifiedNftUpdateTransaction);
+    registerTransaction(CertifiedNftUpdateTransaction);
 
     const builder = new UNSCertifiedNftUpdateBuilder(nftName, tokenId).properties(properties);
     const currentAsset: NftInterfaces.ITransactionNftAssetData = builder.getCurrentAsset();
