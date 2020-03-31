@@ -719,10 +719,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@uns/ark-crypto@^5.0.1-dev", "@uns/ark-crypto@^5.0.1-dev.20200319154126":
-  version "5.0.1-dev.20200319154126"
-  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-5.0.1-dev.20200319154126.tgz#88b9a2c165bb51c4e8653f19ee1b10c82c9c96ef"
-  integrity sha512-pjh5H2jkMPndbuLSMQajUtpx+kKnQHtOxVv1q5HvcHoh8U2wd51QIlHi1GdDf5MERNfPt3NThDE+Xkeevatqqg==
+"@uns/ark-crypto@^5.0.2", "@uns/ark-crypto@^5.0.2-dev":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-5.0.2.tgz#96d3ce058ed6c2f2e4fc08e2c9a78ef50071a6c1"
+  integrity sha512-nSCy0Ye4mcRDADhMqxyNSLeRzQ0A7YG3kePTWCU60TsD1M8JCfDs14V+WNZFkeQ09BEo2qdpQzO1p6Rq6mHWaQ==
   dependencies:
     "@arkecosystem/utils" "0.8.3"
     ajv "^6.10.2"
@@ -745,20 +745,20 @@
     tiny-glob "^0.2.6"
     wif "^2.0.6"
 
-"@uns/core-nft-crypto@^5.0.1-dev", "@uns/core-nft-crypto@^5.0.1-dev.20200319154126":
-  version "5.0.1-dev.20200319154126"
-  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-5.0.1-dev.20200319154126.tgz#35b09329487dafde9220231d4a69ed988e19cdd9"
-  integrity sha512-pIAYl+cIIl4AzbrLDxWB3pvQNLxCPRPsgR7/k3pCqppWjzBJhFRxhaALWalenP2zmqJVZguMoVNPSM/XSaYsSg==
+"@uns/core-nft-crypto@^5.0.2", "@uns/core-nft-crypto@^5.0.2-dev":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-5.0.2.tgz#e47581d7abf805cd0d94ffb316029a093cc4b95c"
+  integrity sha512-Azu01tAm8tWPcp9QEDKW5nLZIN3pOf1/tp/U6l/qfJBW1+9z+FM6nMDIvjOeEv1yMbY9Nawe6gpL2btCT62ybw==
   dependencies:
-    "@uns/ark-crypto" "^5.0.1-dev.20200319154126"
+    "@uns/ark-crypto" "^5.0.2"
 
-"@uns/crypto@^5.0.1-dev":
-  version "5.0.1-dev.20200319154126"
-  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-5.0.1-dev.20200319154126.tgz#ceea75261e5ae3758dfe2e668484adaa95cd9c4c"
-  integrity sha512-bhEUCn0HiGlaQejg1lLsT1z5cSNW56q9thVBDKkdes6HzqUHa25J3VuxWpgtQA+WjfZKvgM3Ef2VEJJ9Ee/42A==
+"@uns/crypto@^5.0.2-dev":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-5.0.2.tgz#eea0da0fcd39d5f1ed37b14bd05b74fe7bc9de47"
+  integrity sha512-WBQL/C+IR+4/52D9HFi+GLUiRrlYU6tkZNP1w4tu7OwtPB6TMmRapOUZvVeHfMVZgNAMIyEZCiXWFSqTUDwotg==
   dependencies:
-    "@uns/ark-crypto" "^5.0.1-dev.20200319154126"
-    "@uns/core-nft-crypto" "^5.0.1-dev.20200319154126"
+    "@uns/ark-crypto" "^5.0.2"
+    "@uns/core-nft-crypto" "^5.0.2"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -979,12 +979,22 @@ ajv-keywords@^3.1.0, ajv-keywords@^3.4.1:
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.4.1.tgz#ef916e271c64ac12171fd8384eaae6b2345854da"
   integrity sha512-RO1ibKvd27e6FEShVFfPALuHI3WjSVNeK5FIsmme/LYRNxjKuNj+Dt7bucLa6NdSv3JcVTyMlm9kGR84z1XpaQ==
 
-ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.5.5:
+ajv@^6.1.0, ajv@^6.10.0, ajv@^6.5.5:
   version "6.10.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.10.2.tgz#d3cea04d6b017b2894ad69040fec8b623eb4bd52"
   integrity sha512-TXtUUEYHuaTEbLZWIKUr5pmBuhDLy+8KYtPYdcV8qC+pOZL+NKqYwvWSRrVXHn+ZmRRAu8vJTAznH7Oag6RVRw==
   dependencies:
     fast-deep-equal "^2.0.1"
+    fast-json-stable-stringify "^2.0.0"
+    json-schema-traverse "^0.4.1"
+    uri-js "^4.2.2"
+
+ajv@^6.10.2:
+  version "6.12.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.0.tgz#06d60b96d87b8454a5adaba86e7854da629db4b7"
+  integrity sha512-D6gFiFA0RRLyUbvijN74DWAjXSFxWKaWP7mldxkVhyhAV3+SWA9HEJPHQ2c9soIeTFJqcSdFDGFgdqs1iUU2Hw==
+  dependencies:
+    fast-deep-equal "^3.1.1"
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
@@ -2618,6 +2628,11 @@ fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
   integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
+
+fast-deep-equal@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
+  integrity sha512-8UEa58QDLauDNfpbrX55Q9jrGHThw2ZMdOky5Gl1CDtVeJDPVrG4Jxx1N8jw2gkWaff5UUuX1KJd+9zGe2B+ZA==
 
 fast-glob@^3.0.3:
   version "3.1.0"
