@@ -32,9 +32,9 @@
         "test:coverage": "yarn test --coverage --coveragePathIgnorePatterns='/(index.ts)$'"
     },
     "dependencies": {
-        "@uns/ark-crypto": "^5.0.1-dev",
-        "@uns/core-nft-crypto": "^5.0.1-dev",
-        "@uns/crypto": "^5.0.1-dev",
+        "@uns/ark-crypto": "^5.0.2-dev",
+        "@uns/core-nft-crypto": "^5.0.2-dev",
+        "@uns/crypto": "^5.0.2-dev",
         "deepmerge": "^4.0.0",
         "did-jwt": "^4.0.0",
         "elliptic": "^6.5.2",
