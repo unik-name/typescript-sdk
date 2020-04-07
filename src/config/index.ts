@@ -20,7 +20,7 @@ export const UNSConfig: Record<Network, EndpointsConfig> = {
     sandbox: {
         network: Network.sandbox,
         chain: {
-            url: "https://forger1.sandbox.uns.network",
+            url: "https://relay1.sandbox.uns.network",
             customValue: false,
         },
         service: {
