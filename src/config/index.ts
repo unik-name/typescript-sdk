@@ -1,7 +1,8 @@
 export enum Network {
+    livenet = "livenet",
     sandbox = "sandbox",
     dalinet = "dalinet",
-    default = dalinet,
+    default = livenet,
     testnet = "testnet",
 }
 
@@ -17,6 +18,17 @@ export type EndpointsConfig = {
 };
 
 export const UNSConfig: Record<Network, EndpointsConfig> = {
+    livenet: {
+        network: Network.livenet,
+        chain: {
+            url: "https://relay1.uns.network",
+            customValue: false,
+        },
+        service: {
+            url: "https://services.unik-name.com",
+            customValue: false,
+        },
+    },
     sandbox: {
         network: Network.sandbox,
         chain: {
