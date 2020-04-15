@@ -21,7 +21,7 @@ export const UNSConfig: Record<Network, EndpointsConfig> = {
     livenet: {
         network: Network.livenet,
         chain: {
-            url: "https://relay1.uns.network",
+            url: "https://api.uns.network",
             customValue: false,
         },
         service: {
