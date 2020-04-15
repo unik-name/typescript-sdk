@@ -719,10 +719,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@uns/ark-crypto@^5.1.0-dev", "@uns/ark-crypto@^5.1.0-dev.20200410114222":
-  version "5.1.0-dev.20200410114222"
-  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-5.1.0-dev.20200410114222.tgz#761460f420a1e8a437790040805ffc6a4f8f0ebd"
-  integrity sha512-t1ENCE26bHBJGbroH22YiuoFBKXMyTdVSLklrVJQuFJ/FpxYHZJC41JdfOdrbl+Pcnow7J5Ed451G65lEMOxUg==
+"@uns/ark-crypto@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-5.1.0.tgz#abd2554aa4410d85506a5ef33537cec1e83821f7"
+  integrity sha512-155DOgBIIAHXvU/4/GLCiOZfwR/xd5EEbgbnXDIap8r2RvAfEGYqrh89pSYcaD5wHJIeJciKVcx4PU67Q3KzOA==
   dependencies:
     "@arkecosystem/utils" "0.8.3"
     ajv "^6.10.2"
@@ -745,20 +745,20 @@
     tiny-glob "^0.2.6"
     wif "^2.0.6"
 
-"@uns/core-nft-crypto@^5.1.0-dev", "@uns/core-nft-crypto@^5.1.0-dev.20200410114222":
-  version "5.1.0-dev.20200410114222"
-  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-5.1.0-dev.20200410114222.tgz#9150680a4a04b7eb9e9337e7253719df9b34b40f"
-  integrity sha512-yUTgI/G2fQ47jxLcWRc1gEiW/ypef8LQsd29qcgNNIBp1u2yC9MYi7yO6CoM4M3CYBrZ6YfE7vmCHEuyxO4h6g==
+"@uns/core-nft-crypto@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-5.1.0.tgz#47f4cbfb27cd18586282e715aa799c41ead631a5"
+  integrity sha512-AV3nT5SBgurPS4ZFzXjqxhmg2gruzIPBAErgwkWwJytxrfvKU0BYWmUJ3R3WsK5BUBGU4kMRHhXf2Xo2yA0v3Q==
   dependencies:
-    "@uns/ark-crypto" "^5.1.0-dev.20200410114222"
+    "@uns/ark-crypto" "^5.1.0"
 
-"@uns/crypto@^5.1.0-dev":
-  version "5.1.0-dev.20200410114222"
-  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-5.1.0-dev.20200410114222.tgz#efd61b3b44db991a879e5575d8e905564721777a"
-  integrity sha512-6bcEZvFcDiStxY2N/A2vGqoYKZ51JghJonDHP5IzjcDQnN399PZvVRhuDIJOq1qmjn6GfCPNmgyHZSRpBaDX/Q==
+"@uns/crypto@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-5.1.0.tgz#96e78c18c46899ca7412c28957d4fd1ee7b841cc"
+  integrity sha512-lHom+UEw+jSvA8ODAbsfNqsPMIRhz5tzbf+krKEfe2aqhxKlD4f6+p4WiUqRnKFgKxR0RlWJeSbJBZ6cD1KbOw==
   dependencies:
-    "@uns/ark-crypto" "^5.1.0-dev.20200410114222"
-    "@uns/core-nft-crypto" "^5.1.0-dev.20200410114222"
+    "@uns/ark-crypto" "^5.1.0"
+    "@uns/core-nft-crypto" "^5.1.0"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
