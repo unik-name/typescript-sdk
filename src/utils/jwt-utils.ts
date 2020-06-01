@@ -38,12 +38,17 @@ export function getUnikVoucherId(unikVoucher: string): string {
     return (decodeJWT(unikVoucher).payload as any).jti;
 }
 
+export function getUnikVoucherCouponHash(unikVoucher: string): string | undefined {
+    return (decodeJWT(unikVoucher).payload as any).couponHash;
+}
+
 export async function createUnikVoucher(
     tokenId: string,
     matchingServices: NftFactoryServicesList[],
     issuerId: string,
     issuerSecret: string,
     expirationDuration: number,
+    couponHash?: string,
     paymentProof?: string,
 ): Promise<string> {
     const curve = new ec("secp256k1");
@@ -59,6 +64,7 @@ export async function createUnikVoucher(
                 services: matchingServices,
             },
             paymentProof,
+            couponHash,
         },
         {
             alg: "ES256K",
