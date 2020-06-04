@@ -18,6 +18,8 @@ export {
     SearchNetworkUnitServiceRequest,
     UnikPatterRequestBody,
     UnikPattern,
+    UnikVoucherRequestBody,
+    UnikVoucherResult,
 } from "./repositories";
 
 export {
