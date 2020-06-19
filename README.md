@@ -26,4 +26,4 @@ _NB: use semver_
 
 ## License
 
-[MIT](LICENSE) © [UNS](https://unik-name.com)
+[MIT](LICENSE) © [UNS](https://unikname.com)
