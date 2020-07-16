@@ -6,8 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+-   Add url checkers services (#2866)
+
 ### Changed
 
--   Officialy support of node 12 (#2852)
+-   Official support of node 12 (#2852)
 
 ### Removed

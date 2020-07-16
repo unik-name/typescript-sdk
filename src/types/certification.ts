@@ -28,6 +28,8 @@ export enum NftFactoryServicesList {
     NFT_FACTORY_EVERLASTING_BAGDE_NETWORK = 25,
     NFT_FACTORY_URL_VERIFICATION = 26,
     NFT_FACTORY_BADGE_PIONEER = 27,
+    URL_CHECKER_TXT = 28,
+    URL_CHECKER_FILE_UPLOAD = 29,
 }
 
 export interface CertificationRequestBody<T extends INftDemand> {
