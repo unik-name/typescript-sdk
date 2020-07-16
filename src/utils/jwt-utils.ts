@@ -4,7 +4,13 @@ import { SimpleSigner, createJWT, verifyJWT, Signer, decodeJWT } from "did-jwt";
 
 import nanoid = require("nanoid");
 import { Identities } from "@uns/ark-crypto";
-import { NftFactoryServicesList } from "../types";
+import {
+    NftFactoryServicesList,
+    VoucherJWTPayload,
+    PropertyVerifierJWTPayload,
+    PropertyVerifierType,
+    JWTPayload,
+} from "../types";
 import { UNSClient } from "../clients";
 
 export const UNIK_DID_PREFIX = "did:unik:unid:";
@@ -51,20 +57,49 @@ export async function createUnikVoucher(
     couponHash?: string,
     paymentProof?: string,
 ): Promise<string> {
+    const payload: VoucherJWTPayload = {
+        authorizations: {
+            services: matchingServices,
+        },
+        paymentProof,
+        couponHash,
+    };
+    return createUnsJWT(tokenId, issuerId, issuerSecret, expirationDuration, payload);
+}
+
+export async function createPropertyVerifierToken(
+    tokenId: string,
+    issuerId: string,
+    issuerSecret: string,
+    expirationDuration: number,
+    type: PropertyVerifierType,
+    value: string,
+): Promise<string> {
+    const payload: PropertyVerifierJWTPayload = {
+        type,
+        value,
+    };
+    return createUnsJWT(tokenId, issuerId, issuerSecret, expirationDuration, payload);
+}
+
+async function createUnsJWT(
+    tokenId: string,
+    issuerId: string,
+    issuerSecret: string,
+    expirationDuration: number,
+    payload: JWTPayload,
+): Promise<string> {
     const curve = new ec("secp256k1");
     const privateKey: string = Identities.Keys.fromPassphrase(issuerSecret).privateKey;
     const keyPair: ec.KeyPair = curve.keyFromPrivate(privateKey);
     const signer: Signer = SimpleSigner(keyPair.getPrivate("hex"));
+
     return createJWT(
         {
             jti: nanoid(),
             aud: computeUnikDid(issuerId),
             sub: computeUnikDid(tokenId),
-            authorizations: {
-                services: matchingServices,
-            },
-            paymentProof,
-            couponHash,
+            ...payload,
         },
         {
             alg: "ES256K",
@@ -84,7 +119,7 @@ export class JWTVerifier {
         };
     }
 
-    public async verifyJWTUnikVoucher(unikVoucher: string, issuerId: string): Promise<any> {
+    public async verifyUnsJWT(rawJwt: string, issuerId: string): Promise<any> {
         const didIssuer: string = computeUnikDid(issuerId);
 
         const options: any = {
@@ -93,7 +128,7 @@ export class JWTVerifier {
             callbackUrl: didIssuer, // used by did-jwt if not set it throws
         };
 
-        return verifyJWT(unikVoucher, options);
+        return verifyJWT(rawJwt, options);
     }
 
     private getResolveFunction(unsClient: UNSClient) {

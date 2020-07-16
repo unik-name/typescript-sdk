@@ -108,9 +108,6 @@
             "yarn prettier:fix:partial"
         ]
     },
-    "engines": {
-        "node": ">=10.x"
-    },
     "publishConfig": {
         "access": "public"
     }
