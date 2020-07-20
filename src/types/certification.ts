@@ -27,6 +27,7 @@ export enum NftFactoryServicesList {
     NFT_FACTORY_EVERLASTING_BAGDE_ORGANIZATION = 24,
     NFT_FACTORY_EVERLASTING_BAGDE_NETWORK = 25,
     NFT_FACTORY_URL_VERIFICATION = 26,
+    NFT_FACTORY_BADGE_PIONEER = 27,
 }
 
 export interface CertificationRequestBody<T extends INftDemand> {
@@ -42,7 +43,6 @@ export enum UNSServiceType {
     TRANSFER = 2,
 }
 
-// TO MOVE (SDK?)
 export enum DIDScript {
     DIGIT = 1,
     LATIN = 2,
