@@ -102,4 +102,7 @@ export const properties = [
     {
         "LifeCycle/Status": "2",
     },
+    {
+        "Badges/Pioneer": "1",
+    },
 ];
