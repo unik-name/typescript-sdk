@@ -13,7 +13,7 @@ repo_path: &repo_path
 
 job_config: &job_config
   docker:
-    - image: 'circleci/node:10-browsers'
+    - image: 'circleci/node:12.9.1-browsers'
   working_directory: *repo_path
 
 setup_envvars: &setup_envvars
