@@ -18,12 +18,10 @@
         "node": ">=12.x"
     },
     "scripts": {
-        "prepublishOnly": "yarn build && yarn bundle",
         "compile": "tsc",
         "build": "yarn clean && yarn compile",
         "build:watch": "yarn clean && yarn compile -w",
         "clean": "del dist",
-        "bundle": "yarn clean && cross-env NODE_ENV=production webpack --config build/webpack.config.js",
         "lint": "eslint -c ./eslintrc.js \"./src/**/*.ts\" \"./__tests__/**/*.ts\"",
         "lint:fix": "yarn lint --fix",
         "lint:fix:partial": "eslint -c ./eslintrc.js --fix",
@@ -65,11 +63,7 @@
         "ts-jest": "^25.2.0",
         "ts-loader": "^6.0.4",
         "tslint": "^5.0.0",
-        "typescript": "^3.7.5",
-        "webpack": "^4.41.6",
-        "webpack-cli": "^3.3.11",
-        "webpack-merge": "^4.2.2",
-        "webpack-node-externals": "^1.7.2"
+        "typescript": "^3.7.5"
     },
     "jest": {
         "testEnvironment": "node",

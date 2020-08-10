@@ -14,10 +14,6 @@ Please visit [SDK page](https://docs.uns.network/uns-usethenetwork/sdk.html) fro
 
 `yarn build`
 
-### Bundle for production
-
-`yarn bundle`
-
 ### Release
 
 `npm publish`
