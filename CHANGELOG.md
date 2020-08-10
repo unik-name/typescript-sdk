@@ -13,3 +13,5 @@ All notable changes to this project will be documented in this file.
 -   Official support of node 12 (#2852)
 
 ### Removed
+
+-   Webpack bundle build (#2924)
