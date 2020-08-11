@@ -18,6 +18,7 @@
         "node": ">=12.x"
     },
     "scripts": {
+        "prepublishOnly": "yarn build",
         "compile": "tsc",
         "build": "yarn clean && yarn compile",
         "build:watch": "yarn clean && yarn compile -w",
