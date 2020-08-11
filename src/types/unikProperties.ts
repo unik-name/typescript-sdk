@@ -1,4 +1,4 @@
-import { BADGES_PREFIX } from "../../src/clients/repositories";
+import { BADGES_PREFIX } from "../clients/repositories";
 
 /* Badges */
 export const BADGE_PIONEER_KEY = `${BADGES_PREFIX}Pioneer`;
