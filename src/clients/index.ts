@@ -20,6 +20,7 @@ export {
     UnikPattern,
     UnikVoucherRequestBody,
     UnikVoucherResult,
+    Block,
 } from "./repositories";
 
 export {

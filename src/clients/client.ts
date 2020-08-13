@@ -24,6 +24,8 @@ import {
     UNIK_PATTERN_REPOSITORY_SUB,
     UnikVoucherRepository,
     VOUCHER_REPOSITORY_SUB,
+    BLOCKS_REPOSITORY_SUB,
+    BlocksRepository as BlockRepository,
 } from "./repositories";
 import { BlockchainRepository } from "./repositories/blockchain";
 import { MintDemandCertificationRepository } from "./repositories/nftMintDemandCertification";
@@ -112,6 +114,10 @@ export class UNSClient {
         return this.getResource<UnikVoucherRepository>(VOUCHER_REPOSITORY_SUB);
     }
 
+    public get block(): BlockRepository {
+        return this.getResource<BlockRepository>(BLOCKS_REPOSITORY_SUB);
+    }
+
     private initRepositories() {
         // Chain repositories
         this.repositories[NODE_REPOSITORY_SUB] = new NodeRepository(this.currentEndpointsConfig, this.config);
@@ -154,6 +160,8 @@ export class UNSClient {
             this.config,
         );
         this.repositories[VOUCHER_REPOSITORY_SUB] = new UnikVoucherRepository(this.currentEndpointsConfig, this.config);
+
+        this.repositories[BLOCKS_REPOSITORY_SUB] = new BlockRepository(this.currentEndpointsConfig, this.config);
     }
 
     private static computeCurrentEndpointsConfig(unsClientConfig: UNSClientConfig): EndpointsConfig {
