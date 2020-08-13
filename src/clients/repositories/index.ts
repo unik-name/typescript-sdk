@@ -12,3 +12,4 @@ export * from "./nftUpdateDemandCertification";
 export * from "./networkUnitServices";
 export * from "./unikPattern";
 export * from "./vouchers";
+export * from "./block";

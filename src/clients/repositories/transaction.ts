@@ -49,4 +49,8 @@ export class TransactionRepository extends ChainRepository {
     public async send(transaction: Interfaces.ITransactionData): Promise<IProcessorResult> {
         return this.POST<IProcessorResult>({ transactions: [transaction] });
     }
+
+    public async search(searchQuery: { [_: string]: any }): Promise<ResponseWithChainMeta<Transaction[]>> {
+        return this.POST<ResponseWithChainMeta<Transaction[]>>(searchQuery, "search");
+    }
 }
