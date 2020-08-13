@@ -1,6 +1,13 @@
 import { NftFactoryServicesList } from "./certification";
 
 export type JWTPayload = any;
+export type JwtParams = {
+    sub: string;
+    iss: string;
+    issSecret: string;
+    aud: string;
+    exp: number;
+};
 
 export type VoucherJWTPayload = JWTPayload & {
     authorizations: {
