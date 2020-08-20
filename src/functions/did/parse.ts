@@ -1,7 +1,7 @@
 import { UNSClient } from "../../clients/client";
 import { DIDHelpers, DIDTypes, DIDType } from "../../types/did";
 import { DidParserResult, DidParserError } from "./types";
-import { UNS_NFT_PROPERTY_KEY_REGEX } from "@uns/crypto";
+import { UNS_NFT_PROPERTY_KEY_REGEX } from "@uns/crypto/dist/constants";
 
 const TOKEN_PATTERN = /@?(unik:)?/;
 const TYPE_PATTERN = /((?:individual|organization|network|1|2|3):)?/;
