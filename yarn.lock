@@ -719,10 +719,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@uns/ark-crypto@5.3.1", "@uns/ark-crypto@^5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-5.3.1.tgz#89e3725237f1f5be7c3285abdc928515a7927870"
-  integrity sha512-P7BtKX0u0XiQFZ4cxg82EzomQXdVELLE5oAX+uF4ssMfQoPO4XguzXZqL/Dii8togMORthr8lz1lDNZlJ66Gsg==
+"@uns/ark-crypto@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-5.3.3.tgz#5b28bd6a48e5a8b8a0667cc51f6d5ca707a1e340"
+  integrity sha512-TSmcjrjtx4r47fLoWRRvCANRWLe3u+EJF3wSwvUbWoNx8Ao7NEzvLCoBupeirJvv1IK38ilBNNyyMYBCD5tuXw==
   dependencies:
     "@arkecosystem/utils" "0.8.3"
     ajv "^6.10.2"
@@ -745,20 +745,20 @@
     tiny-glob "^0.2.6"
     wif "^2.0.6"
 
-"@uns/core-nft-crypto@5.3.1", "@uns/core-nft-crypto@^5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-5.3.1.tgz#fd0930c8d91223efcc88ae6da2aba0c271d623d1"
-  integrity sha512-ceXBP0JZMSgFE25/l/J/cuzh6LK6qVaMZiqxpfRRjk0VOvw3zTEaNoURy4MMolsaJaiafCzH2/a34srRq8vctA==
+"@uns/core-nft-crypto@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-5.3.3.tgz#c3466137885b3968f108557ba7a5374741a31891"
+  integrity sha512-wsht0k9PKIkOQNkeYVk8WjFa3OJU4akjAY7s3YQvCsbIZ5XV0YbYtSwaLAV32QcEvCPd8HDSINlD1d+v9qzFKw==
   dependencies:
-    "@uns/ark-crypto" "^5.3.1"
+    "@uns/ark-crypto" "^5.3.3"
 
-"@uns/crypto@5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-5.3.1.tgz#efd522c7c7a1bbed25427b954598d342b6349fe2"
-  integrity sha512-RFrkbwN/lfafCXIGNwWavt2s9i1VxUvfDEIfawPE1T+WBbs5+RfQPi3IO/XyrRXWuAWZ2QGJNAOd6wYLsRpzqQ==
+"@uns/crypto@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-5.3.3.tgz#36c4f4d97b1ccb9f340881dc67cfa87ee5a16842"
+  integrity sha512-8HAmrOsI0xsKhNKyfu/vL4ELofTphAuQltUEUcSpQgA/tSwkCvkKlSG9/b5mGEBJD/cdJPO7LDEPi+GOG5Jx+A==
   dependencies:
-    "@uns/ark-crypto" "^5.3.1"
-    "@uns/core-nft-crypto" "^5.3.1"
+    "@uns/ark-crypto" "^5.3.3"
+    "@uns/core-nft-crypto" "^5.3.3"
 
 abab@^2.0.0:
   version "2.0.3"
