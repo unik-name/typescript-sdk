@@ -16,7 +16,7 @@ import { SdkResult } from "../types/results";
 import { Transactions as NftTransactions, Interfaces as NftInterfaces, Builders } from "@uns/core-nft-crypto";
 import { getCurrentIAT } from "../utils";
 import { registerTransaction } from "../utils/registerTransaction";
-import { UNSServiceType } from "../types";
+import { UNSServiceType, LIFE_CYCLE_PROPERTY_KEY, LifeCycleGrades } from "../types";
 import { NetworkUnitService, UnikPattern } from "../clients/repositories";
 import { parse, DidParserError, DidParserResult } from "./did";
 import { decodeJWT } from "did-jwt";
@@ -158,7 +158,7 @@ function computeProperties(tokenTypeAsNumber: number, unikVoucher?: string): Nft
     if (unikVoucher) {
         const decodeUnikVoucher: any = decodeJWT(unikVoucher);
         properties.UnikVoucherId = decodeUnikVoucher.payload.jti; // UnikVoucherId has to be set, it will be compared to the unikVoucher.payload.id in certification service after verification
-        properties["LifeCycle/Status"] = "3"; // Alive
+        properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.LIVE.toString();
 
         if (DIDHelpers.fromCode(tokenTypeAsNumber) === "INDIVIDUAL") {
             properties["Badges/XPLevel"] = "2"; // Beginner
