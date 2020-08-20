@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+-   Add Everlasting service (#2902)
 -   Add verified JWT type
 
 ### Changed
