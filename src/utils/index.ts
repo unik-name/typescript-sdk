@@ -36,7 +36,3 @@ export function computeRequestUrl(baseUrl: string, path: string, query?: string)
 export function getCurrentIAT() {
     return dayjs().unix();
 }
-
-import * as jwtUtils from "./jwt-utils";
-
-export const JwtUtils = jwtUtils;

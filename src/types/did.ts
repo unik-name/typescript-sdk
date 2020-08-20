@@ -1,1 +1,1 @@
-export { DIDHelpers, DIDTypes, DIDType } from "@uns/crypto";
+export { DIDHelpers, DIDTypes, DIDType } from "@uns/crypto/dist/models";
