@@ -6,6 +6,17 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+
+### Changed
+
+
+### Removed
+
+
+## 3.0.0 - 2020-08-20
+
+### Added
+
 -   Add url checkers services (#2866)
 
 ### Changed
