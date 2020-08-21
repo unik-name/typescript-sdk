@@ -11,6 +11,7 @@ import {
     PropertyVerifierType,
     JWTPayload,
     JwtParams,
+    VerifiedJWT,
 } from "../types";
 import { UNSClient } from "../clients";
 
@@ -121,7 +122,7 @@ export class JWTVerifier {
         };
     }
 
-    public async verifyUnsJWT(rawJwt: string, audUNID: string): Promise<any> {
+    public async verifyUnsJWT(rawJwt: string, audUNID: string): Promise<VerifiedJWT> {
         const audDID: string = computeUnikDid(audUNID);
 
         const options: any = {

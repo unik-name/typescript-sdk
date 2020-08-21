@@ -1,4 +1,5 @@
 import { NftFactoryServicesList } from "./certification";
+import { DIDDocument } from "did-resolver";
 
 export type JWTPayload = any;
 export type JwtParams = {
@@ -22,4 +23,12 @@ export type PropertyVerifierType = "url";
 export type PropertyVerifierJWTPayload = JWTPayload & {
     type: PropertyVerifierType;
     value: string;
+};
+
+export type VerifiedJWT = {
+    payload: PropertyVerifierJWTPayload | VoucherJWTPayload;
+    doc: DIDDocument;
+    issuer: string;
+    signer: object;
+    jwt: string;
 };
