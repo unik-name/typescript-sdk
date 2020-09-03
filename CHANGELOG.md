@@ -6,12 +6,16 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
--   Add Everlasting service (#2902)
--   Add verified JWT type
-
 ### Changed
 
 ### Removed
+
+## 3.1.0 - 2020-09-03
+
+### Added
+
+-   Add Everlasting service (#2902)
+-   Add verified JWT type
 
 ## 3.0.0 - 2020-08-20
 
