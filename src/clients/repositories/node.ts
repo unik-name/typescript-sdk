@@ -35,6 +35,7 @@ export type NodeConfiguration = {
         };
         ignoreInvalidSecondSignatureField: boolean;
         vendorFieldLength: number;
+        urlCheckers?: string[];
     };
     feeStatistics: {
         type: number;
