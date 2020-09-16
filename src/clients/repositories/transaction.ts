@@ -2,6 +2,7 @@ import { Interfaces } from "@uns/ark-crypto";
 import { ResponseWithChainMeta } from "../response";
 import { ChainTimestamp } from "../../types";
 import { ChainRepository } from "./types/ChainRepository";
+import { PaginationOptions, toQueryString } from "../http/pagination";
 
 export const TRANSACTION_REPOSITORY_SUB: string = "transactions";
 
@@ -45,5 +46,9 @@ export class TransactionRepository extends ChainRepository {
 
     public async search(searchQuery: { [_: string]: any }): Promise<ResponseWithChainMeta<Transaction[]>> {
         return this.POST<ResponseWithChainMeta<Transaction[]>>(searchQuery, "search");
+    }
+
+    public async unconfirmed(pagination?: PaginationOptions): Promise<ResponseWithChainMeta<Transaction[]>> {
+        return this.GET<ResponseWithChainMeta<Transaction[]>>("unconfirmed", toQueryString(pagination));
     }
 }

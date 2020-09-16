@@ -31,7 +31,8 @@ describe("UNSClient", () => {
     describe("chain APIs", () => {
         const client = new UNSClient();
         client.init({ network: Network.sandbox });
-        const mock = nock(UNSConfig.sandbox.chain.url);
+        const url = UNSConfig.sandbox.chain.url;
+        const mock = nock(url);
 
         describe("node", () => {
             const nodeMock = mock.get("/node/status");
@@ -128,6 +129,42 @@ describe("UNSClient", () => {
                 client.init({ network: Network.sandbox });
 
                 await expect(client.transaction.get(id)).rejects.toThrowError("Not Found");
+            });
+
+            describe("unconfirmed transactions", () => {
+                const unconfirmedTransactionMock = () => mock.get(`/transactions/unconfirmed`);
+
+                it("should call right endpoint", async () => {
+                    expect.assertions(1);
+
+                    unconfirmedTransactionMock().reply(200, uri => {
+                        expect(uri.endsWith("/transactions/unconfirmed")).toBe(true);
+                        return {};
+                    });
+
+                    const client = new UNSClient();
+                    client.init({ network: Network.sandbox });
+                    await client.transaction.unconfirmed();
+                });
+
+                it("should compute pagination query", async () => {
+                    expect.assertions(2);
+                    const limit = 1,
+                        page = 2;
+
+                    unconfirmedTransactionMock()
+                        .query(true)
+                        .reply(200, uri => {
+                            const params = new URLSearchParams(new URL(`${url}${uri}`).search);
+                            expect(params.get("limit")).toBe(`${limit}`);
+                            expect(params.get("page")).toBe(`${page}`);
+                            return {};
+                        });
+
+                    const client = new UNSClient();
+                    client.init({ network: Network.sandbox });
+                    await client.transaction.unconfirmed({ limit, page });
+                });
             });
         });
 
