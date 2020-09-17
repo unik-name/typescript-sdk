@@ -10,6 +10,13 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 
+## 3.2.0 - 2020-09-17
+
+### Added
+
+-   transaction unconfirmed endpoint (#2952)
+-   merge Transaction type with core ITransactionData
+
 ## 3.1.0 - 2020-09-03
 
 ### Added
