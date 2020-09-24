@@ -10,6 +10,14 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 
+## 3.3.0 - 2020-09-24
+
+### Added
+
+-   new services endpoint `GET /network-unit-services/mint`
+-   add `cost` and `type` in `NetworkUnitService` type
+-   create a new type `NetworkUnitMintService` inherits `NetworkUnitService`
+
 ## 3.2.0 - 2020-09-17
 
 ### Added
