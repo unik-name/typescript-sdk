@@ -19,12 +19,4 @@ export const BADGE_XP_LEVEL_KEY = "Badges/XPLevel";
 /* Special properties */
 export const VERIFIED_URL_KEY_PREFIX = "Verified/URL/";
 
-/* LifeCycle */
-export const LIFE_CYCLE_PROPERTY_KEY = "LifeCycle/Status";
-export enum LifeCycleGrades {
-    ISSUED = 1,
-    MINTED = 2,
-    LIVE = 3,
-    ABORTED = 4,
-    EVERLASTING = 100,
-}
+export { LIFE_CYCLE_PROPERTY_KEY, LifeCycleGrades } from "@uns/crypto";

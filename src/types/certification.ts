@@ -30,6 +30,9 @@ export enum NftFactoryServicesList {
     NFT_FACTORY_BADGE_PIONEER = 27,
     URL_CHECKER_TXT = 28,
     URL_CHECKER_FILE_UPLOAD = 29,
+    NFT_FACTORY_UPDATE_ALIVE_INDIVIDUAL = 30,
+    NFT_FACTORY_UPDATE_ALIVE_ORGANIZATION = 31,
+    NFT_FACTORY_UPDATE_ALIVE_NETWORK = 32,
 }
 
 export interface CertificationRequestBody<T extends INftDemand> {
