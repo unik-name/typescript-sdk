@@ -36,6 +36,7 @@ export type NodeConfiguration = {
         ignoreInvalidSecondSignatureField: boolean;
         vendorFieldLength: number;
         urlCheckers?: string[];
+        unsTokenEcoV2?: boolean;
     };
     feeStatistics: {
         type: number;
