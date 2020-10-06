@@ -1,4 +1,4 @@
-import { Interfaces, Identities } from "@uns/ark-crypto";
+import { Interfaces, Identities, Managers } from "@uns/ark-crypto";
 import {
     CertifiedNftMintTransaction,
     INftMintDemand,
@@ -42,7 +42,7 @@ export const createCertifiedNftMintTransaction = async (
         return codes.DID_PARSER_ERROR;
     }
 
-    const tokenTypeAsNumber: number = DIDHelpers.fromLabel(unikParseResult.type);
+    const didType: DIDTypes = DIDHelpers.fromLabel(unikParseResult.type);
 
     if (certification) {
         registerTransaction(CertifiedNftMintTransaction);
@@ -50,7 +50,7 @@ export const createCertifiedNftMintTransaction = async (
         let properties;
 
         try {
-            properties = computeProperties(tokenTypeAsNumber, unikVoucher);
+            properties = computeProperties(didType, unikVoucher);
         } catch (e) {
             console.debug(
                 `[${codes.UNIK_VOUCHER_FORMAT_ERROR.code}] ${codes.UNIK_VOUCHER_FORMAT_ERROR.message} (${e.message})`,
@@ -133,10 +133,15 @@ export const createCertifiedNftMintTransaction = async (
         }
 
         builder.demand(demand).certification(reponse.data, issuerAddress);
+
+        // token eco v2: override individual mint fee to 0
+        if (unikVoucher && didType === DIDTypes.INDIVIDUAL && Managers.configManager.getMilestone()?.unsTokenEcoV2) {
+            fees = 0;
+        }
     } else {
         registerTransaction(NftTransactions.NftMintTransaction);
         builder = new Builders.NftMintBuilder(unikParseResult.tokenName, tokenId).properties({
-            type: `${tokenTypeAsNumber}`,
+            type: `${didType}`,
         });
     }
 
@@ -152,9 +157,9 @@ export const createCertifiedNftMintTransaction = async (
     return builder.getStruct();
 };
 
-function computeProperties(tokenTypeAsNumber: number, unikVoucher?: string): NftInterfaces.INftProperties {
+function computeProperties(didType: DIDTypes, unikVoucher?: string): NftInterfaces.INftProperties {
     const properties: NftInterfaces.INftProperties = {
-        type: `${tokenTypeAsNumber}`,
+        type: `${didType}`,
     };
 
     properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.MINTED.toString();
@@ -163,7 +168,7 @@ function computeProperties(tokenTypeAsNumber: number, unikVoucher?: string): Nft
         const decodeUnikVoucher: any = decodeJWT(unikVoucher);
         properties.UnikVoucherId = decodeUnikVoucher.payload.jti; // UnikVoucherId has to be set, it will be compared to the unikVoucher.payload.id in certification service after verification
 
-        if (DIDHelpers.fromCode(tokenTypeAsNumber) === "INDIVIDUAL") {
+        if (didType === DIDTypes.INDIVIDUAL) {
             properties["Badges/XPLevel"] = "2"; // Beginner
         }
     }
