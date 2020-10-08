@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
--   Set Lifecycle status to MINTED when minting (#2985)
+-   token eco V2: Set Lifecycle status to MINTED when minting (#2985)
 
 ### Removed
 

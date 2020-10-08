@@ -11,6 +11,10 @@ export const codes = {
         code: "3",
         message: "DID Parser error",
     },
+    NODE_UNREACHABLE: {
+        code: "4",
+        message: "Unable to fetch node details",
+    },
 
     /**
      * Minting errors
