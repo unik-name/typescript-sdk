@@ -23,6 +23,15 @@ import { NetworkUnitService, UnikPattern } from "../clients/repositories";
 import { parse, DidParserError, DidParserResult } from "./did";
 import { decodeJWT } from "did-jwt";
 
+export const initConfigManager = async (client: UNSClient): Promise<SdkResult<void>> => {
+    Managers.configManager.setFromPreset(client.currentEndpointsConfig.network);
+    const height = (await client.blockchain.get()).data?.block.height;
+    if (!height) {
+        return codes.NODE_UNREACHABLE;
+    }
+    Managers.configManager.setHeight(height);
+};
+
 export const createCertifiedNftMintTransaction = async (
     client: UNSClient,
     tokenId: string,
@@ -34,6 +43,11 @@ export const createCertifiedNftMintTransaction = async (
     unikVoucher?: string,
     certification: boolean = true,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
+    const initError = await initConfigManager(client);
+    if (initError) {
+        return initError;
+    }
+
     let builder;
 
     const unikParseResult: DidParserResult | DidParserError = await parse(unikname, client);
@@ -167,7 +181,9 @@ function computeProperties(didType: DIDTypes, unikVoucher?: string): NftInterfac
     if (unikVoucher) {
         const decodeUnikVoucher: any = decodeJWT(unikVoucher);
         properties.UnikVoucherId = decodeUnikVoucher.payload.jti; // UnikVoucherId has to be set, it will be compared to the unikVoucher.payload.id in certification service after verification
-
+        if (!Managers.configManager.getMilestone().unsTokenEcoV2) {
+            properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.LIVE.toString();
+        }
         if (didType === DIDTypes.INDIVIDUAL) {
             properties["Badges/XPLevel"] = "2"; // Beginner
         }
