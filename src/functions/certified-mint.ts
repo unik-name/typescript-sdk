@@ -18,7 +18,7 @@ import { SdkResult } from "../types/results";
 import { Transactions as NftTransactions, Interfaces as NftInterfaces, Builders } from "@uns/core-nft-crypto";
 import { getCurrentIAT } from "../utils";
 import { registerTransaction } from "../utils/registerTransaction";
-import { UNSServiceType } from "../types";
+import { BADGE_XP_LEVEL_KEY, XPLevelBadgeGrades, UNSServiceType } from "../types";
 import { NetworkUnitService, UnikPattern } from "../clients/repositories";
 import { parse, DidParserError, DidParserResult } from "./did";
 import { decodeJWT } from "did-jwt";
@@ -181,12 +181,24 @@ function computeProperties(didType: DIDTypes, unikVoucher?: string): NftInterfac
     if (unikVoucher) {
         const decodeUnikVoucher: any = decodeJWT(unikVoucher);
         properties.UnikVoucherId = decodeUnikVoucher.payload.jti; // UnikVoucherId has to be set, it will be compared to the unikVoucher.payload.id in certification service after verification
-        if (!Managers.configManager.getMilestone().unsTokenEcoV2) {
-            properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.LIVE.toString();
-        }
+
+        // token evo v1
+        // every mint with voucher is LIVE
+        properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.LIVE.toString();
+        // individual mint have BEGINNER badge
         if (didType === DIDTypes.INDIVIDUAL) {
-            properties["Badges/XPLevel"] = "2"; // Beginner
+            properties[BADGE_XP_LEVEL_KEY] = XPLevelBadgeGrades.BEGINNER.toString();
         }
     }
+
+    // token eco V2
+    if (Managers.configManager.getMilestone().unsTokenEcoV2) {
+        // individual mint have GUEST badge and MINTED status
+        if (didType === DIDTypes.INDIVIDUAL) {
+            properties[BADGE_XP_LEVEL_KEY] = XPLevelBadgeGrades.GUEST.toString();
+            properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.MINTED.toString();
+        }
+    }
+
     return properties;
 }

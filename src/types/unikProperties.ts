@@ -14,8 +14,11 @@ export const PIONEER_INNOVATOR = 1500;
 export const PIONEER_EARLY_ADOPTER = 150000;
 
 /* XP Level */
-export const BADGE_XP_LEVEL_KEY = "Badges/XPLevel";
-
+export const BADGE_XP_LEVEL_KEY = `${BADGES_PREFIX}XPLevel`;
+export enum XPLevelBadgeGrades {
+    GUEST = 1,
+    BEGINNER = 2,
+}
 /* Special properties */
 export const VERIFIED_URL_KEY_PREFIX = "Verified/URL/";
 
