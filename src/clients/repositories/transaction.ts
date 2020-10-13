@@ -1,4 +1,4 @@
-import { Interfaces } from "@uns/ark-crypto";
+import { Interfaces, Transactions } from "@uns/ark-crypto";
 import { ResponseWithChainMeta } from "../response";
 import { ChainTimestamp } from "../../types";
 import { ChainRepository } from "./types/ChainRepository";
@@ -41,6 +41,10 @@ export class TransactionRepository extends ChainRepository {
     }
 
     public async send(transaction: Interfaces.ITransactionData): Promise<IProcessorResult> {
+        const { error } = Transactions.Verifier.verifySchema(transaction);
+        if (error) {
+            throw new Error(error);
+        }
         return this.POST<IProcessorResult>({ transactions: [transaction] });
     }
 
