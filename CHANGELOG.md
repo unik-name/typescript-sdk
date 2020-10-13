@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+-   custom service option (#3023)
 -   Add alive demand services (#2985)
 -   token eco V2: set fees to 0 for individual mint (#2999)
 
