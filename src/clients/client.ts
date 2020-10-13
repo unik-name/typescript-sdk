@@ -165,12 +165,15 @@ export class UNSClient {
     }
 
     private static computeCurrentEndpointsConfig(unsClientConfig: UNSClientConfig): EndpointsConfig {
-        const { network, customNode } = unsClientConfig;
+        const { network, customNode, customServices } = unsClientConfig;
 
         const currentEndpointsConfig = UNSConfig[network];
 
         if (customNode) {
             currentEndpointsConfig.chain = { url: customNode, customValue: true };
+        }
+        if (customServices) {
+            currentEndpointsConfig.service = { url: customServices, customValue: true };
         }
         return currentEndpointsConfig;
     }
