@@ -23,15 +23,6 @@ import { NetworkUnitService, UnikPattern } from "../clients/repositories";
 import { parse, DidParserError, DidParserResult } from "./did";
 import { decodeJWT } from "did-jwt";
 
-export const initConfigManager = async (client: UNSClient): Promise<SdkResult<void>> => {
-    Managers.configManager.setFromPreset(client.currentEndpointsConfig.network);
-    const height = (await client.blockchain.get()).data?.block.height;
-    if (!height) {
-        return codes.NODE_UNREACHABLE;
-    }
-    Managers.configManager.setHeight(height);
-};
-
 export const createCertifiedNftMintTransaction = async (
     client: UNSClient,
     tokenId: string,
@@ -43,11 +34,6 @@ export const createCertifiedNftMintTransaction = async (
     unikVoucher?: string,
     certification: boolean = true,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
-    const initError = await initConfigManager(client);
-    if (initError) {
-        return initError;
-    }
-
     let builder;
 
     const unikParseResult: DidParserResult | DidParserError = await parse(unikname, client);
