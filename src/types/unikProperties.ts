@@ -16,7 +16,6 @@ export const PIONEER_EARLY_ADOPTER = 150000;
 /* XP Level */
 export const BADGE_XP_LEVEL_KEY = `${BADGES_PREFIX}XPLevel`;
 export enum XPLevelBadgeGrades {
-    GUEST = 1, // old Label, replaced by NEWCOMER. To remove when all clients have made the change
     NEWCOMER = 1,
     BEGINNER = 2,
     ADVANCED = 3,
