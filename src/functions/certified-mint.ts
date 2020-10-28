@@ -176,12 +176,11 @@ function computeProperties(didType: DIDTypes, unikVoucher?: string): NftInterfac
             properties[BADGE_XP_LEVEL_KEY] = XPLevelBadgeGrades.BEGINNER.toString();
         }
     }
-
     // token eco V2
     if (Managers.configManager.getMilestone().unsTokenEcoV2) {
-        // individual mint have GUEST badge and MINTED status
+        // individual mint have NEWCOMER badge and MINTED status
         if (didType === DIDTypes.INDIVIDUAL) {
-            properties[BADGE_XP_LEVEL_KEY] = XPLevelBadgeGrades.GUEST.toString();
+            properties[BADGE_XP_LEVEL_KEY] = XPLevelBadgeGrades.NEWCOMER.toString();
             properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.MINTED.toString();
         }
     }
