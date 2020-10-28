@@ -1,7 +1,7 @@
-import { BADGES_PREFIX } from "../clients/repositories";
 ////////////
 /* Badges */
 ////////////
+export const BADGES_PREFIX = "Badges/";
 
 /* Pioneer */
 export const BADGE_PIONEER_KEY = `${BADGES_PREFIX}Pioneer`;
@@ -23,6 +23,13 @@ export enum XPLevelBadgeGrades {
     LEADER = 4,
     MAVEN = 5,
 }
+
+/* NP/Delegate */
+export const BADGE_DELEGATE_KEY = `${BADGES_PREFIX}NP/Delegate`;
+
+/* Second passphrase */
+export const BADGE_SECOND_PASSPHRASE_KEY = `${BADGES_PREFIX}Security/SecondPassphrase`;
+
 /* Special properties */
 export const VERIFIED_URL_KEY_PREFIX = "Verified/URL/";
 

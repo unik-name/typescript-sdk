@@ -1,6 +1,8 @@
 import { ResponseWithChainMeta, Response } from "../response";
 import { ChainRepository } from "./types/ChainRepository";
 import { escapeSlashes } from "../../utils";
+import { LIFE_CYCLE_PROPERTY_KEY } from "@uns/crypto";
+import { BADGE_PIONEER_KEY, BADGE_XP_LEVEL_KEY, BADGE_DELEGATE_KEY, BADGE_SECOND_PASSPHRASE_KEY } from "../../types";
 
 export const UNIK_REPOSITORY_SUB: string = "uniks";
 
@@ -22,16 +24,12 @@ export type Unik = {
 
 export type PropertyValue = string;
 
-export const BADGES_PREFIX = "Badges/";
-export const ACTIVE_BADGES = [`NP/Delegate`, `Security/SecondPassphrase`, `Pioneer`, "XPLevel"];
-export const ACTIVE_SYSTEM_PROPERTIES = ["type", "explicitValues", "LifeCycle/Status"];
+export const ACTIVE_BADGES = [BADGE_DELEGATE_KEY, BADGE_SECOND_PASSPHRASE_KEY, BADGE_PIONEER_KEY, BADGE_XP_LEVEL_KEY];
+export const ACTIVE_SYSTEM_PROPERTIES = ["type", "explicitValues", LIFE_CYCLE_PROPERTY_KEY];
 
 export class UnikRepository extends ChainRepository {
     private isActiveBadge(key: string): boolean {
-        if (key.startsWith(BADGES_PREFIX) && !ACTIVE_BADGES.some(e => new RegExp(key).test(BADGES_PREFIX + e))) {
-            return false;
-        }
-        return true;
+        return ACTIVE_BADGES.includes(key);
     }
 
     private isActiveSystemProperty(key: string): boolean {

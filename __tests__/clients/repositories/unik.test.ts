@@ -1,8 +1,15 @@
 import nock = require("nock");
-import { UNSClient, Network, ResponseWithChainMeta, PropertyValue, USER_PROPERTY_PREFIX } from "../../../src";
+import {
+    UNSClient,
+    Network,
+    ResponseWithChainMeta,
+    PropertyValue,
+    USER_PROPERTY_PREFIX,
+    BADGES_PREFIX,
+} from "../../../src";
 import { UNSConfig } from "../../../src/config";
 import { properties, unikid } from "./../__fixtures__";
-import { ACTIVE_BADGES, BADGES_PREFIX, ACTIVE_SYSTEM_PROPERTIES } from "../../../src/clients/repositories/";
+import { ACTIVE_BADGES, ACTIVE_SYSTEM_PROPERTIES } from "../../../src/clients/repositories/";
 
 describe("Unik repository tests", () => {
     const client = new UNSClient();
