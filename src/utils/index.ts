@@ -1,5 +1,7 @@
 import deepmerge from "deepmerge";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 
 export * from "./chainmeta";
 
@@ -31,6 +33,10 @@ export function computeRequestUrl(baseUrl: string, path: string, query?: string)
     }
 
     return requestUrl;
+}
+
+export function getUTCTime(time?: string) {
+    return dayjs.utc(time);
 }
 
 export function getCurrentIAT() {

@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+-   get pioneer badge value function (#3094)
 -   custom service option (#3023)
 -   transaction schema check (#3023)
 -   Add alive demand services (#2985)
