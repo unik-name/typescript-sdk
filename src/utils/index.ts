@@ -1,4 +1,4 @@
-import deepmerge = require("deepmerge");
+import deepmerge from "deepmerge";
 import dayjs from "dayjs";
 
 export * from "./chainmeta";
