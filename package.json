@@ -10,7 +10,8 @@
     ],
     "main": "dist/index.js",
     "types": "dist/index",
-    "browser": "dist/index.umd.js",
+    "module": "dist/esm/index.js",
+    "sideEffects": false,
     "files": [
         "dist"
     ],
@@ -18,9 +19,10 @@
         "node": ">=12.x"
     },
     "scripts": {
-        "prepublishOnly": "yarn build",
+        "prepublishOnly": "yarn build && yarn build:module",
         "compile": "tsc",
         "build": "yarn clean && yarn compile",
+        "build:module": "tsc -p esm-tsconfig.json",
         "build:watch": "yarn clean && yarn compile -w",
         "clean": "del dist",
         "lint": "eslint -c ./eslintrc.js \"./src/**/*.ts\" \"./__tests__/**/*.ts\"",
