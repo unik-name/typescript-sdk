@@ -10,8 +10,7 @@ export enum PioneerBadgeGrades {
     EARLY_ADOPTER = 2,
 }
 /* Pioneer badge grades for number of uniks on chain*/
-export const PIONEER_INNOVATOR = 1500;
-export const PIONEER_EARLY_ADOPTER = 150000;
+export const PIONEER_EARLY_ADOPTER_LIMIT = 150000;
 
 /* XP Level */
 export const BADGE_XP_LEVEL_KEY = `${BADGES_PREFIX}XPLevel`;

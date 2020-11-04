@@ -60,3 +60,12 @@ export const mockPropertyRequest = (propertyKey: string, propertyValue: string |
             chainmeta: META,
         });
 };
+
+export function mockNftStatus(status: any = {}, times: number = 1): void {
+    nock(CHAIN_ENDPOINT)
+        .get(`/nfts/status`)
+        .times(times)
+        .reply(200, {
+            data: [status],
+        });
+}
