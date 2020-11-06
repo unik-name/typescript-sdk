@@ -3,7 +3,7 @@ import { FingerprintResult } from "./types";
 import { post } from "../service-repository";
 import { HTTPClient, Response } from "../..";
 
-export const computeFingerprint = (client: HTTPClient) => (
+export const fingerprintCompute = (client: HTTPClient) => (
     explicitValue: string,
     type: DIDTypes,
     nftName: string = "UNIK",
