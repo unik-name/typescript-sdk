@@ -1,15 +1,21 @@
 import { HTTPError } from "ky-universal";
 import { codes } from "./constants";
 import { HTTPClient, Response } from "../../http";
-import { _Body, _Headers } from "../../http/client";
+import { _Body, _Headers, _Params } from "../../http/client";
 import { UNSEndpoint } from "../../config";
 
 const defaultHeaders = (client: HTTPClient): _Headers => ({
     "Uns-Network": client.config.network,
 });
 
-export const post = <T>(client: HTTPClient) => (path: string, body: _Body): Promise<Response<T>> =>
-    client.post<T>(UNSEndpoint.services, path, body, defaultHeaders(client)).catch(e => handleBadRequest<T>(e));
+export const post = <T>(client: HTTPClient) => (
+    path: string,
+    queryParams?: _Params,
+    body?: _Body,
+): Promise<Response<T>> =>
+    client
+        .post<T>(UNSEndpoint.services, path, queryParams, body, defaultHeaders(client))
+        .catch(e => handleBadRequest<T>(e));
 
 const handleBadRequest = async <T>(error: any): Promise<Response<T>> => {
     if (error instanceof HTTPError && [400].includes(error.response.status)) {
