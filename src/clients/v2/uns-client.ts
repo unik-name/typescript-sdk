@@ -27,8 +27,11 @@ export class UNSClient {
 
     public get unik() {
         return {
-            properties: unik.unikProperties(this.http),
             get: unik.unikGet(this.http),
+            getUniks: unik.unikSearch(this.http),
+            totalCount: unik.unikTotalCount(this.http),
+            property: unik.unikProperty(this.http),
+            properties: unik.unikProperties(this.http),
         };
     }
 
