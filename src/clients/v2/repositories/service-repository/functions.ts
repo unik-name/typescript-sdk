@@ -8,6 +8,9 @@ const defaultHeaders = (client: HTTPClient): _Headers => ({
     "Uns-Network": client.config.network,
 });
 
+export const get = <T>(client: HTTPClient) => (path: string, queryParams?: _Params): Promise<Response<T>> =>
+    client.get<T>(UNSEndpoint.services, path, queryParams, defaultHeaders(client)).catch(e => handleBadRequest<T>(e));
+
 export const post = <T>(client: HTTPClient) => (
     path: string,
     queryParams?: _Params,
