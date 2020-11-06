@@ -1,5 +1,6 @@
 import { UNSConfig, UNSEndpointConfig } from "./config";
 import * as fingerprint from "./repositories/fingerprint/functions";
+import * as unik from "./repositories/unik/functions";
 import { HTTPClient } from "./http/client";
 
 export class UNSClient {
@@ -19,7 +20,13 @@ export class UNSClient {
 
     public get fingerprint() {
         return {
-            compute: fingerprint.compute(this.http),
+            compute: fingerprint.computeFingerprint(this.http),
+        };
+    }
+
+    public get unik() {
+        return {
+            properties: unik.getUnikProperties(this.http),
         };
     }
 }
