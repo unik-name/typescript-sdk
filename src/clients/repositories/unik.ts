@@ -2,7 +2,14 @@ import { ResponseWithChainMeta, Response } from "../response";
 import { ChainRepository } from "./types/ChainRepository";
 import { escapeSlashes } from "../../utils";
 import { LIFE_CYCLE_PROPERTY_KEY } from "@uns/crypto";
-import { BADGE_PIONEER_KEY, BADGE_XP_LEVEL_KEY, BADGE_DELEGATE_KEY, BADGE_SECOND_PASSPHRASE_KEY } from "../../types";
+import {
+    BADGE_PIONEER_KEY,
+    BADGE_XP_LEVEL_KEY,
+    BADGE_DELEGATE_KEY,
+    BADGE_SECOND_PASSPHRASE_KEY,
+    VERIFIED_URL_KEY_PREFIX,
+} from "../../types";
+import { USER_PROPERTY_PREFIX } from "../../index";
 
 export const UNIK_REPOSITORY_SUB: string = "uniks";
 
@@ -36,8 +43,21 @@ export class UnikRepository extends ChainRepository {
         return ACTIVE_SYSTEM_PROPERTIES.includes(key);
     }
 
+    private isUserProperty(key: string): boolean {
+        return key.startsWith(USER_PROPERTY_PREFIX);
+    }
+
+    private isVerifiedUrl(key: string): boolean {
+        return key.startsWith(VERIFIED_URL_KEY_PREFIX);
+    }
+
     private activePropertiesFilter(propertyKey: string): boolean {
-        return this.isActiveBadge(propertyKey) || this.isActiveSystemProperty(propertyKey);
+        return (
+            this.isUserProperty(propertyKey) ||
+            this.isVerifiedUrl(propertyKey) ||
+            this.isActiveBadge(propertyKey) ||
+            this.isActiveSystemProperty(propertyKey)
+        );
     }
 
     public async get(id: string): Promise<ResponseWithChainMeta<Unik>> {
