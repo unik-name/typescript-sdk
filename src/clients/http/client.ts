@@ -1,47 +1,77 @@
-/* eslint-disable max-classes-per-file */
+import { DEFAULT_UNS_CONFIG, Network, UNSConfig, UNSEndpoint } from "../config";
+import ky, { ResponsePromise, Options } from "ky-universal";
+import { merge } from "../../utils/merge";
 
-import ky, { ResponsePromise } from "ky-universal";
-import { HTTPOptions } from "./options";
-import { IHTTPResponse } from "./response";
-import { Method } from "./methods";
+export type _Body = Record<string, any>;
+export type _Headers = Record<string, string>;
+export type _Params = Record<string, any>;
+type IHTTPResponse<T> = {
+    body: T;
+    headers: Headers;
+    status: number;
+};
+type IHTTPRequest = {
+    method: Method;
+    url: string;
+    opts?: Options;
+};
+type Method = "get" | "post";
 
 export class HTTPClient {
-    public async get<T = any>(url: string, opts?: HTTPOptions): Promise<IHTTPResponse<T>> {
-        return this.sendRequest("get", url, opts);
+    public readonly config: UNSConfig;
+    public constructor(conf?: Partial<UNSConfig>) {
+        this.config = conf ? merge(DEFAULT_UNS_CONFIG, conf) : DEFAULT_UNS_CONFIG;
     }
 
-    public async post<T = any>(url: string, opts?: HTTPOptions): Promise<IHTTPResponse<T>> {
-        return this.sendRequest("post", url, opts);
+    public set network(network: Network) {
+        this.config.network = network;
     }
 
-    // Following verbs are commented because not used.
-    // --------------------------------------------------
-    // public async put<T = any>(url: string, opts?: HTTPOptions): Promise<IHTTPResponse<T>> {
-    //     return this.sendRequest("put", url, opts);
-    // }
+    public post<T>(
+        endpoint: UNSEndpoint,
+        path: string,
+        queryParams?: _Params,
+        body?: _Body,
+        headers?: _Headers,
+    ): Promise<T> {
+        const preparedRequest = this.prepareRequest("post", endpoint, path, queryParams, body, headers);
+        const response = this.send<T>(preparedRequest);
+        return this.prepareResponse(response);
+    }
 
-    // public async patch<T = any>(url: string, opts?: HTTPOptions): Promise<IHTTPResponse<T>> {
-    //     return this.sendRequest("patch", url, opts);
-    // }
+    public get<T>(endpoint: UNSEndpoint, path: string, queryParams?: _Params, headers?: _Headers): Promise<T> {
+        const preparedRequest = this.prepareRequest("get", endpoint, path, queryParams, undefined, headers);
+        const response = this.send<T>(preparedRequest);
+        return this.prepareResponse(response);
+    }
 
-    // public async head<T = any>(url: string, opts?: HTTPOptions): Promise<IHTTPResponse<T>> {
-    //     return this.sendRequest("head", url, opts);
-    // }
-
-    // public async delete<T = any>(url: string, opts?: HTTPOptions): Promise<IHTTPResponse<T>> {
-    //     return this.sendRequest("delete", url, opts);
-    // }
-
-    private async sendRequest<T>(method: Method, url: string, opts: HTTPOptions = {}): Promise<IHTTPResponse<T>> {
-        if (opts.body && typeof opts !== "string") {
-            opts.body = JSON.stringify(opts.body);
+    private prepareRequest(
+        method: Method,
+        endpoint: UNSEndpoint,
+        path: string,
+        queryParams?: _Params,
+        body?: _Body,
+        headers?: _Headers,
+    ): IHTTPRequest {
+        const url = this.buildURL(endpoint, path, queryParams);
+        const requestHeaders =
+            headers || this.config.defaultHeaders ? merge(this.config.defaultHeaders, headers) : undefined;
+        const requestBody = body ? JSON.stringify(body) : undefined;
+        return { method, url, opts: { body: requestBody, headers: requestHeaders } };
+    }
+    private prepareResponse<T>(response: Promise<IHTTPResponse<T>>): Promise<T> {
+        return response.then(r => r.body);
+    }
+    private buildURL(endpoint: UNSEndpoint, path: string, params?: _Params): string {
+        const base: string = this.config.endpoints[this.config.network][endpoint];
+        const url = new URL(path, base);
+        if (params) {
+            Object.entries(params).forEach(([k, v]) => url.searchParams.append(k, v));
         }
+        return url.href;
+    }
 
-        // Do not retry unless explicitly stated.
-        if (!opts.retry) {
-            opts.retry = { retries: 0 };
-        }
-
+    private async send<T>({ method, url, opts }: IHTTPRequest): Promise<IHTTPResponse<T>> {
         const response: ResponsePromise = ky[method](url, opts);
         const body = await response.json<T>();
         const { headers, status } = await response;
@@ -49,5 +79,3 @@ export class HTTPClient {
         return { body, headers, status };
     }
 }
-
-export const http = new HTTPClient();

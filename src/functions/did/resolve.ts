@@ -1,8 +1,17 @@
-import { UNSClient, ChainMeta, FingerprintResult, Response, FunctionalError, Unik } from "../..";
+import { DIDHelpers } from "@uns/crypto";
+import {
+    UNSClient,
+    ChainMeta,
+    FingerprintResult,
+    Response,
+    FunctionalError,
+    Unik,
+    Network,
+    getUnikWithChainMetaAndConfirmations,
+    getPropertyValueWithChainmeta,
+} from "../..";
 import { parse } from "./parse";
 import { DidParserError, DidParserResult } from "./types";
-import { Network } from "../../config";
-import { getPropertyValueWithChainmeta, getUnikWithChainMetaAndConfirmations } from "../../utils";
 
 export interface DidResolution<T> {
     data?: T;
@@ -30,8 +39,7 @@ export const didResolve = async (
     if (typeof (networkOrClient as any).init === "function") {
         client = networkOrClient as UNSClient;
     } else {
-        client = new UNSClient();
-        client.init({ network: networkOrClient as Network });
+        client = new UNSClient({ network: networkOrClient as Network });
     }
 
     const parseResult: DidParserResult | DidParserError = await parse(did, client);
@@ -44,7 +52,7 @@ export const didResolve = async (
 
     const fingerprintResult: Response<FingerprintResult> = await client.fingerprint.compute(
         parseResult.explicitValue,
-        parseResult.type,
+        DIDHelpers.fromLabel(parseResult.type),
         parseResult.tokenName,
     );
 

@@ -1,2 +1,2 @@
-export * from "./client";
-export * from "./options";
+export { HTTPClient } from "./client";
+export * from "./types";
