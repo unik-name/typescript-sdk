@@ -1,5 +1,5 @@
 import nock = require("nock");
-import { IDiscloseDemandCertification } from "@uns/crypto";
+import { DIDTypes, IDiscloseDemandCertification } from "@uns/crypto";
 import {
     FingerprintResult,
     Network,
@@ -11,8 +11,8 @@ import {
     Wallet,
     SafetypoError,
     SafeName,
+    DEFAULT_UNS_CONFIG,
 } from "../../src";
-import { UNSConfig } from "../../src/config";
 import {
     chainmeta,
     discloseDemandCertification,
@@ -31,7 +31,7 @@ describe("UNSClient", () => {
     describe("chain APIs", () => {
         const client = new UNSClient();
         client.init({ network: Network.sandbox });
-        const url = UNSConfig.sandbox.chain.url;
+        const url = DEFAULT_UNS_CONFIG.endpoints.sandbox.network;
         const mock = nock(url);
 
         describe("node", () => {
@@ -261,7 +261,7 @@ describe("UNSClient", () => {
         let mock: nock.Scope;
 
         beforeEach(() => {
-            mock = nock(UNSConfig.sandbox.service.url);
+            mock = nock(DEFAULT_UNS_CONFIG.endpoints.sandbox.services);
         });
 
         describe("headers", () => {
@@ -291,7 +291,7 @@ describe("UNSClient", () => {
                 const clientWithHeader = new UNSClient();
                 clientWithHeader.init({
                     network: Network.sandbox,
-                    headers: {
+                    defaultHeaders: {
                         CustomHeader: "customValue",
                     },
                 });
@@ -366,7 +366,7 @@ describe("UNSClient", () => {
 
                 fingerprintMock.reply(200, fingerprintResponse);
 
-                const result = await client.fingerprint.compute("myUnikName", "INDIVIDUAL", "UNIK");
+                const result = await client.fingerprint.compute("myUnikName", DIDTypes.INDIVIDUAL, "UNIK");
                 expect(result.data).toStrictEqual(fingerprintResponse.data);
                 expect(result.error).toBeUndefined();
             });
@@ -378,7 +378,7 @@ describe("UNSClient", () => {
 
                 const result: Response<FingerprintResult> = await client.fingerprint.compute(
                     "toto",
-                    "INDIVIDUAL",
+                    DIDTypes.INDIVIDUAL,
                     "UNIK",
                 );
                 expect(result.error).not.toBeUndefined();
@@ -390,7 +390,7 @@ describe("UNSClient", () => {
 
                 fingerprintMock.reply(500);
 
-                await expect(client.fingerprint.compute("toto", "INDIVIDUAL", "UNIK")).rejects.toThrowError(
+                await expect(client.fingerprint.compute("toto", DIDTypes.INDIVIDUAL, "UNIK")).rejects.toThrowError(
                     "Internal Server Error",
                 );
             });
@@ -402,7 +402,7 @@ describe("UNSClient", () => {
                     throw new Error("this is a custom error");
                 });
 
-                await expect(client.fingerprint.compute("toto", "INDIVIDUAL", "UNIK")).rejects.toThrowError(
+                await expect(client.fingerprint.compute("toto", DIDTypes.INDIVIDUAL, "UNIK")).rejects.toThrowError(
                     "this is a custom error",
                 );
             });

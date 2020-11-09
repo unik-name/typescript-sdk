@@ -1,6 +1,5 @@
-import { buildDiscloseDemand } from "../../src";
-import { DIDTypes } from "../../src/types";
-import { getCurrentIAT } from "../../src/utils";
+import { buildDiscloseDemand, DIDTypes } from "../../src";
+import { getCurrentIAT } from "../../src/functions/certifications/utils";
 
 describe("Functions > disclose", () => {
     describe("buildDiscloseDemand", () => {

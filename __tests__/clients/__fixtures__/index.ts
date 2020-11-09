@@ -1,6 +1,6 @@
 import { Response } from "../../../src";
 import { IDiscloseDemandCertification, IDiscloseDemand } from "@uns/crypto";
-import { DIDTypes } from "../../../src/types";
+import { DIDTypes } from "../../../src";
 
 export const unikid = "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77";
 
