@@ -1,5 +1,5 @@
-import { getCurrentPioneerBadge, PioneerBadgeGrades, UNSClient } from "../../src";
-import * as utils from "../../src/utils";
+import { getCurrentPioneerBadge, HTTPClient, PioneerBadgeGrades } from "../../src";
+import * as utils from "../../src/functions/unik/utils";
 import { NETWORK } from "./__fixtures__/tests-commons";
 import { mockNftStatus } from "./__fixtures__/get-property-value";
 
@@ -16,8 +16,7 @@ const mockCurrentTime = (mockTime: string) => {
         }
     });
 };
-const unsClient = new UNSClient();
-unsClient.init({ network: NETWORK });
+const unsClient = new HTTPClient({ network: NETWORK });
 
 describe("Functions > getCurrentPioneerBadge", () => {
     describe("Pioneer badge", () => {

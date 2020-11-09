@@ -1,4 +1,4 @@
-import { DIDType } from "../../types";
+import { DIDType } from "@uns/crypto";
 
 /* tslint:disable:no-empty */
 export class DidParserError extends Error {}
@@ -9,3 +9,5 @@ export type DidParserResult = {
     explicitValue: string;
     query: string;
 };
+
+export { DIDHelpers, DIDTypes, DIDType } from "@uns/crypto";
