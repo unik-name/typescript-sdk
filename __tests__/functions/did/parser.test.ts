@@ -1,5 +1,4 @@
-import { DidParserError, DidParserResult, Network, parse, UNSClient } from "../../../src";
-import { UNSConfig } from "../../../src/config";
+import { DidParserError, DidParserResult, Network, parse, UNSClient, DEFAULT_UNS_CONFIG } from "../../../src";
 import { shouldFail } from "./__fixtures__/parse-fail";
 import { shouldPass } from "./__fixtures__/parse-success";
 import nock = require("nock");
@@ -22,7 +21,7 @@ describe("DID Parser", () => {
     describe("Successes: ", () => {
         beforeEach(() => {
             // We only mock safetypo, we don't test safetypo result here, just parser
-            nock(UNSConfig.sandbox.service.url)
+            nock(DEFAULT_UNS_CONFIG.endpoints.sandbox.services)
                 .post("/safetypo")
                 .reply(200, { data: {} });
         });

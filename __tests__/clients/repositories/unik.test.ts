@@ -6,15 +6,15 @@ import {
     PropertyValue,
     USER_PROPERTY_PREFIX,
     BADGES_PREFIX,
+    DEFAULT_UNS_CONFIG,
 } from "../../../src";
-import { UNSConfig } from "../../../src/config";
+import { ACTIVE_BADGES, ACTIVE_SYSTEM_PROPERTIES } from "../../../src/clients/repositories/unik/constants";
 import { properties, unikid } from "./../__fixtures__";
-import { ACTIVE_BADGES, ACTIVE_SYSTEM_PROPERTIES } from "../../../src/clients/repositories/";
 
 describe("Unik repository tests", () => {
     const client = new UNSClient();
     client.init({ network: Network.sandbox });
-    const mock = nock(UNSConfig.sandbox.chain.url);
+    const mock = nock(DEFAULT_UNS_CONFIG.endpoints.sandbox.network);
 
     describe("properties", () => {
         const propsMock = mock.get(`/uniks/${unikid}/properties`);
