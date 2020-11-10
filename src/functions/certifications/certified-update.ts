@@ -1,15 +1,16 @@
 import { Interfaces, Identities } from "@uns/ark-crypto";
+import { Interfaces as NftInterfaces } from "@uns/core-nft-crypto";
+import { CertifiedNftUpdateTransaction, UNSCertifiedNftUpdateBuilder, ICertifiedDemand } from "@uns/crypto";
 import {
-    CertifiedNftUpdateTransaction,
+    codes,
+    NftFactoryServicesList,
+    UNSClient,
+    Response,
+    INftUpdateDemandPayload,
     INftUpdateDemand,
     INftUpdateDemandCertification,
-    UNSCertifiedNftUpdateBuilder,
-    INftUpdateDemandPayload,
     NftUpdateDemandSigner,
-    ICertifiedDemand,
-} from "@uns/crypto";
-import { Interfaces as NftInterfaces } from "@uns/core-nft-crypto";
-import { codes, NftFactoryServicesList, UNSClient, Response } from "../../clients";
+} from "../../clients";
 import { registerTransaction } from "../transactions/register";
 import { SdkResult } from "./types";
 import { getCurrentIAT } from "./utils";

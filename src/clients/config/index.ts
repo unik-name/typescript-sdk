@@ -13,12 +13,13 @@ export enum UNSEndpoint {
     network = "network",
 }
 
-export type UNSEndpointConfig = Record<Network, Record<UNSEndpoint, string>>;
+export type UNSEndpointConfig = Record<UNSEndpoint, string>;
+export type UNSEndpointConfigByNetwork = Record<Network, UNSEndpointConfig>;
 
 export type UNSConfig = {
     network: Network;
     defaultHeaders: _Headers;
-    endpoints: UNSEndpointConfig;
+    endpoints: UNSEndpointConfigByNetwork;
 };
 
 export const DEFAULT_UNS_CONFIG: UNSConfig = {

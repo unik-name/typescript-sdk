@@ -6,7 +6,6 @@ import {
     ResponseWithChainMeta,
     UNSClient,
 } from "../..";
-import { HTTPClient, nftsStatus } from "../../clients";
 import { merge } from "../../utils/merge";
 import { getUTCTime } from "./utils";
 
@@ -28,7 +27,7 @@ export const getPropertyValue = async (
     client: UNSClient,
     opts: PropertyOptions = defaultPropertyOptions,
 ): Promise<ResponseWithChainMeta<PropertyValue> | PropertyValue> => {
-    const options: PropertyOptions = merge(defaultPropertyOptions, opts);
+    const options: PropertyOptions = merge<PropertyOptions>(defaultPropertyOptions, opts);
 
     const propertyValue: ResponseWithChainMeta<PropertyValue> = await getPropertyValueWithChainmeta(
         unikid,
@@ -94,11 +93,11 @@ export const getPropertyValueWithChainmeta = async (
     return propertyValue;
 };
 
-export const getCurrentPioneerBadge = async (client: HTTPClient): Promise<string | undefined> => {
+export const getCurrentPioneerBadge = async (client: UNSClient): Promise<string | undefined> => {
     if (getUTCTime().isBefore(getUTCTime("2021-01-01"))) {
         return PioneerBadgeGrades.INNOVATOR.toString();
     }
-    const nftStatus: ResponseWithChainMeta<INftStatus[]> = await nftsStatus(client)();
+    const nftStatus: ResponseWithChainMeta<INftStatus[]> = await client.nft.status();
     const nbUniks = nftStatus.data?.find(status => status.nftName === "UNIK");
 
     if (nbUniks) {

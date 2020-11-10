@@ -1,6 +1,6 @@
 import { DEFAULT_UNS_CONFIG, Network, UNSConfig, UNSEndpoint } from "../config";
 import ky, { ResponsePromise, Options } from "ky-universal";
-import { merge } from "../../utils/merge";
+import { DeepPartial, merge } from "../../utils/merge";
 
 export type _Body = Record<string, any>;
 export type _Headers = Record<string, string>;
@@ -19,12 +19,16 @@ type Method = "get" | "post";
 
 export class HTTPClient {
     public readonly config: UNSConfig;
-    public constructor(conf?: Partial<UNSConfig>) {
-        this.config = conf ? merge(DEFAULT_UNS_CONFIG, conf) : DEFAULT_UNS_CONFIG;
+    public constructor(conf?: DeepPartial<UNSConfig>) {
+        this.config = merge(DEFAULT_UNS_CONFIG, conf);
     }
 
-    public set network(network: Network) {
+    public setNetwork(network: Network) {
         this.config.network = network;
+    }
+
+    public setCustomEndpoint(endpoint: UNSEndpoint, value: string): void {
+        this.config.endpoints[this.config.network][endpoint] = value;
     }
 
     public post<T>(
@@ -54,8 +58,7 @@ export class HTTPClient {
         headers?: _Headers,
     ): IHTTPRequest {
         const url = this.buildURL(endpoint, path, queryParams);
-        const requestHeaders =
-            headers || this.config.defaultHeaders ? merge(this.config.defaultHeaders, headers) : undefined;
+        const requestHeaders = merge<_Headers>(this.config.defaultHeaders, headers);
         const requestBody = body ? JSON.stringify(body) : undefined;
         return { method, url, opts: { body: requestBody, headers: requestHeaders } };
     }

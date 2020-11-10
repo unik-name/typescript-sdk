@@ -1,4 +1,4 @@
-import { DIDType } from "@uns/crypto";
+import { DIDType } from "../..";
 
 /* tslint:disable:no-empty */
 export class DidParserError extends Error {}
