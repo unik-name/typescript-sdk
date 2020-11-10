@@ -6,19 +6,13 @@ const isActiveBadge = (key: string): boolean => ACTIVE_BADGES.includes(key);
 
 const isActiveSystemProperty = (key: string): boolean => ACTIVE_SYSTEM_PROPERTIES.includes(key);
 
-const isUserProperty = (key: string): boolean => {
-    return key.startsWith(USER_PROPERTY_PREFIX);
-};
+const isUserProperty = (key: string): boolean => key.startsWith(USER_PROPERTY_PREFIX);
 
-const isVerifiedUrl = (key: string): boolean => {
-    return key.startsWith(VERIFIED_URL_KEY_PREFIX);
-};
+const isVerifiedUrl = (key: string): boolean => key.startsWith(VERIFIED_URL_KEY_PREFIX);
 
 export const isActiveProperty = (property: UnikProperty): boolean => {
     const key = Object.getOwnPropertyNames(property)[0];
     return isUserProperty(key) || isVerifiedUrl(key) || isActiveBadge(key) || isActiveSystemProperty(key);
 };
 
-export function escapeSlashes(toEscape: string): string {
-    return toEscape.replace(/\//g, "%2F");
-}
+export const escapeSlashes = (toEscape: string): string => toEscape.replace(/\//g, "%2F");
