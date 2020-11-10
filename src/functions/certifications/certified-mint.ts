@@ -1,26 +1,24 @@
 import { Interfaces, Identities, Managers } from "@uns/ark-crypto";
-import {
-    CertifiedNftMintTransaction,
-    INftMintDemand,
-    INftMintDemandCertification,
-    UNSCertifiedNftMintBuilder,
-    ICertifiedDemand,
-    DIDHelpers,
-    DIDTypes,
-    INftMintDemandPayload,
-    NftMintDemandSigner,
-    LIFE_CYCLE_PROPERTY_KEY,
-    LifeCycleGrades,
-} from "@uns/crypto";
+//
 import { Response, UNSClient } from "../../clients";
 import { Transactions as NftTransactions, Interfaces as NftInterfaces, Builders } from "@uns/core-nft-crypto";
-import { codes, NetworkUnitService, UnikPattern, UNSServiceType } from "../../clients/repositories";
-import { parse, DidParserError, DidParserResult } from "../did";
+import {
+    codes,
+    INftMintDemand,
+    INftMintDemandCertification,
+    INftMintDemandPayload,
+    NetworkUnitService,
+    NftMintDemandSigner,
+    UnikPattern,
+    UNSServiceType,
+} from "../../clients/repositories";
+import { parse, DidParserError, DidParserResult, DIDTypes, DIDHelpers } from "../did";
 import { decodeJWT } from "did-jwt";
 import { SdkResult } from "./types";
 import { registerTransaction } from "../transactions/register";
 import { getCurrentIAT } from "./utils";
-import { BADGE_XP_LEVEL_KEY, XPLevelBadgeGrades } from "../unik/constants";
+import { BADGE_XP_LEVEL_KEY, LifeCycleGrades, LIFE_CYCLE_PROPERTY_KEY, XPLevelBadgeGrades } from "../unik/constants";
+import { CertifiedNftMintTransaction, UNSCertifiedNftMintBuilder, ICertifiedDemand } from "@uns/crypto";
 
 export const createCertifiedNftMintTransaction = async (
     client: UNSClient,

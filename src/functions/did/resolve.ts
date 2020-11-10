@@ -1,4 +1,3 @@
-import { DIDHelpers } from "@uns/crypto";
 import {
     UNSClient,
     ChainMeta,
@@ -11,7 +10,7 @@ import {
     getPropertyValueWithChainmeta,
 } from "../..";
 import { parse } from "./parse";
-import { DidParserError, DidParserResult } from "./types";
+import { DIDHelpers, DidParserError, DidParserResult } from "./types";
 
 export interface DidResolution<T> {
     data?: T;

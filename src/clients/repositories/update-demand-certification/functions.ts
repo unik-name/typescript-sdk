@@ -1,6 +1,6 @@
 import { HTTPClient, Response } from "../..";
 import { post } from "../network-repository";
-import { INftUpdateDemand, INftUpdateDemandCertification } from "@uns/crypto";
+import { INftUpdateDemand, INftUpdateDemandCertification } from "./types";
 import { CertificationRequestBody } from "../mint-demand-certification";
 
 export const updateDemandCertificationCreate = (client: HTTPClient) => (

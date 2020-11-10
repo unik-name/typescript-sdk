@@ -1,6 +1,6 @@
-import { DidParserResult, DidParserError } from "./types";
-import { DIDHelpers, DIDType, DIDTypes, UNS_NFT_PROPERTY_KEY_REGEX } from "@uns/crypto";
+import { DidParserResult, DidParserError, DIDTypes, DIDHelpers, DIDType } from "./types";
 import { UNSClient } from "../../clients";
+import { UNS_NFT_PROPERTY_KEY_REGEX } from "../unik/constants";
 
 const TOKEN_PATTERN = /@?(unik:)?/;
 const TYPE_PATTERN = /((?:individual|organization|network|1|2|3):)?/;

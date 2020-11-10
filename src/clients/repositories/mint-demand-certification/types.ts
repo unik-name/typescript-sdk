@@ -7,3 +7,11 @@ export interface CertificationRequestBody<T extends INftDemand> {
     serviceId?: NftFactoryServicesList;
     unikVoucher?: string;
 }
+
+export {
+    INftDemand,
+    INftMintDemandCertification,
+    INftMintDemand,
+    INftMintDemandPayload,
+    NftMintDemandSigner,
+} from "@uns/crypto";

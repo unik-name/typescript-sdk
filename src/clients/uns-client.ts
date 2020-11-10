@@ -28,15 +28,16 @@ import {
     walletGet,
     walletTokens,
 } from ".";
+import { DeepPartial } from "../utils/merge";
 
 export class UNSClient {
-    private http: HTTPClient;
+    public http: HTTPClient;
 
-    constructor(config?: Partial<UNSConfig>) {
+    constructor(config?: DeepPartial<UNSConfig>) {
         this.http = new HTTPClient(config);
     }
 
-    public init(config?: Partial<UNSConfig>): UNSClient {
+    public init(config?: DeepPartial<UNSConfig>): UNSClient {
         this.http = new HTTPClient(config);
         return this;
     }
@@ -46,7 +47,7 @@ export class UNSClient {
     }
 
     public get currentEndpointsConfig(): UNSEndpointConfig {
-        return this.http.config.endpoints;
+        return this.http.config.endpoints[this.configuration.network];
     }
 
     public get fingerprint() {
@@ -98,7 +99,7 @@ export class UNSClient {
 
     public get nft() {
         return {
-            status: nftsStatus,
+            status: nftsStatus(this.http),
         };
     }
 

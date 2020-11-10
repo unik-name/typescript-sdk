@@ -1,5 +1,7 @@
-import { DIDTypes, unsCrypto, IDiscloseDemand, IDiscloseDemandPayload } from "@uns/crypto";
 import { getCurrentIAT } from "./utils";
+import { IDiscloseDemand, IDiscloseDemandPayload } from "../../clients/repositories/disclose-demand-certification";
+import { DIDTypes } from "../did/types";
+import { unsCrypto } from "@uns/crypto";
 
 export function buildDiscloseDemand(
     unikid: string,
