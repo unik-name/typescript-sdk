@@ -7,5 +7,5 @@ export const walletGet = (client: HTTPClient) => (id: string): Promise<ResponseW
 
 export const walletTokens = (client: HTTPClient) => (
     id: string,
-    nftName: string,
+    nftName: string = "unik",
 ): Promise<ResponseWithChainMeta<Tokens>> => get<ResponseWithChainMeta<Tokens>>(client)(`wallets/${id}/${nftName}s`);
