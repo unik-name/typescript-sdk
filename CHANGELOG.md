@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+-   check if unik is allowed to vote depending on lifecycle (#3096)
 -   get pioneer badge value function (#3094)
 -   custom service option (#3023)
 -   transaction schema check (#3023)
