@@ -10,7 +10,7 @@ import { get, post } from "../service-repository";
 export const networkUnitServicesSearch = (client: HTTPClient) => (
     parameters: SearchNetworkUnitServiceRequest,
 ): Promise<Response<NetworkUnitService>> =>
-    post<NetworkUnitService>(client)("network-unit-services/search", parameters);
+    post<NetworkUnitService>(client)("network-unit-services/search", undefined, parameters);
 
 export const networkUnikServicesGetMintServices = (client: HTTPClient) => ({
     dtype,

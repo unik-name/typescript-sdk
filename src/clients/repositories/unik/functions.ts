@@ -21,7 +21,7 @@ export const unikProperty = (client: HTTPClient) => (
 };
 
 export const unikSearch = (client: HTTPClient) => (ids: string[]): Promise<Response<Unik[]>> =>
-    post<Response<Unik[]>>(client)("uniks/search", { id: ids });
+    post<Response<Unik[]>>(client)("uniks/search", undefined, { id: ids });
 
 export const unikTotalCount = (client: HTTPClient) => (): Promise<number> =>
     get<ResponseWithChainMeta<Unik[]>>(client)("uniks", { limit: 1 }).then(r => r.meta?.totalCount || 0);
