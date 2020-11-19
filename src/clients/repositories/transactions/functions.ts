@@ -26,7 +26,7 @@ export const transactionsSend = (client: HTTPClient) => (
 export const transactionsSearch = (client: HTTPClient) => (
     searchQuery: _Params,
 ): Promise<ResponseWithChainMeta<Transaction[]>> =>
-    post<ResponseWithChainMeta<Transaction[]>>(client)("transactions/search", searchQuery);
+    post<ResponseWithChainMeta<Transaction[]>>(client)("transactions/search", undefined, searchQuery);
 
 export const transactionsUnconfirmed = (client: HTTPClient) => (
     pagination: PaginationOptions = {},
