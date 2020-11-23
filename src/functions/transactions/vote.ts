@@ -1,5 +1,5 @@
 import { isUnikId } from "@uns/crypto";
-import { PropertyValue, ResponseWithChainMeta, Token, Tokens, UNSClient } from "src/clients";
+import { PropertyValue, ResponseWithChainMeta, Token, Tokens, UNSClient } from "../../clients";
 import { getPropertyValue, LifeCycleGrades } from "../unik";
 
 export async function throwIfNotAllowedToVote(client: UNSClient, walletOrUnikid: string): Promise<void> {
