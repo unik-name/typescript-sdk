@@ -27,6 +27,7 @@ import {
     voucherCreate,
     walletGet,
     walletTokens,
+    walletSearch,
 } from ".";
 import { DeepPartial } from "../utils/merge";
 
@@ -148,6 +149,7 @@ export class UNSClient {
         return {
             get: walletGet(this.http),
             tokens: walletTokens(this.http),
+            search: walletSearch(this.http),
         };
     }
 }
