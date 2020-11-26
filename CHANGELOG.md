@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+### Changed
+
+### Removed
+
+## 4.0.0 2020-11-26
+
+### Added
+
 -   check if unik is allowed to vote depending on lifecycle (#3096)
 -   get pioneer badge value function (#3094)
 -   custom service option (#3023)
