@@ -22,8 +22,8 @@ export const createCertifiedNftUpdateTransaction = async (
     fees: number,
     nonce: string,
     passphrase: string,
-    secondPassPhrase: string,
-    nftName: string,
+    secondPassPhrase?: string,
+    nftName: string = "unik",
     serviceId?: NftFactoryServicesList,
     unikname?: string,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
@@ -43,7 +43,7 @@ export const createCertifiedNftUpdateTransaction = async (
         ...currentAsset,
         // here, demand.signature will be ignored by the NftMintDemandSigner
         // in an ideal world, the NftMintDemandSigner would require type exclusing this property
-        // So, don't worry about the emppty signature here.
+        // So, don't worry about the empty signature here.
         demand: { payload: demandPayload, signature: "" },
     }).sign(passphrase);
 

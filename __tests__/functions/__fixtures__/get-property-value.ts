@@ -15,7 +15,7 @@ export const META = {
     },
 };
 
-const resolvedUnikToken: ResponseWithChainMeta<Unik> = {
+export const resolvedUnikToken: ResponseWithChainMeta<Unik> = {
     data: {
         id: UNIK_FINGERPRINT,
         ownerId: WALLET_ADDRESS,
@@ -41,14 +41,6 @@ export const mockTransactionRequest = () => {
                 confirmations: 20,
             },
             chainmeta: META,
-        });
-};
-
-export const mockUnikRequest = () => {
-    nock(CHAIN_ENDPOINT)
-        .get(`/uniks/${UNIK_FINGERPRINT}`)
-        .reply(200, {
-            ...resolvedUnikToken,
         });
 };
 
