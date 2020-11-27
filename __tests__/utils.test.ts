@@ -66,5 +66,8 @@ describe("Utilities", () => {
         it(">1000000 tilde", () => {
             expect(unsFormat("212300000000000")).toStrictEqual("2.1~M");
         });
+        it("2123 sato", () => {
+            expect(unsFormat("2123")).toStrictEqual("<1");
+        });
     });
 });

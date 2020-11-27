@@ -6,18 +6,19 @@ import {
     mockPropertyRequest,
     mockSafetypoRequest,
     mockTransactionRequest,
-    mockUnikRequest,
     RESOLVED_UNIK_TOKEN,
+    UNIK_TOKEN,
     WALLET_ADDRESS,
 } from "./__fixtures__/resolve";
 import nock = require("nock");
+import { mockUnikRequest } from "../__mocks__/mocks";
 
 describe("DID Resolver", () => {
     beforeEach(() => {
         nock.cleanAll();
         mockSafetypoRequest();
         mockFingerprintRequest();
-        mockUnikRequest();
+        mockUnikRequest(UNIK_TOKEN.data!.id, UNIK_TOKEN.data, UNIK_TOKEN.chainmeta);
         mockTransactionRequest();
     });
 
@@ -32,7 +33,7 @@ describe("DID Resolver", () => {
     });
 
     it("should return UNIK token type property value", async () => {
-        mockUnikRequest();
+        mockUnikRequest(UNIK_TOKEN.data!.id, UNIK_TOKEN.data, UNIK_TOKEN.chainmeta);
         mockPropertyRequest();
         mockTransactionRequest();
         const resolved = await didResolve("@unik:individual:myUnikName?type", NETWORK);

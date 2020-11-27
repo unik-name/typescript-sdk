@@ -1,19 +1,20 @@
 import {
     mockTransactionRequest,
-    mockUnikRequest,
     mockPropertyRequest,
     UNIK_FINGERPRINT,
     META,
+    resolvedUnikToken,
 } from "./__fixtures__/get-property-value";
 import { ResponseWithChainMeta, PropertyValue, getPropertyValue, UNSClient } from "../../src";
 import { NETWORK } from "./__fixtures__/tests-commons";
+import { mockUnikRequest } from "./__mocks__/mocks";
 
 describe("Functions > getPropertyValue", () => {
     const unsclient = new UNSClient();
     unsclient.init({ network: NETWORK });
     beforeEach(() => {
         mockTransactionRequest();
-        mockUnikRequest();
+        mockUnikRequest(resolvedUnikToken.data!.id, resolvedUnikToken.data);
     });
 
     it("Should return type property value", async () => {

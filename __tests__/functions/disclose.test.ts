@@ -3,7 +3,7 @@ import { getCurrentIAT } from "../../src/functions/certifications/utils";
 
 describe("Functions > disclose", () => {
     describe("buildDiscloseDemand", () => {
-        it("should built a DiscloseDemand", () => {
+        it("should build a DiscloseDemand", () => {
             const unikid = "a242daa994cc5490020871731d34f7cd3c3993e0b30bac1233d7483001e96e77";
             const explicitValues = ["explicit1", "explicit2"];
             const type = DIDTypes.INDIVIDUAL;

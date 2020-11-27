@@ -13,12 +13,12 @@ import {
     UNSServiceType,
 } from "../../clients/repositories";
 import { parse, DidParserError, DidParserResult, DIDTypes, DIDHelpers } from "../did";
-import { decodeJWT } from "did-jwt";
 import { SdkResult } from "./types";
 import { registerTransaction } from "../transactions/register";
 import { getCurrentIAT } from "./utils";
 import { BADGE_XP_LEVEL_KEY, LifeCycleGrades, LIFE_CYCLE_PROPERTY_KEY, XPLevelBadgeGrades } from "../unik/constants";
 import { CertifiedNftMintTransaction, UNSCertifiedNftMintBuilder, ICertifiedDemand } from "@uns/crypto";
+import { decodeJwt } from "../jwt";
 
 export const createCertifiedNftMintTransaction = async (
     client: UNSClient,
@@ -70,7 +70,7 @@ export const createCertifiedNftMintTransaction = async (
             ...currentAsset,
             // here, demand.signature will be ignored by the NftMintDemandSigner
             // in an ideal world, the NftMintDemandSigner would require type exclusing this property
-            // So, don't worry about the emppty signature here.
+            // So, don't worry about the empty signature here.
             demand: { payload: demandPayload, signature: "" },
         }).sign(passphrase);
 
@@ -162,7 +162,7 @@ function computeProperties(didType: DIDTypes, unikVoucher?: string): NftInterfac
     properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.MINTED.toString();
 
     if (unikVoucher) {
-        const decodeUnikVoucher: any = decodeJWT(unikVoucher);
+        const decodeUnikVoucher: any = decodeJwt(unikVoucher);
         properties.UnikVoucherId = decodeUnikVoucher.payload.jti; // UnikVoucherId has to be set, it will be compared to the unikVoucher.payload.id in certification service after verification
 
         // token evo v1
