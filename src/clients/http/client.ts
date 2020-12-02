@@ -60,7 +60,7 @@ export class HTTPClient {
         const url = this.buildURL(endpoint, path, queryParams);
         const requestHeaders = merge<_Headers>(this.config.defaultHeaders, headers);
         const requestBody = body ? JSON.stringify(body) : undefined;
-        return { method, url, opts: { body: requestBody, headers: requestHeaders } };
+        return { method, url, opts: { body: requestBody, headers: requestHeaders, timeout: 15000 } };
     }
     private prepareResponse<T>(response: Promise<IHTTPResponse<T>>): Promise<T> {
         return response.then(r => r.body);
