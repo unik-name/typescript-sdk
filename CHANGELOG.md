@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+-   http timeouts increased from 10s to 15s
+
 ### Removed
 
 ## 4.0.0 2020-11-26
