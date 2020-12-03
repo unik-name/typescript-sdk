@@ -11,13 +11,11 @@ import {
     LIFE_CYCLE_PROPERTY_KEY,
     BADGE_XP_LEVEL_KEY,
     XPLevelBadgeGrades,
-    JWTPayload,
 } from "../../src";
 import { NETWORK } from "./__fixtures__/tests-commons";
 import { mockUnikPattern, mockServiceSearch, mockMintCertification, mockUnikRequest } from "./__mocks__/mocks";
 import { ITransactionData } from "@uns/ark-crypto/dist/interfaces";
 import { Managers } from "@uns/ark-crypto";
-import * as jwt from "../../src/functions/jwt";
 import { mockSafetypoRequest } from "./did/__fixtures__/resolve";
 
 const unsClient = new UNSClient();
@@ -30,6 +28,8 @@ const issAddress = "DQLiVPs2b6rHYCANjVk7vWVfQqdo5rLvDU";
 const fee = 321;
 const explicitValues = "TheExplicitValue";
 const cost = 54321;
+const jwtSignature = "mNaF-RscD89ab9RO5qksLVZl7alVXCVkTT8fUeTO-Ac3qTYVIroPmnc0Q-OZRaCA6rE6CYnkf0eVpT4BduJBGw";
+const voucher = `eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpYXQiOjE1OTg0MzQ4MTMsImV4cCI6MTU5ODY5NDAxMywianRpIjoiU3lqZkV0ZUE4dFNBUFJqVjRiX2x3IiwiYXVkIjoiZGlkOnVuaWs6dW5pZDpkZWFkYmVlZjcwMDIxNDI1NTU4ZjVjYmI3YjVmMDU2ZTUxYjY5NGRiNWNjNmMzMzZhYmRjNmI3NzdmYzlkMDUxIiwic3ViIjoiZGlkOnVuaWs6dW5pZDpkZWFkYmVlZjcwMDIxNDI1NTU4ZjVjYmI3YjVmMDU2ZTUxYjY5NGRiNWNjNmMzMzZhYmRjNmI3NzdmYzlkMDUxIiwidHlwZSI6InVybCIsInZhbHVlIjoidG90by5sb2wiLCJpc3MiOiJkaWQ6dW5pazp1bmlkOjVmOTZkZDM1OWFiMzAwZTJjNzAyYTU0NzYwZjRkNzRhMTFkYjA3NmFhMTc1NzUxNzlkMzZlMDZkNzVjOTY1MTEifQ.${jwtSignature}`;
 
 describe("Functions > certified mint", () => {
     beforeEach(() => {
@@ -52,13 +52,8 @@ describe("Functions > certified mint", () => {
         mockUnikRequest(issUnikId, { ownerId: issAddress } as Unik);
     });
     describe("createCertifiedNftMintTransaction with voucher", () => {
-        beforeEach(() => {
-            jest.spyOn(jwt, "decodeJwt").mockReturnValue({ payload: { jti: "jwtJti" } as JWTPayload } as any);
-        });
-
         it("should create mint transaction for individual", async () => {
             const didType = DIDTypes.INDIVIDUAL;
-            const voucher = "toto";
             const did = `@unik:${didType}:${explicitValues}`;
             const transaction = await createCertifiedNftMintTransaction(
                 unsClient,
@@ -75,7 +70,7 @@ describe("Functions > certified mint", () => {
             expect((transaction as ITransactionData)?.asset?.nft.unik.properties).toStrictEqual({
                 [BADGE_XP_LEVEL_KEY]: XPLevelBadgeGrades.NEWCOMER.toString(),
                 [LIFE_CYCLE_PROPERTY_KEY]: LifeCycleGrades.MINTED.toString(),
-                UnikVoucherId: "jwtJti",
+                UnikVoucherId: "SyjfEteA8tSAPRjV4b_lw",
                 type: didType.toString(),
             });
             expect((transaction as ITransactionData)?.fee.toString()).toStrictEqual("0");
@@ -84,7 +79,6 @@ describe("Functions > certified mint", () => {
 
         it("should create mint transaction for organization", async () => {
             const didType = DIDTypes.ORGANIZATION;
-            const voucher = "theVoucher";
             const did = `@unik:${didType}:${explicitValues}`;
             const transaction = await createCertifiedNftMintTransaction(
                 unsClient,
@@ -100,7 +94,7 @@ describe("Functions > certified mint", () => {
             expect(isError(transaction)).toBeFalsy();
             expect((transaction as ITransactionData)?.asset?.nft.unik.properties).toStrictEqual({
                 [LIFE_CYCLE_PROPERTY_KEY]: LifeCycleGrades.LIVE.toString(),
-                UnikVoucherId: "jwtJti",
+                UnikVoucherId: "SyjfEteA8tSAPRjV4b_lw",
                 type: didType.toString(),
             });
             expect((transaction as ITransactionData)?.fee.toString()).toStrictEqual(fee.toString());

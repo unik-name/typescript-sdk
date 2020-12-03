@@ -1,7 +1,6 @@
 import { NftFactoryServicesList } from "../../clients/repositories/network-unit-services/constants";
 import { DIDDocument } from "did-resolver";
 
-export type JWTDecoded = any;
 export type JWTPayload = any;
 export type JwtParams = {
     sub: string;
