@@ -1,5 +1,4 @@
 import { Interfaces, Identities, Managers } from "@uns/ark-crypto";
-//
 import { Response, UNSClient } from "../../clients";
 import { Transactions as NftTransactions, Interfaces as NftInterfaces, Builders } from "@uns/core-nft-crypto";
 import {
@@ -18,7 +17,7 @@ import { registerTransaction } from "../transactions/register";
 import { getCurrentIAT } from "./utils";
 import { BADGE_XP_LEVEL_KEY, LifeCycleGrades, LIFE_CYCLE_PROPERTY_KEY, XPLevelBadgeGrades } from "../unik/constants";
 import { CertifiedNftMintTransaction, UNSCertifiedNftMintBuilder, ICertifiedDemand } from "@uns/crypto";
-import { decodeJwt } from "../jwt";
+import { decodeJWT } from "did-jwt";
 
 export const createCertifiedNftMintTransaction = async (
     client: UNSClient,
@@ -162,7 +161,7 @@ function computeProperties(didType: DIDTypes, unikVoucher?: string): NftInterfac
     properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.MINTED.toString();
 
     if (unikVoucher) {
-        const decodeUnikVoucher: any = decodeJwt(unikVoucher);
+        const decodeUnikVoucher: any = decodeJWT(unikVoucher);
         properties.UnikVoucherId = decodeUnikVoucher.payload.jti; // UnikVoucherId has to be set, it will be compared to the unikVoucher.payload.id in certification service after verification
 
         // token evo v1

@@ -11,7 +11,6 @@ import {
     PropertyVerifierType,
     VerifiedJWT,
     VoucherJWTPayload,
-    JWTDecoded,
 } from "./types";
 
 export const UNIK_DID_PREFIX = "did:unik:unid:";
@@ -41,17 +40,12 @@ export function computeUnikDid(unikId: string) {
     return `${UNIK_DID_PREFIX}${unikId}`;
 }
 
-// wrapper used for mocking purpose
-export function decodeJwt(unikVoucher: string): JWTDecoded {
-    return decodeJWT(unikVoucher);
-}
-
 export function getUnikVoucherId(unikVoucher: string): string {
-    return (decodeJwt(unikVoucher).payload as any).jti;
+    return (decodeJWT(unikVoucher).payload as any).jti;
 }
 
 export function getUnikVoucherCouponHash(unikVoucher: string): string | undefined {
-    return (decodeJwt(unikVoucher).payload as any).couponHash;
+    return (decodeJWT(unikVoucher).payload as any).couponHash;
 }
 
 export async function createUnikVoucher(
