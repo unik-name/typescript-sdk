@@ -10,31 +10,28 @@ import {
     INftUpdateDemand,
     INftUpdateDemandCertification,
     NftUpdateDemandSigner,
+    updateDemandCertificationCreate,
+    unikGet,
 } from "../../clients";
 import { registerTransaction } from "../transactions/register";
-import { SdkResult } from "./types";
+import { SdkResult, UnikUpdateCertifiedTransactionBuildOptions } from "./types";
 import { getCurrentIAT } from "./utils";
 
-export const createCertifiedNftUpdateTransaction = async (
-    client: UNSClient,
-    tokenId: string,
-    properties: { [_: string]: string },
-    fees: number,
-    nonce: string,
-    passphrase: string,
-    secondPassPhrase?: string,
-    nftName: string = "unik",
-    serviceId?: NftFactoryServicesList,
-    unikname?: string,
+export const buildUnikUpdateCertifiedTransaction = async (
+    options: UnikUpdateCertifiedTransactionBuildOptions,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
+    const { unikId, properties, passphrase, secondPassPhrase, httpClient, serviceId, unikname, fees, nonce } = options;
+
     registerTransaction(CertifiedNftUpdateTransaction);
 
-    const builder = new UNSCertifiedNftUpdateBuilder(nftName, tokenId).properties(properties);
+    // TODO update type in @uns/core-nft-crypto builder to remove this line !!!!
+    const props: { [_: string]: string } = properties as { [_: string]: string };
+    const builder = new UNSCertifiedNftUpdateBuilder("unik", unikId).properties(props);
     const currentAsset: NftInterfaces.ITransactionNftAssetData = builder.getCurrentAsset();
 
     const demandPayload: INftUpdateDemandPayload = {
-        iss: tokenId,
-        sub: tokenId,
+        iss: unikId,
+        sub: unikId,
         iat: getCurrentIAT(),
         cryptoAccountAddress: Identities.Address.fromPassphrase(passphrase),
     };
@@ -57,7 +54,7 @@ export const createCertifiedNftUpdateTransaction = async (
         demand,
     };
 
-    const reponse: Response<INftUpdateDemandCertification> = await client.updateDemandCertification.create({
+    const reponse: Response<INftUpdateDemandCertification> = await updateDemandCertificationCreate(httpClient)({
         demand: updateDemand,
         serviceId,
         unikname,
@@ -71,7 +68,7 @@ export const createCertifiedNftUpdateTransaction = async (
         return codes.UPDATE_ERROR_CREATION_DATA_NULL;
     }
 
-    const issuerAddress: string | undefined = (await client.unik.get(reponse.data.payload.iss)).data?.ownerId;
+    const issuerAddress: string | undefined = (await unikGet(httpClient)(reponse.data.payload.iss)).data?.ownerId;
 
     if (!issuerAddress) {
         return codes.CERTIFICATION_ISSUER_OWNER_ERROR;
@@ -90,3 +87,28 @@ export const createCertifiedNftUpdateTransaction = async (
 
     return builder.getStruct();
 };
+
+// TODO DEPRECATED
+export const createCertifiedNftUpdateTransaction = async (
+    client: UNSClient,
+    tokenId: string,
+    properties: { [_: string]: string },
+    fees: number,
+    nonce: string,
+    passphrase: string,
+    secondPassPhrase?: string,
+    _: string = "unik", // old property `nftName`, not used.
+    serviceId?: NftFactoryServicesList,
+    unikname?: string,
+): Promise<SdkResult<Interfaces.ITransactionData>> =>
+    buildUnikUpdateCertifiedTransaction({
+        unikId: tokenId,
+        properties,
+        passphrase,
+        fees,
+        nonce,
+        httpClient: client.http,
+        secondPassPhrase,
+        serviceId,
+        unikname,
+    });
