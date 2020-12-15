@@ -20,7 +20,18 @@ import { getCurrentIAT } from "./utils";
 export const buildUnikUpdateCertifiedTransaction = async (
     options: UnikUpdateCertifiedTransactionBuildOptions,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
-    const { unikId, properties, passphrase, secondPassPhrase, httpClient, serviceId, unikname, fees, nonce } = options;
+    const {
+        unikId,
+        properties,
+        passphrase,
+        secondPassPhrase,
+        httpClient,
+        serviceId,
+        unikname,
+        fees,
+        nonce,
+        lifecycleStatusProof,
+    } = options;
 
     registerTransaction(CertifiedNftUpdateTransaction);
 
@@ -58,6 +69,7 @@ export const buildUnikUpdateCertifiedTransaction = async (
         demand: updateDemand,
         serviceId,
         unikname,
+        jwtProof: lifecycleStatusProof,
     });
 
     if (reponse.error) {
