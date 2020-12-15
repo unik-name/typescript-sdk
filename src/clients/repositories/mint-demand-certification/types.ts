@@ -6,6 +6,7 @@ export interface CertificationRequestBody<T extends INftDemand> {
     unikname?: string; // DID
     serviceId?: NftFactoryServicesList;
     unikVoucher?: string;
+    jwtProof?: string;
 }
 
 export {
