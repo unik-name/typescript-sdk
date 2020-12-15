@@ -20,4 +20,5 @@ export type UnikUpdateCertifiedTransactionBuildOptions = {
     secondPassPhrase?: string;
     serviceId?: NftFactoryServicesList;
     unikname?: string;
+    lifecycleStatusProof?: string;
 };
