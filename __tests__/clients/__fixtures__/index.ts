@@ -100,6 +100,9 @@ export const properties = [
         "Badges/NP/UNIKIssuer": "false",
     },
     {
+        "Authentications/CosmicNonce": "1",
+    },
+    {
         "LifeCycle/Status": "2",
     },
     {
