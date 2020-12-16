@@ -31,3 +31,8 @@ export const VERIFIED_URL_KEY_PREFIX = "Verified/URL/";
 export const USER_PROPERTY_PREFIX: string = "usr/";
 
 export { UNS_NFT_PROPERTY_KEY_REGEX, LIFE_CYCLE_PROPERTY_KEY, LifeCycleGrades } from "@uns/crypto";
+
+/* Authentications */
+export const AUTHENTICATIONS_PREFIX: string = "Authentications/";
+
+export const AUTHENTICATIONS_COSMIC_NONCE: string = `${AUTHENTICATIONS_PREFIX}CosmicNonce`;

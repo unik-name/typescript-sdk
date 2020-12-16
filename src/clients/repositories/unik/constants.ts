@@ -1,5 +1,6 @@
 import { LIFE_CYCLE_PROPERTY_KEY } from "@uns/crypto";
 import {
+    AUTHENTICATIONS_COSMIC_NONCE,
     BADGE_DELEGATE_KEY,
     BADGE_PIONEER_KEY,
     BADGE_SECOND_PASSPHRASE_KEY,
@@ -7,5 +8,10 @@ import {
 } from "../../../functions/unik/constants";
 
 export const ACTIVE_BADGES = [BADGE_DELEGATE_KEY, BADGE_SECOND_PASSPHRASE_KEY, BADGE_PIONEER_KEY, BADGE_XP_LEVEL_KEY];
-export const ACTIVE_SYSTEM_PROPERTIES = ["type", "explicitValues", LIFE_CYCLE_PROPERTY_KEY];
+export const ACTIVE_SYSTEM_PROPERTIES = [
+    "type",
+    "explicitValues",
+    LIFE_CYCLE_PROPERTY_KEY,
+    AUTHENTICATIONS_COSMIC_NONCE,
+];
 export { LIFE_CYCLE_PROPERTY_KEY } from "@uns/crypto";
