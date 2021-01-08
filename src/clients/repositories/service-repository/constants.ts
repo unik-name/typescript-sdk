@@ -16,6 +16,11 @@ export const codes = {
         message: "Unable to fetch node details",
     },
 
+    INVALID_DID_TYPE: {
+        code: "5",
+        message: "Unable to retrieve did type",
+    },
+
     /**
      * Minting errors
      */
@@ -45,5 +50,10 @@ export const codes = {
     UNIK_VOUCHER_FORMAT_ERROR: {
         code: "50",
         message: "Malformed unik-voucher",
+    },
+
+    CERTIFICATION_CREATION_ERROR: {
+        code: "60",
+        message: "Error creating nft demand certification because 'reponse.data' is undefined or null",
     },
 };
