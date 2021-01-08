@@ -29,6 +29,7 @@ import {
     walletTokens,
     walletSearch,
     transactions,
+    transferDemandCertificationCreate,
 } from ".";
 import { DeepPartial } from "../utils/merge";
 import { walletTransactions } from "./repositories";
@@ -116,6 +117,12 @@ export class UNSClient {
     public get updateDemandCertification() {
         return {
             create: updateDemandCertificationCreate(this.http),
+        };
+    }
+
+    public get transferDemandCertification() {
+        return {
+            create: transferDemandCertificationCreate(this.http),
         };
     }
 

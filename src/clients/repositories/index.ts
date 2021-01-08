@@ -10,6 +10,7 @@ export * from "./unik-pattern";
 export * from "./nfts";
 export * from "./mint-demand-certification";
 export * from "./update-demand-certification";
+export * from "./transfer-demand-certification";
 export * from "./node";
 export * from "./safetypo";
 export * from "./transactions";

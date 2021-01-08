@@ -12,8 +12,8 @@ export interface CertificationRequestBody<T extends INftDemand> {
 
 export {
     INftDemand,
-    INftMintDemandCertification,
-    INftMintDemand,
-    INftMintDemandPayload,
-    NftMintDemandSigner,
+    INftDemandCertification as INftMintDemandCertification,
+    INftDemand as INftMintDemand,
+    INftDemandPayload as INftMintDemandPayload,
+    NftDemandSigner as NftMintDemandSigner,
 } from "@uns/crypto";

@@ -1,4 +1,5 @@
 import { HTTPClient, FunctionalError, NftFactoryServicesList, UNSClient } from "../../clients";
+import { Interfaces } from "@uns/core-nft-crypto";
 
 export type SdkResult<T> = T | FunctionalError;
 
@@ -34,4 +35,15 @@ export type UnikMintCertifiedTransactionBuildOptions = {
     unikVoucher?: string;
     orderId?: string;
     certification?: boolean;
+};
+
+export type UnikTransferCertifiedTransactionBuildOptions = {
+    httpClient: HTTPClient;
+    unikId: string;
+    recipientAddress: string;
+    fees: number;
+    nonce: string;
+    passphrase: string;
+    secondPassPhrase?: string;
+    properties?: Interfaces.INftProperties;
 };
