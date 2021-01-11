@@ -7,9 +7,11 @@ export const fingerprintCompute = (client: HTTPClient) => (
     explicitValue: string,
     type: DIDTypes,
     nftName: string = "UNIK",
+    addComputingInformationsToResponse: boolean = false,
 ): Promise<Response<FingerprintResult>> =>
     post<FingerprintResult>(client)("unik-name-fingerprint", undefined, {
         explicitValue,
         type: DIDHelpers.fromCode(type).toLowerCase(),
         nftName,
+        addComputingInformationsToResponse,
     });

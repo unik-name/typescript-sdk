@@ -6,7 +6,7 @@ export interface CertificationRequestBody<T extends INftDemand> {
     unikname?: string; // DID
     serviceId?: NftFactoryServicesList;
     unikVoucher?: string;
-    jwtProof?: string;
+    jwtProof?: string; // Proof from IDP used for UNIK activation
 }
 
 export {
