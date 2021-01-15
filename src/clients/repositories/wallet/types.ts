@@ -7,6 +7,7 @@ export type Wallet = {
     isDelegate: boolean;
     vote?: string;
     nonce?: string;
+    attributes?: Record<string, any>;
 };
 
 export type Token = {
