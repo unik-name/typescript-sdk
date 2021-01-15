@@ -1,4 +1,4 @@
-import { Interfaces, Identities, Managers } from "@uns/ark-crypto";
+import { Interfaces, Identities } from "@uns/ark-crypto";
 import { Response, UNSClient } from "../../clients";
 import { Transactions as NftTransactions, Interfaces as NftInterfaces, Builders } from "@uns/core-nft-crypto";
 import {
@@ -137,7 +137,7 @@ export const buildCertifiedNftMintTransaction = async (
         builder.demand(demand).certification(reponse.data, issuerAddress);
 
         // token eco v2: override individual mint fee to 0
-        if (unikVoucher && didType === DIDTypes.INDIVIDUAL && Managers.configManager.getMilestone()?.unsTokenEcoV2) {
+        if (unikVoucher && didType === DIDTypes.INDIVIDUAL) {
             zeroFee = true;
         }
     } else {
@@ -165,28 +165,16 @@ function computeProperties(didType: DIDTypes, unikVoucher?: string): NftInterfac
     };
 
     properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.MINTED.toString();
-
+    if (didType === DIDTypes.INDIVIDUAL) {
+        properties[BADGE_XP_LEVEL_KEY] = XPLevelBadgeGrades.NEWCOMER.toString();
+    }
     if (unikVoucher) {
         const decodeUnikVoucher: any = decodeJWT(unikVoucher);
         properties.UnikVoucherId = decodeUnikVoucher.payload.jti; // UnikVoucherId has to be set, it will be compared to the unikVoucher.payload.id in certification service after verification
-
-        // token evo v1
-        // every mint with voucher is LIVE
-        properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.LIVE.toString();
-        // individual mint have BEGINNER badge
-        if (didType === DIDTypes.INDIVIDUAL) {
-            properties[BADGE_XP_LEVEL_KEY] = XPLevelBadgeGrades.BEGINNER.toString();
+        if (didType !== DIDTypes.INDIVIDUAL) {
+            properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.LIVE.toString();
         }
     }
-    // token eco V2
-    if (Managers.configManager.getMilestone().unsTokenEcoV2) {
-        // individual mint have NEWCOMER badge and MINTED status
-        if (didType === DIDTypes.INDIVIDUAL) {
-            properties[BADGE_XP_LEVEL_KEY] = XPLevelBadgeGrades.NEWCOMER.toString();
-            properties[LIFE_CYCLE_PROPERTY_KEY] = LifeCycleGrades.MINTED.toString();
-        }
-    }
-
     return properties;
 }
 
