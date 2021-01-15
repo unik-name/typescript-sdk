@@ -15,7 +15,6 @@ import {
 import { NETWORK } from "./__fixtures__/tests-commons";
 import { mockUnikPattern, mockServiceSearch, mockMintCertification, mockUnikRequest } from "./__mocks__/mocks";
 import { ITransactionData } from "@uns/ark-crypto/dist/interfaces";
-import { Managers } from "@uns/ark-crypto";
 import { mockSafetypoRequest } from "./did/__fixtures__/resolve";
 
 const unsClient = new UNSClient();
@@ -33,9 +32,6 @@ const voucher = `eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpYXQiOjE1OTg0MzQ4MTMs
 
 describe("Functions > certified mint", () => {
     beforeEach(() => {
-        // force tokenomics v2
-        jest.spyOn(Managers.configManager, "getMilestone").mockReturnValue({ unsTokenEcoV2: true, aip11: true });
-
         mockSafetypoRequest();
         mockUnikPattern({ lengthGroup: UNSLengthGroup.LATIN_NORMAL, script: DIDScript.LATIN });
         mockServiceSearch({ id: NftFactoryServicesList.NFT_FACTORY_MINT_INDIVIDUAL_LATIN_SAFE_TYPO_3 });
