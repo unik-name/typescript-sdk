@@ -24,7 +24,7 @@ export const buildUnikUpdateCertifiedTransaction = async (
         unikId,
         properties,
         passphrase,
-        secondPassPhrase,
+        secondPassphrase,
         httpClient,
         serviceId,
         unikname,
@@ -93,8 +93,8 @@ export const buildUnikUpdateCertifiedTransaction = async (
         .nonce(nonce)
         .sign(passphrase);
 
-    if (secondPassPhrase) {
-        builder.secondSign(secondPassPhrase);
+    if (secondPassphrase) {
+        builder.secondSign(secondPassphrase);
     }
 
     return builder.getStruct();
@@ -120,7 +120,7 @@ export const createCertifiedNftUpdateTransaction = async (
         fees,
         nonce,
         httpClient: client.http,
-        secondPassPhrase,
+        secondPassphrase: secondPassPhrase,
         serviceId,
         unikname,
     });
