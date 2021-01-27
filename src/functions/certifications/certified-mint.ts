@@ -12,26 +12,31 @@ import {
     UNSServiceType,
 } from "../../clients/repositories";
 import { parse, DidParserError, DidParserResult, DIDTypes, DIDHelpers } from "../did";
-import { SdkResult } from "./types";
+import { SdkResult, UnikMintCertifiedTransactionBuildOptions } from "./types";
 import { registerTransaction } from "../transactions/register";
 import { getCurrentIAT } from "./utils";
 import { BADGE_XP_LEVEL_KEY, LifeCycleGrades, LIFE_CYCLE_PROPERTY_KEY, XPLevelBadgeGrades } from "../unik/constants";
 import { CertifiedNftMintTransaction, UNSCertifiedNftMintBuilder, ICertifiedDemand } from "@uns/crypto";
 import { decodeJWT } from "did-jwt";
 
-export const createCertifiedNftMintTransaction = async (
-    client: UNSClient,
-    tokenId: string,
-    unikname: string,
-    fees: number,
-    nonce: string,
-    passphrase: string,
-    secondPassPhrase?: string,
-    unikVoucher?: string,
-    certification: boolean = true,
+export const buildCertifiedNftMintTransaction = async (
+    options: UnikMintCertifiedTransactionBuildOptions,
 ): Promise<SdkResult<Interfaces.ITransactionData>> => {
-    let builder;
+    const {
+        tokenId,
+        passphrase,
+        secondPassphrase,
+        client,
+        unikname,
+        fees,
+        nonce,
+        unikVoucher,
+        orderId,
+        certification,
+    } = options;
 
+    let builder;
+    let zeroFee = false;
     const unikParseResult: DidParserResult | DidParserError = await parse(unikname, client);
 
     if (unikParseResult instanceof DidParserError) {
@@ -40,7 +45,7 @@ export const createCertifiedNftMintTransaction = async (
 
     const didType: DIDTypes = DIDHelpers.fromLabel(unikParseResult.type);
 
-    if (certification) {
+    if (certification !== false) {
         registerTransaction(CertifiedNftMintTransaction);
 
         let properties;
@@ -112,6 +117,7 @@ export const createCertifiedNftMintTransaction = async (
             serviceId: mintServiceResponse.data?.id,
             unikname,
             unikVoucher,
+            orderId,
         });
 
         if (reponse.error) {
@@ -132,7 +138,7 @@ export const createCertifiedNftMintTransaction = async (
 
         // token eco v2: override individual mint fee to 0
         if (unikVoucher && didType === DIDTypes.INDIVIDUAL && Managers.configManager.getMilestone()?.unsTokenEcoV2) {
-            fees = 0;
+            zeroFee = true;
         }
     } else {
         registerTransaction(NftTransactions.NftMintTransaction);
@@ -142,12 +148,12 @@ export const createCertifiedNftMintTransaction = async (
     }
 
     builder
-        .fee(`${fees}`)
+        .fee(zeroFee ? "0" : `${fees}`)
         .nonce(nonce)
         .sign(passphrase);
 
-    if (secondPassPhrase) {
-        builder.secondSign(secondPassPhrase);
+    if (secondPassphrase) {
+        builder.secondSign(secondPassphrase);
     }
 
     return builder.getStruct();
@@ -183,3 +189,29 @@ function computeProperties(didType: DIDTypes, unikVoucher?: string): NftInterfac
 
     return properties;
 }
+
+// TODO DEPRECATED
+export const createCertifiedNftMintTransaction = async (
+    client: UNSClient,
+    tokenId: string,
+    unikname: string,
+    fees: number,
+    nonce: string,
+    passphrase: string,
+    secondPassPhrase?: string,
+    unikVoucher?: string,
+    orderId?: string,
+    certification: boolean = true,
+): Promise<SdkResult<Interfaces.ITransactionData>> =>
+    buildCertifiedNftMintTransaction({
+        tokenId,
+        passphrase,
+        fees,
+        nonce,
+        client,
+        secondPassphrase: secondPassPhrase,
+        unikname,
+        unikVoucher,
+        orderId,
+        certification,
+    });
