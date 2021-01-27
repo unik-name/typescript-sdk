@@ -5,6 +5,7 @@ export type UnikVoucherRequestBody = {
     didType: DIDTypes;
     coupon?: string;
     paymentProof?: string;
+    orderId?: string; // OrderId used for unik reservation
 };
 
 export type UnikVoucherResult = {
