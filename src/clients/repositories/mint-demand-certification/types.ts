@@ -7,6 +7,7 @@ export interface CertificationRequestBody<T extends INftDemand> {
     serviceId?: NftFactoryServicesList;
     unikVoucher?: string;
     jwtProof?: string; // Proof from IDP used for UNIK activation
+    orderId?: string; // OrderId used for unik reservation
 }
 
 export {
