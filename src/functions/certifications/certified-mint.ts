@@ -200,8 +200,8 @@ export const createCertifiedNftMintTransaction = async (
     passphrase: string,
     secondPassPhrase?: string,
     unikVoucher?: string,
-    orderId?: string,
     certification: boolean = true,
+    orderId?: string,
 ): Promise<SdkResult<Interfaces.ITransactionData>> =>
     buildCertifiedNftMintTransaction({
         tokenId,
