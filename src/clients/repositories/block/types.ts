@@ -4,4 +4,5 @@ export type Block = {
     id: string;
     height: number;
     timestamp: ChainTimestamp;
+    transactions: number;
 };

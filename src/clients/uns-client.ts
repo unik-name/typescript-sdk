@@ -28,6 +28,7 @@ import {
     walletGet,
     walletTokens,
     walletSearch,
+    transactions,
 } from ".";
 import { DeepPartial } from "../utils/merge";
 
@@ -70,6 +71,7 @@ export class UNSClient {
     public get block() {
         return {
             last: blockLast(this.http),
+            transactions: transactions(this.http),
         };
     }
 
