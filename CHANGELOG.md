@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+-   add get block transaction endpoint support
+
 ### Changed
 
 -   http timeouts increased from 10s to 15s
