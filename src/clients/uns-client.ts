@@ -31,6 +31,7 @@ import {
     transactions,
 } from ".";
 import { DeepPartial } from "../utils/merge";
+import { walletTransactions } from "./repositories";
 
 export class UNSClient {
     public http: HTTPClient;
@@ -152,6 +153,7 @@ export class UNSClient {
             get: walletGet(this.http),
             tokens: walletTokens(this.http),
             search: walletSearch(this.http),
+            transactions: walletTransactions(this.http),
         };
     }
 }
