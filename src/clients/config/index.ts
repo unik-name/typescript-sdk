@@ -25,7 +25,7 @@ export type UNSConfig = {
 export const DEFAULT_UNS_CONFIG: UNSConfig = {
     network: Network.livenet,
     defaultHeaders: {
-        "content-type": "application/json",
+        "Content-type": "application/json",
     },
     endpoints: {
         livenet: {

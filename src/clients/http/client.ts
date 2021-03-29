@@ -1,5 +1,5 @@
 import { DEFAULT_UNS_CONFIG, Network, UNSConfig, UNSEndpoint } from "../config";
-import ky, { ResponsePromise, Options } from "ky-universal";
+import ky, { Options } from "ky-universal";
 import { DeepPartial, merge } from "../../utils/merge";
 
 export type _Body = Record<string, any>;
@@ -75,9 +75,9 @@ export class HTTPClient {
     }
 
     private async send<T>({ method, url, opts }: IHTTPRequest): Promise<IHTTPResponse<T>> {
-        const response: ResponsePromise = ky[method](url, opts);
-        const body = await response.json<T>();
-        const { headers, status } = await response;
+        const response = await ky[method](url, opts);
+        const { headers, status } = response;
+        const body = await response.json();
 
         return { body, headers, status };
     }
