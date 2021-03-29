@@ -6,9 +6,14 @@ import { get, post } from "../network-repository";
 export const unikGet = (client: HTTPClient) => (id: string): Promise<ResponseWithChainMeta<Unik>> =>
     get<ResponseWithChainMeta<Unik>>(client)(`uniks/${id}`);
 
-export const unikProperties = (client: HTTPClient) => (id: string): Promise<ResponseWithChainMeta<UnikProperties>> =>
+export const unikProperties = (client: HTTPClient) => (
+    id: string,
+    onlyActiveBadge: boolean = true,
+): Promise<ResponseWithChainMeta<UnikProperties>> =>
     get<ResponseWithChainMeta<UnikProperties>>(client)(`uniks/${id}/properties`).then(response => {
-        response.data = response.data?.filter(isActiveProperty);
+        if (onlyActiveBadge) {
+            response.data = response.data?.filter(isActiveProperty);
+        }
         return response;
     });
 
