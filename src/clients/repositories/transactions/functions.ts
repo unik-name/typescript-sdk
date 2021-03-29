@@ -2,7 +2,7 @@ import { Interfaces, Transactions } from "@uns/ark-crypto";
 import { IProcessorResult, Transaction } from "./types";
 import { HTTPClient, PaginationOptions, ResponseWithChainMeta } from "../..";
 import { get, post } from "../network-repository";
-import { _Params } from "../../http/client";
+import { _Body } from "../../http/client";
 
 export const transactionsGet = (client: HTTPClient) => (id: string): Promise<ResponseWithChainMeta<Transaction>> =>
     get<ResponseWithChainMeta<Transaction>>(client)(`transactions/${id}`);
@@ -24,9 +24,10 @@ export const transactionsSend = (client: HTTPClient) => (
 };
 
 export const transactionsSearch = (client: HTTPClient) => (
-    searchQuery: _Params,
+    body: _Body,
+    pagination: PaginationOptions = {},
 ): Promise<ResponseWithChainMeta<Transaction[]>> =>
-    post<ResponseWithChainMeta<Transaction[]>>(client)("transactions/search", undefined, searchQuery);
+    post<ResponseWithChainMeta<Transaction[]>>(client)("transactions/search", { ...pagination }, body);
 
 export const transactionsUnconfirmed = (client: HTTPClient) => (
     pagination: PaginationOptions = {},
