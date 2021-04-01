@@ -1,8 +1,8 @@
 import { USER_PROPERTY_PREFIX, VERIFIED_URL_KEY_PREFIX } from "../../../functions/unik/constants";
-import { ACTIVE_BADGES, ACTIVE_SYSTEM_PROPERTIES } from "./constants";
+import { ACTIVE_BADGES_REGEXP, ACTIVE_SYSTEM_PROPERTIES } from "./constants";
 import { UnikProperty } from "./types";
 
-const isActiveBadge = (key: string): boolean => ACTIVE_BADGES.includes(key);
+const isActiveBadge = (key: string): boolean => ACTIVE_BADGES_REGEXP.some((badgeRegex: RegExp) => badgeRegex.test(key));
 
 export const isActiveSystemProperty = (key: string): boolean => ACTIVE_SYSTEM_PROPERTIES.includes(key);
 
