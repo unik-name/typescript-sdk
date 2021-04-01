@@ -108,4 +108,16 @@ export const properties = [
     {
         "Badges/Pioneer": "1",
     },
+    {
+        "Badges/Event/easteregg2021": "true",
+    },
+    {
+        "Badges/Event/anotherEventBadge": "true",
+    },
+    {
+        "Badges/NP/DelegateNotActiveBadge": "false",
+    },
+    {
+        "Badges/NP/Delegate/NotActiveBadge": "false",
+    },
 ];

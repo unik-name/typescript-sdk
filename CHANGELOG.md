@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 -   add get block transaction endpoint support
+-   add event badges to properties white list
 
 ### Changed
 
