@@ -1,7 +1,7 @@
 export const BADGES_PREFIX = "Badges/";
 
 /* Pioneer */
-export const BADGE_PIONEER_KEY = `${BADGES_PREFIX}Pioneer$`;
+export const BADGE_PIONEER_KEY = `${BADGES_PREFIX}Pioneer`;
 export const BADGE_PIONEER_KEY_REGEXP = new RegExp(`^${BADGE_PIONEER_KEY}$`);
 export enum PioneerBadgeGrades {
     INNOVATOR = 1,
