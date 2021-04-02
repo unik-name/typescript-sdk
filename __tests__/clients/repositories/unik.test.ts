@@ -8,7 +8,7 @@ import {
     BADGES_PREFIX,
     DEFAULT_UNS_CONFIG,
 } from "../../../src";
-import { ACTIVE_BADGES, ACTIVE_SYSTEM_PROPERTIES } from "../../../src/clients/repositories/unik/constants";
+import { ACTIVE_BADGES_REGEXP, ACTIVE_SYSTEM_PROPERTIES } from "../../../src/clients/repositories/unik/constants";
 import { properties, unikid } from "./../__fixtures__";
 
 describe("Unik repository tests", () => {
@@ -31,12 +31,12 @@ describe("Unik repository tests", () => {
             response.data?.forEach(prop => {
                 const key = Object.getOwnPropertyNames(prop)[0];
                 if (key.startsWith(BADGES_PREFIX)) {
-                    expect(ACTIVE_BADGES.some(e => new RegExp(key).test(BADGES_PREFIX + e))).toBeTruthy();
+                    expect(ACTIVE_BADGES_REGEXP.some(e => e.test(key))).toBeTruthy();
                 } else if (!key.startsWith(USER_PROPERTY_PREFIX)) {
                     expect(ACTIVE_SYSTEM_PROPERTIES.includes(key)).toBeTruthy();
                 }
             });
-            expect.assertions(ACTIVE_BADGES.length + ACTIVE_SYSTEM_PROPERTIES.length);
+            expect.assertions(10);
         });
     });
 });
