@@ -28,6 +28,28 @@ export const allowedTypesByToken: {} = {
 };
 
 export const parse = async (did: string, client: UNSClient): Promise<DidParserResult | DidParserError> => {
+    const parseDIDResult: DidParserResult | DidParserError = await parseDID(did);
+
+    if (parseDIDResult instanceof DidParserError) {
+        return parseDIDResult;
+    }
+
+    if (!isValidDID(parseDIDResult.explicitValue) || !(await isSafetypoString(parseDIDResult.explicitValue, client))) {
+        return new DidParserError("Invalid explicit value format");
+    }
+
+    return parseDIDResult;
+};
+
+export const isValidDID = (explicitValue: string): boolean => explicitValue?.length < 100;
+
+const isSafetypoString = async (explicitValue: string, client: UNSClient): Promise<boolean> => {
+    const result = await client.safetypo.analyze(explicitValue);
+    return !!result.data;
+};
+
+// Parse a unik DID without length or safetypo check
+export const parseDID = async (did: string): Promise<DidParserResult | DidParserError> => {
     if (!did) {
         return new DidParserError("Empty DID");
     }
@@ -50,23 +72,10 @@ export const parse = async (did: string, client: UNSClient): Promise<DidParserRe
     const explicitValue = matching[3];
     const query = matching[4];
 
-    if (!(await checkExplicitValue(explicitValue, client))) {
-        return new DidParserError("Invalid explicit value format");
-    }
-
     return {
         tokenName,
         explicitValue,
         query,
         type: DIDHelpers.fromCode(type) as DIDType,
     };
-};
-
-const checkExplicitValue = async (explicitValue: string, client: UNSClient): Promise<boolean> => {
-    if (explicitValue.length > 100) {
-        return false;
-    }
-
-    const result = await client.safetypo.analyze(explicitValue);
-    return !!result.data;
 };
