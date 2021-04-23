@@ -104,13 +104,13 @@ jobs:
           file: ".coverage/*.json"
       - *slack_notification
 
-  publish_dev_build:
+  publish_build:
     <<: *job_config
     steps:
       - *setup_envvars
       - *attach_workspace
       - run:
-          command: ./scripts/publish-nightly.sh
+          command: ./scripts/publish.sh
       - *slack_notification
 
 ####################################
@@ -139,7 +139,7 @@ workflows:
       - format:
           requires:
             - checkout_prepare_dependencies
-      - publish_dev_build:
+      - publish_build:
           requires:
             - build
             - test

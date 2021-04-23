@@ -1,0 +1,11 @@
+{
+    "git": false,
+    "github": {
+        "release": true
+    },
+    "npm": {
+        "publishConfig": {
+            "access": "public"
+        }
+    }
+}
