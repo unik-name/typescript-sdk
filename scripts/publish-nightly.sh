@@ -2,6 +2,8 @@
 
 set -ex
 
+source ./scripts/set-npm-token.sh
+
 # Check new commits since 24h
 if [ $(git log --since="1 day" | wc -l) -eq 0 ]; then
     echo "Nothing to publish since 1 day.";
@@ -21,17 +23,7 @@ DATE=$(date -u +%Y%m%d%H%M%S)
 dev="-dev.$DATE"
 sed  -i.bak '/version/s/[^0-9]*$/'"$dev\",/" package.json
 
-if [[ -n "$CI" ]];then
-    echo "Authenticate with registry."
-    if [[ -z "$NPM_TOKEN" ]];then
-        echo "Error: NPM_TOKEN is not set."
-        exit 1
-    fi
-
-    set +x
-    echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
-    set -x
-fi
+set-npm-token
 
 echo "Publish package"
 npm publish --tag=dev
