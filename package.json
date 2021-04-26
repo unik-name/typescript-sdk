@@ -34,7 +34,8 @@
         "format": "yarn lint && yarn prettier",
         "test": "cross-env CORE_ENV=test jest",
         "test:coverage": "yarn test --coverage --coveragePathIgnorePatterns='/(index.ts)$'",
-        "release": "release-it"
+        "release": "release-it",
+        "postinstall": "npx husky install"
     },
     "dependencies": {
         "@uns/ark-crypto": "^5.6.0-dev",
@@ -48,6 +49,8 @@
         "nanoid": "^2.1.11"
     },
     "devDependencies": {
+        "@commitlint/cli": "^12.1.1",
+        "@commitlint/config-conventional": "^12.1.1",
         "@types/elliptic": "^6.4.12",
         "@types/jest": "^25.1.2",
         "@types/nanoid": "^2.1.0",
@@ -99,11 +102,6 @@
     },
     "repository": "git@github.com:spacelephant/typescript-sdk.git",
     "license": "MIT",
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
     "lint-staged": {
         "*.ts": [
             "yarn lint:fix:partial",
