@@ -4,6 +4,8 @@
         "release": true
     },
     "npm": {
+        "increment": false,
+        "skipChecks": true,
         "publishConfig": {
             "access": "public"
         }

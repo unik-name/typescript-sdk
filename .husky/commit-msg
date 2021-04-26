@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx --no-install commitlint --edit "$1"
+npx --no-install commitlint --edit "$1" || echo "***Previous error is treated as a warning***" && true

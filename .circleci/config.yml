@@ -104,13 +104,28 @@ jobs:
           file: ".coverage/*.json"
       - *slack_notification
 
-  publish_build:
+  publish_dev_build:
     <<: *job_config
     steps:
       - *setup_envvars
       - *attach_workspace
+      - add_ssh_keys:
+          fingerprints:
+            - "9f:79:16:3d:d0:7a:a1:e8:e3:d3:40:67:5c:39:69:01"
       - run:
-          command: ./scripts/publish.sh
+          command: ./scripts/publish-dev.sh
+      - *slack_notification
+
+  publish_release:
+    <<: *job_config
+    steps:
+      - *setup_envvars
+      - *attach_workspace
+      - add_ssh_keys:
+          fingerprints:
+            - "9f:79:16:3d:d0:7a:a1:e8:e3:d3:40:67:5c:39:69:01"
+      - run:
+          command: ./scripts/publish-release.sh
       - *slack_notification
 
 ####################################
@@ -139,7 +154,7 @@ workflows:
       - format:
           requires:
             - checkout_prepare_dependencies
-      - publish_build:
+      - publish_dev_build:
           requires:
             - build
             - test
@@ -148,6 +163,8 @@ workflows:
             branches:
               only:
                 - develop
+            tags:
+              ignore: /.*/
 
 #   nightly:
 #     triggers:
@@ -186,3 +203,24 @@ workflows:
       - test:
           requires:
             - checkout_prepare_dependencies
+
+  release:
+    jobs:
+      - checkout_prepare_dependencies:
+          filters:
+            tags:
+              only:
+                - /^\d+\.\d+\.\d+/
+            branches:
+              only:
+                - develop
+      - build:
+          requires:
+            - checkout_prepare_dependencies
+      - test:
+          requires:
+            - checkout_prepare_dependencies
+      - publish_release:
+          requires:
+            - build
+            - test

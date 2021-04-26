@@ -1,7 +1,7 @@
 {
     "name": "@uns/ts-sdk",
     "description": "UNS typescript SDK",
-    "version": "4.1.0",
+    "version": "4.1.1",
     "contributors": [
         "Pierre Seznec <pierre.seznec@spacelephant.org>",
         "Guillaume Nicolas <guillaume.nicolas@spacelephant.org>",
@@ -34,7 +34,8 @@
         "format": "yarn lint && yarn prettier",
         "test": "cross-env CORE_ENV=test jest",
         "test:coverage": "yarn test --coverage --coveragePathIgnorePatterns='/(index.ts)$'",
-        "release": "release-it",
+        "release-it": "release-it",
+        "release": "release-it --config .release-it/.release-it-local.json",
         "postinstall": "npx husky install"
     },
     "dependencies": {
@@ -51,6 +52,7 @@
     "devDependencies": {
         "@commitlint/cli": "^12.1.1",
         "@commitlint/config-conventional": "^12.1.1",
+        "@release-it/conventional-changelog": "^2.0.1",
         "@types/elliptic": "^6.4.12",
         "@types/jest": "^25.1.2",
         "@types/nanoid": "^2.1.0",
