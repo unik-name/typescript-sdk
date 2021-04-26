@@ -1,0 +1,19 @@
+{
+    "git": {
+        "requireCommits": true,
+        "requireUpstream": false,
+        "commit": false
+    },
+    "github": {
+        "release": false
+    },
+    "npm": {
+        "ignoreVersion": true,
+        "skipChecks": true,
+        "publishConfig": {
+            "access": "public"
+        },
+        "publishArgs": ["--registry=https://registry.npmjs.org"],
+        "tag": "dev"
+    }
+}

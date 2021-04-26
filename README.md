@@ -16,7 +16,8 @@ Please visit [SDK page](https://docs.uns.network/uns-usethenetwork/sdk.html) fro
 
 ### Release
 
-`npm publish`
+On develop branch:
+`yarn release`
 
 _NB: use semver_
 
