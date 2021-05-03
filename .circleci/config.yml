@@ -209,18 +209,31 @@ workflows:
       - checkout_prepare_dependencies:
           filters:
             tags:
-              only:
-                - /^\d+\.\d+\.\d+/
+              only: /^\d+\.\d+\.\d+/
             branches:
-              ignore:
-                - /.*/
+              ignore: /.*/
       - build:
           requires:
             - checkout_prepare_dependencies
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
       - test:
           requires:
             - checkout_prepare_dependencies
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
       - publish_release:
           requires:
             - build
             - test
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
