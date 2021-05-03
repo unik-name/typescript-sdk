@@ -1,10 +1,10 @@
 {
+    "increment": false,
     "git": false,
     "github": {
         "release": false
     },
     "npm": {
-        "increment": false,
         "skipChecks": true,
         "publishConfig": {
             "access": "public"
