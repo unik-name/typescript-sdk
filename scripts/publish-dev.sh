@@ -2,9 +2,9 @@
 
 set -ex
 
-COMMIT_TAG=$(git tag --points-at HEAD)
-#Do not publish dev version for release commit
-[[ "$COMMIT_TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] && exit 0
+CURRENT_TAG=$(git tag --points-at HEAD)
+# If nothing new, skip publish
+[[ -n "$CURRENT_TAG"  ]] && echo "nothing new. Skip publish" && exit 0
 
 source ./scripts/set-npm-token.sh
 source ./scripts/enable-ssh-git.sh
