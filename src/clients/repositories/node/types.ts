@@ -31,6 +31,11 @@ export type NodeConfiguration = {
         vendorFieldLength: number;
         urlCheckers?: string[];
         unsTokenEcoV2?: boolean;
+        nbDelegatesByType: {
+            individual: number;
+            organization: number;
+            network: number;
+        };
     };
     feeStatistics: {
         type: number;
