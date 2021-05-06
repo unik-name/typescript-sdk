@@ -32,6 +32,7 @@
         "prettier:fix": "yarn prettier --write",
         "prettier:fix:partial": "prettier --write",
         "format": "yarn lint && yarn prettier",
+        "format:fix": "yarn lint:fix && yarn prettier:fix",
         "test": "cross-env CORE_ENV=test jest",
         "test:coverage": "yarn test --coverage --coveragePathIgnorePatterns='/(index.ts)$'",
         "release-it": "release-it",
