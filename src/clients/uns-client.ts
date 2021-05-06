@@ -32,7 +32,8 @@ import {
     transferDemandCertificationCreate,
 } from ".";
 import { DeepPartial } from "../utils/merge";
-import { walletTransactions } from "./repositories";
+import { roundsGetDelegates, walletTransactions } from "./repositories";
+import { delegatesGet } from "./repositories/delegates";
 
 export class UNSClient {
     public http: HTTPClient;
@@ -80,6 +81,12 @@ export class UNSClient {
     public get blockchain() {
         return {
             get: blockchainGet(this.http),
+        };
+    }
+
+    public get delegates() {
+        return {
+            get: delegatesGet(this.http),
         };
     }
 
@@ -131,6 +138,12 @@ export class UNSClient {
             status: nodeStatus(this.http),
             configuration: nodeConfiguration(this.http),
             configurationCrypto: nodeConfigurationCrypto(this.http),
+        };
+    }
+
+    public get rounds() {
+        return {
+            getDelegates: roundsGetDelegates(this.http),
         };
     }
 
