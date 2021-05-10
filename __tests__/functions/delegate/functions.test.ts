@@ -121,5 +121,15 @@ describe("Delegate functions", () => {
             const unikname = await getCurrentVote(voterInfo.unik.id, http);
             expect(unikname).toBeUndefined();
         });
+
+        it("Should throw if delegate api returns invalid type", () => {
+            const delegate = activeIndividualDelegates[0];
+            delegate.type = "invalidType";
+            mockDelegate(delegate.username, delegate);
+            const voterInfo = voter(delegate.username);
+            mockUnik(voterInfo.unik.id, voterInfo.unik);
+            mockWallet(voterInfo.wallet.address, voterInfo.wallet);
+            return expect(getCurrentVote(voterInfo.unik.id, http)).rejects.toThrowError(/invalid\ type/);
+        });
     });
 });
