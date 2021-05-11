@@ -2,7 +2,7 @@ import { DIDDocument } from "did-resolver";
 import { ec } from "elliptic";
 import { SimpleSigner, createJWT, verifyJWT, Signer, decodeJWT } from "did-jwt";
 import nanoid from "nanoid";
-import { Keys } from "@uns/ark-crypto/dist/identities/keys";
+import { Keys } from "@uns/ark-crypto";
 import { NftFactoryServicesList, UNSClient } from "../../clients";
 import {
     JwtParams,
