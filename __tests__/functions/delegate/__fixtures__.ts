@@ -65,9 +65,7 @@ export const voter = (delegateUsername: string = pubkey()): any => {
     const wallet = {
         address: address(),
         attributes: {
-            delegate: {
-                username: delegateUsername,
-            },
+            vote: delegateUsername,
         },
     };
     const unik = {
