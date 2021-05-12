@@ -115,7 +115,7 @@ export const getUniknameDelegate = (delegateUsername: string, http: HTTPClient):
 export const getCurrentVote = async (unikId: string, http: HTTPClient): Promise<UniknameDelegate | undefined> => {
     const ownerId = await unikGet(http)(unikId).then(r => r.data!.ownerId!);
     const voteDelegateUsername = await walletGet(http)(ownerId).then(
-        r => r.data!.attributes?.delegate?.username as string | undefined,
+        r => r.data!.attributes?.vote as string | undefined,
     );
     if (!voteDelegateUsername) {
         return undefined;
