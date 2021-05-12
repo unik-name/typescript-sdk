@@ -22,7 +22,7 @@ const parseType = (id: number | string): DIDTypes | undefined => {
     if (!isDIDType(id)) {
         return undefined;
     } else {
-        return typeof id === "string" ? (DIDTypes[id.toUpperCase() as DIDType] as DIDTypes) : (id as DIDTypes);
+        return typeof id === "string" ? DIDTypes[id.toUpperCase() as DIDType] : (id as DIDTypes);
     }
 };
 
