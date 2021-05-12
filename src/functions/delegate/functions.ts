@@ -15,15 +15,14 @@ import { unikGet, walletGet } from "../../clients";
 import { DelegateWithState, ExplicitByUnikIdMap, UniknameDelegate } from "./types";
 
 const getNumberOfActiveDelegates = async (http: HTTPClient): Promise<number> =>
-    nodeConfiguration(http)().then(r => r.data!.constants!.activeDelegates!);
+    nodeConfiguration(http)().then(r => r.data!.constants.activeDelegates);
 
 /**
  * Get list of delegates (without unikname properties)
  */
 const getRegisteredDelegates = async (http: HTTPClient): Promise<Delegate[]> => {
     const allDelegates = await delegatesAll(http)().then(r => r.data!);
-    const allRegisteredDelegates = allDelegates.filter(d => !d.isResigned);
-    return allRegisteredDelegates;
+    return allDelegates.filter(d => !d.isResigned);
 };
 
 /**
@@ -113,7 +112,7 @@ export const getUniknameDelegate = (delegateUsername: string, http: HTTPClient):
  * Get current voted delegate (with unikname properties) of given unikname
  */
 export const getCurrentVote = async (unikId: string, http: HTTPClient): Promise<UniknameDelegate | undefined> => {
-    const ownerId = await unikGet(http)(unikId).then(r => r.data!.ownerId!);
+    const ownerId = await unikGet(http)(unikId).then(r => r.data!.ownerId);
     const voteDelegateUsername = await walletGet(http)(ownerId).then(
         r => r.data!.attributes?.vote as string | undefined,
     );

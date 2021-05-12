@@ -7,4 +7,4 @@ export const roundFromHeightAndDelegates = (height: number, activeDelegates: num
     return Math.floor(height / activeDelegates) + (height % activeDelegates > 0 ? 1 : 0);
 };
 
-export const getCurrentHeight = (http: HTTPClient): Promise<number> => nodeStatus(http)().then(r => r.data!.now!);
+export const getCurrentHeight = (http: HTTPClient): Promise<number> => nodeStatus(http)().then(r => r.data!.now);
