@@ -1,3 +1,27 @@
+## [4.3.0](https://github.com/spacelephant/typescript-sdk/compare/4.2.3-dev.3...4.3.0) (2021-06-01)
+
+### [4.2.3-dev.3](https://github.com/spacelephant/typescript-sdk/compare/4.2.3-dev.3...4.3.0) (2021-06-01)
+
+### [4.2.3-dev.2](https://github.com/spacelephant/typescript-sdk/compare/4.2.3-dev.3...4.3.0) (2021-05-13)
+
+
+### Features
+
+* add delegate utilities ([56bd1ea](https://github.com/spacelephant/typescript-sdk/commit/56bd1ea53ad8374522320e86de2f849cb1e7bc99))
+
+
+### Bug Fixes
+
+* get current vote wallet api properties ([08da6fe](https://github.com/spacelephant/typescript-sdk/commit/08da6fe81b7c98e4be6ae04a1795de3c0b10f6a3))
+* remove dist imports for tree-shaking ([8cb7d0d](https://github.com/spacelephant/typescript-sdk/commit/8cb7d0dbd7179eb53995b6a2cdb4418ee0ec0c9a))
+
+### [4.2.3-dev.0](https://github.com/spacelephant/typescript-sdk/compare/4.2.3-dev.3...4.3.0) (2021-05-05)
+
+
+### Features
+
+* add nft transfer functions and repo ([7d9e4e6](https://github.com/spacelephant/typescript-sdk/commit/7d9e4e634d0da8b903eae23243a644d93cb4db01))
+
 ### [4.2.2](https://github.com/spacelephant/typescript-sdk/compare/4.2.2-dev.1...4.2.2) (2021-05-04)
 
 ## [4.2.0](https://github.com/spacelephant/typescript-sdk/compare/4.0.0...4.2.0) (2021-05-03)
