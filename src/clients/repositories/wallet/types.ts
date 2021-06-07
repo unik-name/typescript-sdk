@@ -5,6 +5,7 @@ export type Wallet = {
     secondPublicKey?: string;
     balance: number;
     isDelegate: boolean;
+    isResigned: boolean;
     vote?: string;
     nonce?: string;
     attributes?: Record<string, any>;
