@@ -22,7 +22,8 @@ export interface DidResolution<T> {
 export type ResolutionResult = {
     unikid: string;
     ownerAddress: string;
-    [_: string]: string;
+    type?: string;
+    [_: string]: string | undefined;
 };
 
 /**
@@ -102,5 +103,6 @@ function computeUnikDatas(unik: Unik) {
     return {
         unikid: unik.id,
         ownerAddress: unik.ownerId,
+        type: unik.type,
     };
 }
