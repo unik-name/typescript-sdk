@@ -964,9 +964,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "15.0.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.0.2.tgz#51e9c0920d1b45936ea04341aa3e2e58d339fb67"
-  integrity sha512-p68+a+KoxpoB47015IeYZYRrdqMUcpbK8re/zpFB8Ld46LHC1lPEbp3EXgkEhAYEcPvjJF6ZO+869SQ0aH1dcA==
+  version "15.12.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.2.tgz#1f2b42c4be7156ff4a6f914b2fb03d05fa84e38d"
+  integrity sha512-zjQ69G564OCIWIOHSXyQEEDpdpGl+G348RAKY0XXy9Z5kU9Vzv1GMNnkar/ZJ8dzXB3COzD9Mo9NtRZ4xfgUww==
 
 "@types/node@10.12.18":
   version "10.12.18"
@@ -1063,10 +1063,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@uns/ark-crypto@^5.7.0-dev", "@uns/ark-crypto@^5.7.0-dev.23856.5930+9d9e54274":
-  version "5.7.0-dev.23856.5930"
-  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-5.7.0-dev.23856.5930.tgz#1ea9990369e5e83a277efd625f2b9a79abad8464"
-  integrity sha512-J6oNQMqwiOgH9u7fV34IGqROTIJgoLYma4NIVJuUUP1QXiasU4UcjSfGPa4D4+CTHGsfhC0uKjCTDwhT+Wys2w==
+"@uns/ark-crypto@^5.7.0-dev", "@uns/ark-crypto@^5.7.0-dev.24163.5933+393d007ce":
+  version "5.7.0-dev.24163.5933"
+  resolved "https://registry.yarnpkg.com/@uns/ark-crypto/-/ark-crypto-5.7.0-dev.24163.5933.tgz#0e67902e70251d5bc51ee9d153a7b69cdd347cdc"
+  integrity sha512-Ant0ppiUx6H3rIWE6IJSBKVV0KGiVroVBl2dKsBqq7SqTRT8u6sJab9TZ41NEDBFxPyFx2m3hGEM4P9VHvbhrQ==
   dependencies:
     "@arkecosystem/utils" "^1.1"
     "@types/bytebuffer" "^5.0.40"
@@ -1089,20 +1089,20 @@
     tiny-glob "^0.2.6"
     wif "^2.0.6"
 
-"@uns/core-nft-crypto@^5.7.0-dev", "@uns/core-nft-crypto@^5.7.0-dev.23856.5930+9d9e54274":
-  version "5.7.0-dev.23856.5930"
-  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-5.7.0-dev.23856.5930.tgz#6ac6084b26d70184d0bd7d9606378739a82f42e1"
-  integrity sha512-osy+JTR2tUWUdGcH7QSjNnzN/02wT7B5lt/ZJMeyFUdEJ1Pz5vPHym3fjZZb8WmhWXfoKZpN0QLXjFpFWxzvOw==
+"@uns/core-nft-crypto@^5.7.0-dev", "@uns/core-nft-crypto@^5.7.0-dev.24163.5933+393d007ce":
+  version "5.7.0-dev.24163.5933"
+  resolved "https://registry.yarnpkg.com/@uns/core-nft-crypto/-/core-nft-crypto-5.7.0-dev.24163.5933.tgz#30441edae4a02ea37d9db3137858f9626667e27f"
+  integrity sha512-P0KUcbliJ0TWRDUuXEaPifGpZcrFOQB0+q2elcP8s10hjCFaGz/XmOBzmAhLTAuLlOhNTVwhVkLjnhPKrvDe+A==
   dependencies:
-    "@uns/ark-crypto" "^5.7.0-dev.23856.5930+9d9e54274"
+    "@uns/ark-crypto" "^5.7.0-dev.24163.5933+393d007ce"
 
 "@uns/crypto@^5.7.0-dev":
-  version "5.7.0-dev.23856.5930"
-  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-5.7.0-dev.23856.5930.tgz#9844f4cc27f87c3095390829bd7be2560342a8fa"
-  integrity sha512-DaTPMZx6auQHDpZxmT0R3nPZ4yX0N0vCA8U9igCxutxGfopfzmoTwJzVZQPp307Wdnz0da7sAsvMwEFeRkYxIg==
+  version "5.7.0-dev.24163.5933"
+  resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-5.7.0-dev.24163.5933.tgz#29ac4855c56bfc8e9bee909d2b5ace53fe83f15c"
+  integrity sha512-fjre0ZMXLs560CXxfE2/OL27jT551tr9B1Bp1EvK/HZ+WBz7gJawwIlPVdpyxKUKLz8EQiWAAzBymSIcO1M3dw==
   dependencies:
-    "@uns/ark-crypto" "^5.7.0-dev.23856.5930+9d9e54274"
-    "@uns/core-nft-crypto" "^5.7.0-dev.23856.5930+9d9e54274"
+    "@uns/ark-crypto" "^5.7.0-dev.24163.5933+393d007ce"
+    "@uns/core-nft-crypto" "^5.7.0-dev.24163.5933+393d007ce"
 
 JSONStream@^1.0.4:
   version "1.3.5"
@@ -2383,9 +2383,9 @@ dateformat@^3.0.0:
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
 dayjs@^1.8.15:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"
-  integrity sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==
+  version "1.10.5"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.5.tgz#5600df4548fc2453b3f163ebb2abbe965ccfb986"
+  integrity sha512-BUFis41ikLz+65iH6LHQCDm4YPMj5r1YFLdupPIyM4SGcXMmtiLQ7U37i+hGS8urIuqe7I/ou3IS1jVc4nbN4g==
 
 debug@4.3.1:
   version "4.3.1"
@@ -7154,9 +7154,9 @@ through@2, "through@>=2.2.7 <3", through@^2.3.6:
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
 tiny-glob@^0.2.6:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/tiny-glob/-/tiny-glob-0.2.8.tgz#b2792c396cc62db891ffa161fe8b33e76123e531"
-  integrity sha512-vkQP7qOslq63XRX9kMswlby99kyO5OvKptw7AMwBVMjXEI7Tb61eoI5DydyEMOseyGS5anDN1VPoVxEvH01q8w==
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/tiny-glob/-/tiny-glob-0.2.9.tgz#2212d441ac17928033b110f8b3640683129d31e2"
+  integrity sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==
   dependencies:
     globalyzer "0.1.0"
     globrex "^0.1.2"
