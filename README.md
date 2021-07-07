@@ -21,6 +21,17 @@ On develop branch:
 
 _NB: use semver_
 
+### Naming convention
+
+⚠️ **universal-name-system, UNS, uns.network** is the previous name of the **unikname.network blockchain**.
+
+⚠️ **UNIK** is the previous name of the **UNIKNAME nft token**
+
+⚠️ **UNS** is the previous name of the **UNIK protocol token**
+
+_=> Renaming in codebase will be made progressively._
+
+
 ## License
 
 [MIT](LICENSE) © [UNS](https://unikname.com)
