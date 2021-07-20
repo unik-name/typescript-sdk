@@ -29,6 +29,6 @@ export type VerifiedJWT = {
     payload: PropertyVerifierJWTPayload | VoucherJWTPayload;
     doc: DIDDocument;
     issuer: string;
-    signer: object;
+    signer: object; // eslint-disable-line @typescript-eslint/ban-types
     jwt: string;
 };

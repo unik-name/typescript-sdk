@@ -31,7 +31,6 @@ _NB: use semver_
 
 _=> Renaming in codebase will be made progressively._
 
-
 ## License
 
 [MIT](LICENSE) © [UNS](https://unikname.com)

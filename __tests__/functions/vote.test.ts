@@ -1,6 +1,6 @@
 import { LifeCycleGrades, throwIfNotAllowedToVote, UNSClient } from "../../src";
 import { mockWalletTokens, NETWORK } from "./__fixtures__/tests-commons";
-import * as functions from "../../src/functions/unik";
+import * as functions from "../../src/functions/unik/functions";
 
 const unsClient = new UNSClient();
 unsClient.init({ network: NETWORK });
