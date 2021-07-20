@@ -23,7 +23,7 @@ const DID_PATTERN = new RegExp(TOKEN_PATTERN.source + TYPE_PATTERN.source + ID_P
 
 const DID_TYPES: string[] = Object.keys(DIDTypes).map(type => type.toLowerCase());
 
-export const allowedTypesByToken: {} = {
+export const allowedTypesByToken: Record<string, unknown> = {
     unik: DID_TYPES,
 };
 
