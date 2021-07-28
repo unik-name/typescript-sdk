@@ -1,8 +1,8 @@
-# UNS Typescript SDK
+# Unikname Typescript SDK
 
 ## How to use
 
-Please visit [SDK page](https://docs.uns.network/uns-usethenetwork/sdk.html) from UNS documentation.
+Please visit [SDK page](https://docs.unikname.network/sdk.html) from UNN documentation.
 
 ## How to contribute
 
