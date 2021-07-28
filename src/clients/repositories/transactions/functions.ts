@@ -23,6 +23,10 @@ export const transactionsSend = (client: HTTPClient) => (
     return post<IProcessorResult>(client)(`transactions`, undefined, { transactions: [transaction] });
 };
 
+export const multipleTransactionsSend = (client: HTTPClient) => (
+    transactions: Interfaces.ITransactionData[],
+): Promise<IProcessorResult> => post<IProcessorResult>(client)(`transactions`, undefined, { transactions });
+
 export const transactionsSearch = (client: HTTPClient) => (
     body: _Body,
     pagination: PaginationOptions = {},

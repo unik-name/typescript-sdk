@@ -32,7 +32,7 @@ import {
     transferDemandCertificationCreate,
 } from ".";
 import { DeepPartial } from "../utils/merge";
-import { roundsGetDelegates, walletTransactions } from "./repositories";
+import { multipleTransactionsSend, roundsGetDelegates, walletTransactions } from "./repositories";
 import { delegatesGet } from "./repositories/delegates";
 
 export class UNSClient {
@@ -159,6 +159,7 @@ export class UNSClient {
             send: transactionsSend(this.http),
             search: transactionsSearch(this.http),
             unconfirmed: transactionsUnconfirmed(this.http),
+            sendBatch: multipleTransactionsSend(this.http),
         };
     }
 
