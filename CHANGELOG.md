@@ -1,3 +1,22 @@
+## [4.4.0](https://github.com/spacelephant/typescript-sdk/compare/4.3.1-dev.4...4.4.0) (2021-07-28)
+
+### [4.3.1-dev.4](https://github.com/spacelephant/typescript-sdk/compare/4.3.1-dev.4...4.4.0) (2021-07-28)
+
+### [4.3.1-dev.3](https://github.com/spacelephant/typescript-sdk/compare/4.3.1-dev.4...4.4.0) (2021-07-28)
+
+
+### Features
+
+* add transaction.sendBatch method ([0f77569](https://github.com/spacelephant/typescript-sdk/commit/0f77569cf3fb205a1b42fece331cca3e30aa6707))
+
+### [4.3.1-dev.2](https://github.com/spacelephant/typescript-sdk/compare/4.3.1-dev.4...4.4.0) (2021-07-20)
+
+
+### Features
+
+* add isResigned to Wallet type ([5e9099e](https://github.com/spacelephant/typescript-sdk/commit/5e9099eb738affe2b91ed0d422998bd214ec93d0))
+* add unik type to ResolutionResult ([040c0b0](https://github.com/spacelephant/typescript-sdk/commit/040c0b07529209a22467dd94950cf67970e9c9b1))
+
 ## [4.3.0](https://github.com/spacelephant/typescript-sdk/compare/4.2.3-dev.3...4.3.0) (2021-06-01)
 
 ### [4.2.3-dev.3](https://github.com/spacelephant/typescript-sdk/compare/4.2.3-dev.3...4.3.0) (2021-06-01)
