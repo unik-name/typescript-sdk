@@ -1,3 +1,12 @@
+### [4.4.1](https://github.com/spacelephant/typescript-sdk/compare/4.4.1-dev.0...4.4.1) (2021-07-29)
+
+### [4.4.1-dev.0](https://github.com/spacelephant/typescript-sdk/compare/4.4.1-dev.0...4.4.1) (2021-07-29)
+
+
+### Bug Fixes
+
+* ark-crypto import ([a4e9a82](https://github.com/spacelephant/typescript-sdk/commit/a4e9a820479f00151bbff323aa014cd1b9f1f09a))
+
 ## [4.4.0](https://github.com/spacelephant/typescript-sdk/compare/4.3.1-dev.4...4.4.0) (2021-07-28)
 
 ### [4.3.1-dev.4](https://github.com/spacelephant/typescript-sdk/compare/4.3.1-dev.4...4.4.0) (2021-07-28)
