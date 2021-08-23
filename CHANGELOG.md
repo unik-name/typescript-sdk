@@ -1,3 +1,14 @@
+## [4.5.0](https://github.com/spacelephant/typescript-sdk/compare/4.4.2-dev.1...4.5.0) (2021-08-23)
+
+### [4.4.2-dev.1](https://github.com/spacelephant/typescript-sdk/compare/4.4.2-dev.1...4.5.0) (2021-08-23)
+
+
+### Features
+
+* upgrade [@uns](https://github.com/uns) libs ([a5472f8](https://github.com/spacelephant/typescript-sdk/commit/a5472f8fe116835ec5b104a47dfa9fb3feca75cc))
+
+### [4.4.2-dev.0](https://github.com/spacelephant/typescript-sdk/compare/4.4.2-dev.1...4.5.0) (2021-08-23)
+
 ### [4.4.1](https://github.com/spacelephant/typescript-sdk/compare/4.4.1-dev.0...4.4.1) (2021-07-29)
 
 ### [4.4.1-dev.0](https://github.com/spacelephant/typescript-sdk/compare/4.4.1-dev.0...4.4.1) (2021-07-29)
