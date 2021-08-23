@@ -2,7 +2,7 @@ import { DIDDocument } from "did-resolver";
 import { ec } from "elliptic";
 import { SimpleSigner, createJWT, verifyJWT, Signer, decodeJWT } from "did-jwt";
 import nanoid from "nanoid";
-import { Identities } from "@uns/ark-crypto";
+import { Keys } from "@uns/ark-crypto";
 import { NftFactoryServicesList, UNSClient } from "../../clients";
 import {
     JwtParams,
@@ -92,7 +92,7 @@ export async function createPropertyVerifierToken(
 
 async function createUnsJWT(jwtParams: JwtParams, payload: JWTPayload): Promise<string> {
     const curve = new ec("secp256k1");
-    const privateKey: string = Identities.Keys.fromPassphrase(jwtParams.issSecret).privateKey;
+    const privateKey: string = Keys.fromPassphrase(jwtParams.issSecret).privateKey;
     const keyPair: ec.KeyPair = curve.keyFromPrivate(privateKey);
     const signer: Signer = SimpleSigner(keyPair.getPrivate("hex"));
 
