@@ -8,3 +8,6 @@ export const blockLast = (client: HTTPClient) => (): Promise<Response<Block>> =>
 
 export const transactions = (client: HTTPClient) => (id: string): Promise<Response<Transaction[]>> =>
     get<Response<Transaction[]>>(client)(`blocks/${id}/transactions`);
+
+export const getBlock = (client: HTTPClient) => (idOrHeight: string | number): Promise<Response<Block>> =>
+    get<Response<Block>>(client)(`blocks/${idOrHeight}`);
