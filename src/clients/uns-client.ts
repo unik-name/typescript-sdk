@@ -5,6 +5,7 @@ import {
     discloseDemandCertificationCreate,
     blockchainGet,
     blockLast,
+    getBlock,
     networkUnikServicesGetMintServices,
     networkUnitServicesSearch,
     unikGet,
@@ -73,6 +74,7 @@ export class UNSClient {
 
     public get block() {
         return {
+            get: getBlock(this.http),
             last: blockLast(this.http),
             transactions: transactions(this.http),
         };
